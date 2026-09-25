@@ -1,4 +1,4 @@
--- Country Watcher (Delta + Xeno compatible)
+-- Country Watcher + GUI (Delta + Xeno compatible)
 -- PASTE THE FULL CONTENTS OF countrylist.txt BETWEEN THE [[ ]] BELOW
 -- Format: userid: CountryName 🇽🇽Nx (one per line, pasted raw — no editing needed)
 
@@ -10,7 +10,7 @@ local DATA = [[
 1234910: Japan 13x
 2629314: United States 2x
 4032667: Singapore 5x
-5390119: France 2x
+5390119: France 4x
 5466772: France 1x
 5859522: Australia 1x
 6549123: United States 1x
@@ -18,7 +18,7 @@ local DATA = [[
 12925810: Netherlands 1x
 12981655: Brazil 3x
 17036024: Lithuania 1x
-18010384: Morocco 3x, France 1x
+18010384: France 2x, Morocco 3x
 19507405: Japan 6x
 19887966: Peru 1x
 20983626: Chile 2x
@@ -34,7 +34,7 @@ local DATA = [[
 33492428: Netherlands 10x
 37871833: Canada 1x
 44423527: France 3x
-48632902: United States 9x
+48632902: United States 11x
 48897179: Australia 1x
 53865297: United Kingdom 1x
 55516028: Portugal 1x
@@ -45,14 +45,16 @@ local DATA = [[
 59797109: Romania 10x
 60873595: Libya 2x
 62305901: Singapore 5x
-66215059: Canada 1x
+65348209: United States 8x
+66215059: Canada 2x
 68037105: Türkiye 4x
 68152842: Canada 1x
+68759358: United States 7x
 69978812: Morocco 3x
 71020943: Denmark 2x
 75679066: United States 1x
 83056075: United Kingdom 2x
-83831357: Türkiye 3x
+83831357: Türkiye 7x
 85253696: Mexico 1x
 85531364: Germany 1x
 86039358: Ukraine 1x
@@ -61,6 +63,7 @@ local DATA = [[
 88809268: Poland 2x
 91707537: France 4x
 93632630: Netherlands 5x
+94741253: Canada 1x
 96596987: United Kingdom 2x
 96730134: Switzerland 3x
 96745889: Sweden 2x
@@ -69,6 +72,7 @@ local DATA = [[
 106486722: United States 1x
 110143796: New Zealand 1x
 112012930: Sweden 1x
+113560452: United States 1x
 120492802: Brazil 2x
 122886896: Japan 3x
 123473301: Canada 1x
@@ -78,7 +82,9 @@ local DATA = [[
 130164441: Singapore 2x
 133172581: Denmark 1x
 137779514: United States 2x
+137858675: United States 7x
 137971213: Australia 4x
+138405640: Morocco 1x
 139821637: United States 5x
 142695070: United States 3x
 143451708: United States 2x
@@ -90,7 +96,7 @@ local DATA = [[
 159884465: Brazil 2x
 159957653: Romania 3x
 160946489: United States 1x
-161246361: Sweden 10x
+161246361: Sweden 20x
 162029598: United Kingdom 1x
 164545859: Portugal 1x
 166044326: United States 2x
@@ -111,6 +117,7 @@ local DATA = [[
 192148915: United Kingdom 23x
 193228773: Netherlands 1x
 193889478: United Kingdom 7x
+194307247: Peru 2x
 194723750: Uzbekistan 1x
 198179396: Serbia 3x
 198269573: Moldova 2x
@@ -120,14 +127,17 @@ local DATA = [[
 201942039: United Kingdom 1x
 202691336: Thailand 1x
 204363737: United Kingdom 1x
+205850473: Colombia 1x
 206945190: Türkiye 1x
 207499868: South Korea 2x
 208517690: United States 11x
 210786763: South Korea 7x
+214182643: Singapore 1x
 215478563: Peru 5x
 218625605: Türkiye 1x
 220408904: Peru 1x
 220998532: Philippines 1x
+221455569: Brazil 2x
 222239645: Kazakhstan 3x
 224820442: Spain 1x
 225407328: United States 1x
@@ -152,7 +162,9 @@ local DATA = [[
 253721361: Thailand 20x
 254317960: Colombia 1x
 255080482: Malaysia 7x
+255842847: Brazil 7x
 256911082: Denmark 2x
+256982383: United States 1x
 257110088: Brazil 7x
 260979773: Mexico 3x
 262381431: Sierra Leone 2x
@@ -164,11 +176,12 @@ local DATA = [[
 274395358: United States 3x
 276448328: Canada 1x
 277914755: Israel 3x
-280192880: Brazil 1x
+280192880: Brazil 2x
 280761438: Philippines 1x
 280996061: Ireland 1x
 282031632: Mexico 12x
 282101640: Brazil 1x
+289244842: United Kingdom 4x
 289603054: United Kingdom 3x
 289855951: Argentina 3x
 290997187: Brazil 1x
@@ -196,6 +209,7 @@ local DATA = [[
 320802604: Chile 1x
 322590016: United Kingdom 1x
 325197472: Bulgaria 2x
+325226721: Canada 6x
 325705896: Türkiye 1x
 328495339: Algeria 3x
 329520019: France 9x
@@ -215,7 +229,9 @@ local DATA = [[
 342647602: Philippines 2x
 342804940: South Korea 1x
 343830885: Spain 2x
+347073266: United States 1x
 349278041: Netherlands 1x
+349381503: United States 8x
 349572743: United Kingdom 1x
 350324060: Mexico 3x
 351306941: Malaysia 1x
@@ -225,7 +241,7 @@ local DATA = [[
 357687849: South Korea 1x
 358352814: United Kingdom 6x
 361855924: Bosnia and Herzegovina 4x
-361892828: United Kingdom 11x
+361892828: United Kingdom 20x
 363304671: Poland 10x
 363974498: Malaysia 2x
 364286294: Mexico 2x
@@ -236,6 +252,7 @@ local DATA = [[
 368000785: Mexico 3x
 370705389: France 5x
 371121796: Malaysia 1x
+372564863: United States 3x
 372599014: Türkiye 1x
 376010732: United States 1x
 376793519: Malaysia 10x
@@ -249,7 +266,7 @@ local DATA = [[
 385176985: Japan 2x
 387343686: Romania 6x
 388342573: Poland 1x
-388383465: Brazil 2x
+388383465: Brazil 10x
 389913684: Argentina 3x
 390680268: Indonesia 2x
 392270968: United States 1x
@@ -265,6 +282,7 @@ local DATA = [[
 404604306: Australia 1x
 406684153: Japan 1x
 407163809: Argentina 1x
+407530671: United States 2x
 411347596: United States 1x
 413340930: United States 1x
 414091844: Indonesia 1x
@@ -285,6 +303,7 @@ local DATA = [[
 439265620: Brazil 1x
 440808874: Japan 1x
 441524323: Israel 1x
+442601602: Venezuela 2x
 443684508: Canada 16x
 444226675: United States 1x
 446219143: Netherlands 1x
@@ -308,10 +327,12 @@ local DATA = [[
 465849611: Romania 1x
 466883196: Chile 1x
 467307962: Singapore 1x
-467588436: Bulgaria 3x
+467588436: Bulgaria 4x
 469666925: United Kingdom 2x
+469939377: United States 2x
 470572726: Canada 12x
-471801859: Israel 3x
+470675357: United States 3x
+471801859: Israel 5x
 477885052: Switzerland 3x
 478453912: Indonesia 1x
 478809961: Peru 7x
@@ -322,19 +343,23 @@ local DATA = [[
 482239929: France 1x
 483548839: United Kingdom 2x
 484368144: Türkiye 2x
+484480496: United States 8x
 485891153: Poland 1x
-486938054: Croatia 1x
+486938054: Croatia 2x
 488210777: Malaysia 6x
 488923190: Australia 1x
 488931278: United Kingdom 5x
 489929056: Ecuador 1x
 490670705: Malaysia 1x
 491697381: Sweden 2x
+494991000: France 2x
 495446318: United States 9x
 496067200: United States 2x
 496306854: Sweden 5x
+497126773: Mexico 1x
 500568624: Sweden 1x
 500572663: Hungary 1x
+501230288: Thailand 5x
 502946193: Colombia 1x
 504197812: Spain 1x
 504231696: Tunisia 12x
@@ -352,6 +377,7 @@ local DATA = [[
 515932466: Portugal 1x
 515994472: Brazil 2x
 517147798: United States 1x
+517881117: Brazil 4x
 520184370: Italy 1x
 520602440: Australia 5x
 521391320: United States 1x
@@ -380,7 +406,9 @@ local DATA = [[
 545087365: United States 1x
 545598894: Poland 1x
 546822618: Sweden 1x
+547445271: Brazil 8x
 548287916: Bulgaria 1x
+548310972: United Kingdom 5x
 548399941: Canada 2x
 548874621: Philippines 1x
 549685758: Mexico 3x
@@ -402,7 +430,7 @@ local DATA = [[
 563194033: Ireland 6x
 563419950: United Kingdom 1x
 566060813: Denmark 1x
-566173494: United States 2x
+566173494: United States 10x
 566965839: United Kingdom 2x
 569159218: Belgium 1x
 569260766: Brazil 2x
@@ -457,11 +485,15 @@ local DATA = [[
 610988501: United States 3x
 613084203: Chile 1x
 616930145: Indonesia 1x
+617671429: Costa Rica 4x
+618212335: United States 1x
 618739583: Peru 1x
 619303970: United States 1x
 622668336: Brazil 5x
 622690210: Spain 1x
 626180828: France 1x
+629147596: Australia 1x
+630647539: Serbia 1x
 631391324: Denmark 1x
 631709057: Argentina 2x
 632450419: Sweden 1x
@@ -492,6 +524,7 @@ local DATA = [[
 655633887: Brazil 3x
 655804559: Türkiye 1x
 656560256: Croatia 1x
+657840808: Brazil 10x
 661124568: Chile 1x
 662731573: Argentina 2x
 662904215: Poland 1x
@@ -501,8 +534,9 @@ local DATA = [[
 668093119: Thailand 2x
 670303577: Sweden 4x
 673405627: United States 12x
-673784334: United States 3x
+673784334: United States 4x
 676455821: Austria 1x
+679158008: Poland 4x
 680204751: Kazakhstan 4x
 680953581: Peru 2x
 681657547: Brazil 10x
@@ -511,6 +545,7 @@ local DATA = [[
 682711418: Brazil 1x
 684455531: Brazil 1x
 685340636: Honduras 2x
+685954641: United States 1x
 687822618: Spain 3x
 688255710: Türkiye 4x
 688422739: France 7x
@@ -518,8 +553,10 @@ local DATA = [[
 688976091: Poland 1x
 689231373: Mexico 1x
 690893491: Argentina 8x
+692051154: Peru 3x
 693668012: Philippines 2x
 698645111: Albania 1x
+699780797: Canada 1x
 701324202: South Korea 1x
 702547824: United States 2x
 704377837: Thailand 4x
@@ -555,7 +592,7 @@ local DATA = [[
 741423616: Australia 6x
 741835538: United Kingdom 2x
 742584176: Brazil 6x
-743321679: Israel 1x
+743321679: Israel 3x
 745210709: Czech Republic 1x
 747202289: Thailand 2x
 748444799: Sweden 1x
@@ -577,7 +614,7 @@ local DATA = [[
 772766232: Kazakhstan 14x
 775692841: Australia 1x
 776030506: Israel 1x
-777319587: Ecuador 7x
+777319587: Ecuador 8x
 777557095: South Korea 1x
 777950048: South Korea 1x
 780922971: Italy 2x
@@ -585,6 +622,7 @@ local DATA = [[
 782369166: Spain 1x
 784670516: Poland 4x
 787128883: United States 4x
+789016876: United States 3x
 791389123: Australia 2x
 792510900: Sweden 2x
 794897630: United States 3x
@@ -608,10 +646,10 @@ local DATA = [[
 826742202: United States 5x
 827978611: Portugal 1x
 828040037: Italy 2x
-828168479: Poland 6x
+828168479: Poland 30x
 828390360: Romania 1x
 829672516: Chile 4x
-831890828: Serbia 1x
+831890828: Serbia 2x
 835417846: Dominican Republic 1x
 835482727: Dominican Republic 15x
 838925941: Ukraine 2x
@@ -622,6 +660,7 @@ local DATA = [[
 845547948: Poland 1x
 846812313: Indonesia 2x
 848496579: Netherlands 1x
+851307918: France 2x
 854393496: Norway 1x
 856579209: Japan 1x
 856678013: United Kingdom 1x
@@ -655,7 +694,7 @@ local DATA = [[
 885909743: Brazil 1x
 887451093: United States 1x
 888590397: Greece 5x
-889646949: Romania 7x
+889646949: Romania 8x
 892014371: Bosnia and Herzegovina 3x
 892393143: Finland 11x
 893010602: South Korea 2x
@@ -710,6 +749,7 @@ local DATA = [[
 940790349: Morocco 13x
 941118405: Germany 1x
 941267016: Brazil 1x
+942906749: Brazil 3x
 944418089: Ukraine 1x
 944534758: Netherlands 1x
 949879431: Croatia 3x
@@ -740,6 +780,7 @@ local DATA = [[
 972516595: Brazil 4x
 974368667: Brazil 1x
 974550193: Japan 1x
+976224446: United States 2x
 978392529: Australia 1x
 978912853: Australia 1x
 980004547: Taiwan 1x
@@ -763,7 +804,7 @@ local DATA = [[
 999204522: India 1x
 999460593: United States 2x
 1000610079: Australia 3x
-1002313210: Italy 5x
+1002313210: Italy 6x
 1006085198: France 4x
 1006687158: France 12x
 1007657800: Denmark 1x
@@ -773,6 +814,7 @@ local DATA = [[
 1012399572: Brazil 2x
 1013870772: Chile 1x
 1014180748: United States 5x
+1017625083: Brazil 1x
 1017983509: Israel 1x
 1019521382: United Kingdom 1x
 1020301187: Switzerland 1x
@@ -782,9 +824,10 @@ local DATA = [[
 1023519724: Israel 2x
 1023679674: Paraguay 1x
 1026195417: Brazil 1x
+1026878241: United States 1x
 1027457137: Italy 1x
 1028001168: Algeria 2x
-1030780662: United States 2x
+1030780662: United States 5x
 1031973464: Türkiye 1x
 1032303236: Czech Republic 5x
 1033677946: Peru 3x
@@ -802,6 +845,7 @@ local DATA = [[
 1043814145: Thailand 2x
 1044340660: Türkiye 1x
 1044426402: Czech Republic 1x
+1047173976: France 2x
 1047769747: United States 4x
 1048110212: United States 2x
 1050212028: Mexico 1x
@@ -829,12 +873,14 @@ local DATA = [[
 1071196872: France 7x
 1071950613: South Korea 2x
 1072221310: Argentina 1x
+1073172904: United States 5x
 1073368071: Germany 1x
 1074203471: Italy 1x
 1074927331: Brazil 4x
 1076123014: Spain 1x
 1077812828: Poland 2x
 1078306370: Mexico 2x
+1078978212: Ireland 1x
 1079690257: Türkiye 3x
 1079744349: South Korea 3x
 1081147124: Spain 1x
@@ -854,10 +900,12 @@ local DATA = [[
 1092627865: United States 1x
 1092701589: United States 1x
 1094608644: France 1x
+1096978914: Georgia 6x
 1099375363: Tunisia 1x
 1100525967: Australia 1x
 1101669268: Argentina 4x
 1101815392: United Kingdom 1x
+1102849334: Brazil 2x
 1103552990: Philippines 5x
 1103744193: Israel 1x
 1103797418: South Korea 1x
@@ -878,6 +926,7 @@ local DATA = [[
 1117823863: Romania 1x
 1121321446: New Zealand 7x
 1122815125: United States 7x
+1123266733: Brazil 1x
 1123871021: United States 1x
 1124727725: Slovakia 6x
 1124854557: Israel 2x
@@ -890,6 +939,7 @@ local DATA = [[
 1130337973: Algeria 1x
 1130396512: United States 2x
 1133359442: Netherlands 1x
+1133615612: United Kingdom 15x
 1134622644: Philippines 1x
 1135064909: Mexico 1x
 1135591270: Indonesia 1x
@@ -909,11 +959,13 @@ local DATA = [[
 1152531729: Brazil 1x
 1153331491: Brazil 1x
 1154647140: North Macedonia 3x
-1155167696: Germany 5x
+1155167696: Germany 6x
+1155490998: Dominican Republic 1x
 1156721272: Germany 4x
 1157261160: Indonesia 1x
 1157539643: Mexico 1x
 1158304445: Japan 1x
+1158685461: Romania 1x
 1159000600: Malaysia 5x
 1160034624: Slovakia 1x
 1160905747: Ecuador 1x
@@ -955,11 +1007,13 @@ local DATA = [[
 1190323002: Peru 4x
 1190392107: Spain 2x
 1193515903: United States 5x
+1194249044: Mexico 1x
 1195396575: Mexico 4x
 1195797040: Singapore 6x
 1196083586: Netherlands 5x
-1196774089: United States 1x
+1196774089: United States 4x
 1197477984: Argentina 3x
+1197595528: United States 1x
 1197869042: Mexico 1x
 1198216656: Mexico 4x
 1200359901: Malaysia 4x
@@ -967,6 +1021,7 @@ local DATA = [[
 1201532134: Maldives 1x
 1201803921: United Kingdom 4x
 1202203939: Canada 3x
+1203153118: Serbia 10x
 1204737077: Spain 4x
 1205543542: Spain 7x
 1205878732: Italy 3x
@@ -979,6 +1034,7 @@ local DATA = [[
 1211709249: Portugal 2x
 1211970245: Norway 1x
 1211972168: Ecuador 5x
+1212718647: Georgia 6x
 1212974746: Thailand 1x
 1213141829: Brazil 4x
 1213781523: South Korea 2x
@@ -994,6 +1050,7 @@ local DATA = [[
 1219498523: United States 3x
 1219978941: Spain 7x
 1220693541: South Korea 1x
+1220842756: Türkiye 5x
 1221368159: United Kingdom 3x
 1222145994: Mexico 1x
 1222915090: Spain 2x
@@ -1017,6 +1074,7 @@ local DATA = [[
 1236900745: Brazil 3x
 1237723952: Georgia 1x
 1237929771: United Kingdom 1x
+1238437110: Canada 2x
 1240103788: Argentina 1x
 1241285639: Mexico 11x
 1241543212: South Korea 3x
@@ -1048,7 +1106,7 @@ local DATA = [[
 1260169981: South Korea 2x
 1261789426: United States 2x
 1262223047: Spain 1x
-1262515529: Costa Rica 13x
+1262515529: Costa Rica 15x
 1262761272: United States 3x
 1264654256: Malaysia 3x
 1264667346: Malaysia 2x
@@ -1062,6 +1120,7 @@ local DATA = [[
 1271316705: Brazil 1x
 1272188134: Israel 1x
 1274030720: Colombia 1x
+1274381882: Bermuda 2x, Liechtenstein 2x
 1275531092: Singapore 1x
 1277828179: Brazil 1x
 1278831158: Argentina 1x
@@ -1084,6 +1143,7 @@ local DATA = [[
 1292121385: Italy 1x, San marino Italy 1x
 1294216364: Lithuania 1x
 1294229159: Poland 3x
+1294873270: Canada 2x
 1295490855: Denmark 1x
 1295563924: Norway 1x
 1295677759: India 1x
@@ -1133,7 +1193,7 @@ local DATA = [[
 1325862018: Bulgaria 4x
 1326659274: Austria 5x
 1327930547: Brazil 4x
-1328727415: Algeria 5x
+1328727415: Algeria 14x
 1328990923: United Kingdom 5x
 1330019012: South Korea 10x
 1330499602: Colombia 2x
@@ -1145,6 +1205,7 @@ local DATA = [[
 1334255912: Malaysia 2x
 1335353957: Puerto Rico 1x
 1335399142: United States 1x
+1336247397: Portugal 15x
 1337958038: Australia 5x
 1338233005: Malaysia 1x
 1338322686: Uruguay 1x
@@ -1190,7 +1251,7 @@ local DATA = [[
 1364360799: Argentina 4x
 1365023107: Denmark 2x
 1365361194: Malaysia 3x
-1365363547: Taiwan 2x
+1365363547: Taiwan 6x
 1365670517: Brazil 3x
 1366788045: India 1x
 1368465077: Puerto Rico 7x
@@ -1224,6 +1285,7 @@ local DATA = [[
 1386108256: Chile 1x
 1386218758: United Kingdom 1x
 1386274693: Germany 1x
+1387048462: United States 4x
 1387742539: Brazil 1x
 1389312428: United Kingdom 1x
 1389728149: Germany 1x
@@ -1283,9 +1345,10 @@ local DATA = [[
 1427027375: Germany 2x
 1427043211: France 10x
 1427092542: Japan 1x
+1428273464: Mexico 4x
 1428340914: Germany 2x
 1428410602: Germany 2x
-1428751523: Israel 7x
+1428751523: Israel 8x
 1429204546: United States 1x
 1430078916: Tunisia 3x
 1430908289: Netherlands 3x
@@ -1316,7 +1379,7 @@ local DATA = [[
 1448530776: South Korea 16x
 1449201834: India 5x
 1449789983: Ecuador 6x
-1450001716: Germany 1x, საქართველო Germany 1x
+1450001716: Germany 2x, საქართველო Germany 1x
 1452432898: Mexico 3x
 1455020154: Hong Kong 2x
 1455047752: Philippines 2x
@@ -1329,6 +1392,7 @@ local DATA = [[
 1457654728: Belarus 1x
 1457678031: United States 1x
 1457717651: Vietnam 6x
+1458754878: Honduras 8x
 1459556534: United States 1x
 1460021847: Brazil 1x
 1460361161: Ecuador 4x
@@ -1341,6 +1405,7 @@ local DATA = [[
 1463344877: Lithuania 6x
 1463810400: Canada 1x
 1464070612: Chile 1x
+1465777027: Canada 1x
 1467947320: United States 1x
 1468924902: Taiwan 4x
 1468929466: United Kingdom 1x
@@ -1349,7 +1414,7 @@ local DATA = [[
 1470505451: Germany 2x
 1470653975: Croatia 4x
 1470697899: South Korea 15x
-1471676023: Nigeria 5x
+1471676023: Nigeria 6x
 1471857804: Brazil 1x
 1471987778: Germany 4x
 1473285286: Switzerland 3x
@@ -1379,6 +1444,7 @@ local DATA = [[
 1488869747: Austria 1x
 1490176142: Brazil 1x
 1490578504: South Korea 9x
+1492278702: United States 5x
 1492499902: France 4x
 1492633789: Italy 2x
 1494245296: United States 3x
@@ -1396,9 +1462,10 @@ local DATA = [[
 1501282482: Philippines 2x
 1501306357: Italy 2x
 1502024942: Colombia 1x
+1502224038: United States 1x
 1502359342: India 1x
 1502609161: Poland 13x
-1502833206: Algeria 1x
+1502833206: Algeria 3x
 1504091922: South Korea 3x
 1504169615: Brunei Darussalam 1x
 1505372158: United States 3x
@@ -1413,12 +1480,12 @@ local DATA = [[
 1511547629: Brazil 2x
 1513332305: United Kingdom 1x
 1513608009: Serbia 2x
-1515037111: Israel 1x
+1515037111: Israel 3x
 1515391528: Spain 8x
 1517277183: Norway 2x
 1517663913: Thailand 2x
 1517769053: Italy 2x
-1518058614: Netherlands 12x
+1518058614: Netherlands 15x
 1518090372: Colombia 2x
 1519746858: France 1x
 1520476457: Netherlands 5x
@@ -1432,6 +1499,7 @@ local DATA = [[
 1523416174: France 1x
 1523498682: Greece 4x
 1524237293: Czech Republic 1x
+1524314280: Portugal 1x
 1524321209: Spain 3x
 1524668422: Canada 2x
 1525216853: South Korea 1x
@@ -1469,7 +1537,7 @@ local DATA = [[
 1543712719: Philippines 1x
 1543833965: Poland 1x
 1544311230: Belgium 1x
-1544451940: Serbia 5x
+1544451940: Serbia 6x
 1544654034: Serbia 6x
 1545652689: Romania 1x
 1545921112: South Korea 2x
@@ -1485,24 +1553,27 @@ local DATA = [[
 1552458162: India 8x
 1552583385: Tunisia 1x
 1553565452: Thailand 6x
+1554730234: Spain 3x
 1555332354: Spain 16x
+1558831820: Brazil 2x
 1560068802: United States 3x
 1560576861: Indonesia 1x
 1560847657: Italy 3x
 1560928293: Italy 7x
-1561121058: Ireland 5x, Israel 2x
+1561121058: Israel 4x, Ireland 5x
 1561194349: Türkiye 2x
 1563272785: Türkiye 6x
-1563343195: Ukraine 5x
+1563343195: Ukraine 6x
 1563973058: Portugal 7x
+1564585233: United States 2x
 1565120218: Brazil 1x
 1565284700: Portugal 1x
 1565701101: South Korea 5x
 1565792533: Morocco 1x
-1566037034: Brazil 2x
-1566884372: United Kingdom 1x
+1566037034: Brazil 12x
+1566884372: United Kingdom 2x
 1567813962: Brazil 5x
-1568052387: United States 1x
+1568052387: United States 3x
 1568577079: Brazil 1x
 1568895690: Spain 4x
 1568958977: Japan 1x
@@ -1512,9 +1583,10 @@ local DATA = [[
 1571305006: France 4x
 1572649141: Azerbaijan 5x
 1572675365: France 1x
-1572817348: Brazil 2x
+1572817348: Brazil 3x
 1572829711: Indonesia 2x
 1573538193: Algeria 12x
+1574720698: Brazil 2x
 1574729112: Argentina 1x
 1575303227: United States 1x
 1576028146: Singapore 7x
@@ -1531,7 +1603,7 @@ local DATA = [[
 1580293924: Türkiye 2x
 1580943132: Portugal 1x
 1580974130: Finland 1x
-1581512158: United States 9x
+1581512158: United States 18x
 1582048255: Chile 1x
 1582102700: Argentina 1x
 1582505398: Thailand 1x
@@ -1540,6 +1612,7 @@ local DATA = [[
 1584226945: United Kingdom 4x
 1585840244: South Korea 6x
 1586075932: Portugal 4x
+1586706667: Spain 1x
 1586915364: Ecuador 1x
 1587474305: United Kingdom 1x
 1588175473: Belgium 5x
@@ -1555,7 +1628,9 @@ local DATA = [[
 1595144701: United Kingdom 1x
 1595426769: Brazil 4x
 1595891209: South Korea 4x
+1596829959: Brazil 11x
 1597363016: United States 1x
+1597391438: Austria 1x
 1598790176: El Salvador 5x
 1599840598: Vietnam 3x
 1599850887: France 1x
@@ -1566,7 +1641,8 @@ local DATA = [[
 1601026803: United States 3x
 1601712005: India 4x
 1601805729: United States 1x
-1602075790: Spain 1x
+1602075790: Spain 2x
+1602247265: Indonesia 2x
 1602289110: Israel 7x
 1602858423: Ukraine 1x
 1602878649: United States 3x
@@ -1594,6 +1670,7 @@ local DATA = [[
 1612648196: United Kingdom 11x
 1613112883: Spain 1x
 1613401313: Chile 4x
+1613487643: Peru 1x
 1614962953: Brazil 1x
 1616709607: Portugal 1x
 1617487751: Brazil 4x
@@ -1605,6 +1682,7 @@ local DATA = [[
 1619463514: Brazil 5x
 1619647594: Somalia 1x
 1620695588: Vietnam 2x
+1620866192: Philippines 3x
 1621160912: Romania 6x
 1621671831: Ireland 1x
 1621739800: Brazil 1x
@@ -1631,6 +1709,7 @@ local DATA = [[
 1632125506: South Korea 3x
 1632136923: United States 2x
 1632791814: Brazil 4x
+1632891469: Mexico 6x
 1633110067: Philippines 5x
 1633357683: Japan 1x
 1633530834: Netherlands 1x
@@ -1689,6 +1768,7 @@ local DATA = [[
 1666374988: Ecuador 1x
 1666406741: United States 1x
 1666567579: Mexico 6x
+1667739059: United Kingdom 2x
 1669759423: Malaysia 3x
 1669781297: Netherlands 1x
 1669940531: Finland 2x
@@ -1702,8 +1782,10 @@ local DATA = [[
 1673539022: Kazakhstan 3x
 1674857393: Türkiye 3x
 1675365067: Thailand 2x
+1675686764: Germany 1x
 1676466363: Ukraine 1x
 1677425105: Peru 1x
+1677767372: United States 1x
 1678163776: Malaysia 4x
 1678236431: Philippines 2x
 1678357264: Kazakhstan 3x
@@ -1717,8 +1799,9 @@ local DATA = [[
 1683502410: Poland 2x
 1683847791: Malaysia 1x
 1684079280: Canada 2x
+1684870673: Germany 5x
 1685539477: Malaysia 2x
-1686772994: Israel 3x
+1686772994: Israel 4x
 1687342854: Slovakia 1x
 1687443958: France 1x
 1688102661: Uruguay 1x
@@ -1727,6 +1810,7 @@ local DATA = [[
 1689430378: United Kingdom 1x
 1690714752: Australia 5x
 1691620071: United Kingdom 1x
+1691886222: Dominican Republic 1x
 1692172684: Brazil 1x
 1692352383: Australia 2x
 1693000343: Philippines 1x
@@ -1748,6 +1832,7 @@ local DATA = [[
 1703607690: Peru 3x
 1704896629: United States 2x
 1705729071: Canada 1x
+1706070566: Chile 5x
 1706135081: Brazil 5x
 1706237974: United States 1x
 1706261759: Italy 1x
@@ -1775,6 +1860,7 @@ local DATA = [[
 1721527336: Poland 3x
 1721696588: Portugal 1x
 1722032008: Ukraine 2x
+1722418900: France 2x
 1722622987: Malaysia 11x
 1723851611: France 1x
 1724803082: Belgium 1x
@@ -1803,6 +1889,7 @@ local DATA = [[
 1743051507: India 3x
 1744567425: Australia 5x
 1744835052: South Korea 8x
+1745117759: Argentina 1x
 1746125040: Australia 1x
 1746189207: United States 1x
 1746680906: Argentina 2x
@@ -1822,7 +1909,7 @@ local DATA = [[
 1753479019: South Korea 7x
 1754754650: Mexico 6x
 1755068945: Brazil 1x
-1755964024: United States 1x
+1755964024: United States 2x
 1756499830: United States 3x
 1756935527: Chile 1x
 1757377420: Argentina 1x
@@ -1870,7 +1957,7 @@ local DATA = [[
 1783416613: Brazil 9x
 1785063171: Czech Republic 16x
 1787154497: Pakistan 1x
-1788113552: United States 3x
+1788113552: United States 4x
 1790205935: Canada 13x
 1790243682: Mexico 14x
 1790462957: South Korea 1x
@@ -1903,6 +1990,7 @@ local DATA = [[
 1805354791: Indonesia 3x
 1805474071: Germany 1x
 1806851409: Thailand 2x
+1807584257: France 8x
 1808363123: Mexico 14x
 1808366029: Puerto Rico 2x
 1808653161: South Korea 4x
@@ -1913,6 +2001,7 @@ local DATA = [[
 1813065536: South Korea 4x
 1813932940: Italy 3x
 1814831457: Philippines 1x
+1816406262: Brazil 2x
 1816908881: Indonesia 1x
 1816977158: Hong Kong 2x
 1819105457: France 1x
@@ -1926,14 +2015,15 @@ local DATA = [[
 1823550876: Spain 5x
 1823625691: Ireland 21x
 1825255649: India 4x
-1826289419: Portugal 6x
+1826186293: Argentina 2x
+1826289419: Portugal 15x
 1826616256: United States 3x
 1827118530: South Korea 1x
 1827471945: Serbia 5x
 1828289075: Mexico 4x
 1828469717: United States 1x
 1829688279: France 7x
-1830199303: United States 1x
+1830199303: New York United States 1x, United States 2x
 1830839894: Ukraine 2x
 1831043875: Estonia 2x
 1831118062: Poland 3x
@@ -1943,13 +2033,15 @@ local DATA = [[
 1833132949: Denmark 2x
 1834366383: Indonesia 6x
 1835119384: Peru 2x
+1836714484: France 2x
 1837764688: Peru 1x
-1838009604: United States 1x
+1838009604: United States 2x
 1838640335: Israel 1x
 1838710050: Switzerland 1x
 1839624930: Monaco 9x
 1839755347: Romania 1x
 1840078558: Ecuador 1x
+1840115369: United Kingdom 2x
 1840876834: United States 1x
 1842654664: Mexico 4x
 1843061529: Denmark 5x
@@ -1960,6 +2052,7 @@ local DATA = [[
 1845458766: Germany 1x
 1846361771: Mexico 1x
 1846801133: Sweden 2x
+1849754754: Brazil 2x
 1850018557: Netherlands 1x
 1850177040: Uruguay 1x
 1850212189: Venezuela 1x
@@ -1979,13 +2072,14 @@ local DATA = [[
 1860433071: Brazil 1x
 1860623816: Ecuador 3x
 1860812607: Germany 4x
+1861015242: United States 2x
 1861131603: Australia 2x
 1861187552: South Korea 12x
 1861667583: Indonesia 1x
 1862600487: Serbia 4x
-1863530360: Romania 13x
+1863530360: Romania 14x
 1863545689: Philippines 5x
-1863836480: Argentina 2x
+1863836480: Argentina 5x
 1863928399: Romania 1x
 1864157768: Spain 4x
 1864982334: United States 5x
@@ -2045,6 +2139,7 @@ local DATA = [[
 1899357734: Poland 1x
 1899704629: South Korea 5x
 1902259823: Kazakhstan 10x
+1903268846: Brazil 1x
 1905367514: South Korea 3x
 1905862573: Hungary 4x
 1906503737: Argentina 9x
@@ -2056,7 +2151,7 @@ local DATA = [[
 1912107951: Argentina 3x
 1913154652: Bangladesh 1x
 1913450380: Colombia 1x
-1913661418: France 2x
+1913661418: France 4x
 1913866976: Mexico 1x
 1914028717: Colombia 6x
 1914932025: South Korea 1x
@@ -2071,10 +2166,11 @@ local DATA = [[
 1924864515: United States 7x
 1925154694: France 1x
 1927229188: Germany 1x
+1927732718: SP Brazil 1x
 1928394106: Brazil 5x
 1930212765: Brazil 1x
 1930265399: Portugal 6x
-1932081543: Brazil 1x
+1932081543: Brazil 2x
 1932156093: Colombia 1x
 1932202459: Colombia 1x
 1932990508: South Korea 1x
@@ -2091,7 +2187,8 @@ local DATA = [[
 1937212566: Brazil 1x
 1937531824: Uruguay 2x
 1940451132: Poland 3x
-1941608876: Greece 2x
+1940576639: Japan 11x
+1941608876: Greece 3x
 1941781799: Dominican Republic 2x
 1942547821: Spain 1x
 1942921614: Kazakhstan 1x
@@ -2121,12 +2218,13 @@ local DATA = [[
 1957661210: Denmark 1x
 1961251977: France 6x
 1962212307: United States 3x
-1964071245: Japan 2x
+1964071245: Japan 4x
 1964607204: South Korea 9x
 1965177617: Netherlands 2x
 1967453176: France 2x
 1970033461: France 1x
 1970351246: France 1x
+1970392365: Canada 2x
 1971379706: South Korea 4x
 1972019146: Spain 4x
 1972365363: Malaysia 1x
@@ -2137,15 +2235,17 @@ local DATA = [[
 1976405903: Bolivia 1x
 1977585136: Jamaica 2x
 1977654705: United Kingdom 1x
-1978317122: Colombia 2x
+1978317122: Colombia 5x
 1978777684: Italy 1x
 1979064530: Sweden 2x
+1981183072: Uruguay 1x
 1981648344: United Kingdom 1x
 1981740426: Slovakia 6x
 1983335225: Philippines 2x
+1986257780: Sweden 1x
 1986761649: Puerto Rico 2x
 1988747580: United Kingdom 1x
-1989033491: Germany 1x
+1989033491: Germany 3x
 1989829716: South Korea 1x
 1990596732: Germany 1x
 1993537208: United States 1x
@@ -2165,6 +2265,7 @@ local DATA = [[
 2008516301: Canada 1x
 2008738650: Germany 2x
 2009368428: Brazil 2x
+2009914481: India 1x
 2009934516: Greece 3x
 2009994184: France 1x
 2010634534: Peru 1x
@@ -2181,6 +2282,7 @@ local DATA = [[
 2016571277: United Kingdom 3x
 2016949724: France 1x
 2017301666: Lebanon 1x
+2018041108: France 2x
 2018155220: Japan 2x
 2019289676: Canada 1x
 2019361699: United States 2x
@@ -2188,12 +2290,15 @@ local DATA = [[
 2020245947: Israel 8x
 2020344677: Italy 1x
 2021359413: Peru 3x
+2024686831: Israel 2x
+2025036945: United Kingdom 6x
 2025748424: South Korea 1x
 2026366638: Italy 4x
 2026570699: Belarus 1x
 2027574483: Thailand 4x
 2028217465: Ukraine 1x
 2029447150: Costa Rica 1x
+2029863191: United States 3x
 2030952491: Ireland 2x
 2031269545: France 1x
 2031726368: Mexico 1x
@@ -2206,6 +2311,7 @@ local DATA = [[
 2037362240: Germany 8x
 2039086106: Türkiye 8x
 2039185030: Philippines 14x
+2039249516: Canada 3x
 2039548916: North Macedonia 2x
 2039589213: Italy 2x
 2039884651: France 4x
@@ -2261,9 +2367,11 @@ local DATA = [[
 2205968930: Libya 7x
 2206272958: United States 1x
 2206683144: Thailand 1x
+2206719964: United States 1x
 2206928967: Romania 18x
 2207112256: Italy 7x
 2207224365: Germany 1x
+2208777499: Thailand 1x
 2210240475: Portugal 1x
 2211648266: New Zealand 1x
 2212145771: Brazil 1x
@@ -2331,6 +2439,7 @@ local DATA = [[
 2255403362: Uruguay 1x
 2255576241: Morocco 19x
 2255850250: United States 5x
+2257030547: Italy 1x
 2257218581: Italy 4x
 2257337239: Greece 1x
 2257692443: Peru 1x
@@ -2344,7 +2453,7 @@ local DATA = [[
 2262752759: Australia 1x
 2263050525: Pakistan 1x
 2264163373: Switzerland 1x
-2265323141: Brazil 6x
+2265323141: Brazil 8x
 2266086654: United Kingdom 3x
 2268229488: Argentina 4x
 2268300209: Thailand 1x
@@ -2355,6 +2464,7 @@ local DATA = [[
 2271206019: Algeria 4x
 2271586264: Slovakia 16x
 2272055834: Argentina 1x
+2272294521: Mexico 2x
 2272530256: Malaysia 4x
 2272586317: Mexico 1x
 2272717385: Thailand 1x
@@ -2362,6 +2472,7 @@ local DATA = [[
 2273646600: Ireland 1x
 2276504050: Germany 1x
 2277761793: Mexico 8x
+2277935758: Spain 1x
 2278048932: Germany 1x
 2278991322: Philippines 7x
 2279199567: Poland 1x
@@ -2382,6 +2493,7 @@ local DATA = [[
 2293083659: South Korea 5x
 2294705908: Mexico 5x
 2294855322: Philippines 5x
+2295054019: United States 1x
 2295331083: Germany 1x
 2295801421: Thailand 1x
 2296928878: Colombia 6x
@@ -2392,7 +2504,7 @@ local DATA = [[
 2300254927: Thailand 1x
 2301209846: Canada 1x
 2301494327: Honduras 3x
-2303884165: Israel 1x
+2303884165: Israel 3x
 2310630840: United States 2x
 2310641064: Türkiye 12x
 2310915407: Mexico 4x
@@ -2423,6 +2535,7 @@ local DATA = [[
 2329217399: Portugal 4x
 2329301950: New Zealand 3x
 2329832825: Italy 6x
+2331492283: Türkiye 1x
 2331766481: Poland 3x
 2332013629: Norway 1x
 2333030060: Spain 1x
@@ -2487,7 +2600,7 @@ local DATA = [[
 2365375591: Bosnia and Herzegovina 6x
 2365489151: Spain 1x
 2366387353: Australia 3x
-2366826385: Brazil 7x
+2366826385: Brazil 9x
 2368716835: Nepal 1x
 2369193130: South Korea 5x
 2369552027: Chile 2x
@@ -2495,7 +2608,7 @@ local DATA = [[
 2369768085: Germany 2x
 2370238344: Bulgaria 2x
 2371143443: Belarus 1x
-2371685433: Brazil 1x
+2371685433: Brazil 2x
 2373200121: Luxembourg 2x
 2373598027: Indonesia 2x
 2373809080: Philippines 1x
@@ -2512,6 +2625,7 @@ local DATA = [[
 2384651434: Aruba 1x
 2385198513: United Kingdom 8x
 2385348197: Taiwan 2x
+2386198202: United Kingdom 1x
 2386692951: Sweden 1x
 2387788772: United States 1x
 2388604632: Mexico 3x
@@ -2533,16 +2647,17 @@ local DATA = [[
 2397008425: Peru 3x
 2397603369: Germany 4x
 2398061412: Denmark 1x
-2398498051: Spain 2x
+2398498051: Spain 4x
 2398960638: South Korea 1x
 2399921184: United States 1x
 2401513498: Philippines 2x
 2401758766: Switzerland 1x
 2401946756: Israel 6x
 2402054204: Thailand 1x
-2404864923: United States 1x
+2404864923: United States 2x
 2404950199: Switzerland 2x
 2405409080: Israel 1x
+2406479417: Russia 2x
 2407017524: Greece 5x, Netherlands 1x
 2407475510: Mexico 1x
 2410373084: India 3x
@@ -2557,6 +2672,7 @@ local DATA = [[
 2413785624: Mexico 2x
 2413820856: United States 5x
 2414578308: India 3x
+2415284802: Brazil 3x
 2415675407: Mexico 3x
 2417438070: Spain 2x
 2417567246: South Korea 3x
@@ -2579,7 +2695,7 @@ local DATA = [[
 2438882222: Mexico 1x
 2439282972: Paraguay 9x
 2439688553: Bosnia and Herzegovina 1x
-2440259280: France 2x
+2440259280: France 3x
 2440461044: Brazil 1x
 2440597809: India 13x
 2440926321: Italy 4x
@@ -2592,18 +2708,20 @@ local DATA = [[
 2446571218: Portugal 7x
 2446704814: South Korea 5x
 2447324339: Italy 3x
+2447353262: United States 1x
 2448372007: Philippines 1x
 2449138934: Portugal 1x
 2449208338: Brazil 2x
 2449500907: Colombia 2x
 2451700874: India 3x
-2452227427: Thailand 2x
+2452227427: Thailand 3x
 2452826449: Honduras 3x
 2453963582: Spain 2x
 2454593924: Malaysia 2x
 2454700817: Brazil 2x
 2456633735: Brazil 1x
 2456814702: Peru 3x
+2456880318: United States 3x
 2457349295: France 1x
 2458073778: New Zealand 1x
 2458249923: South Korea 1x
@@ -2618,6 +2736,7 @@ local DATA = [[
 2464174537: United States 2x
 2464298070: South Korea 3x
 2464659903: South Korea 1x
+2467260520: Brazil 8x
 2467478558: Thailand 1x
 2468854208: Italy 1x
 2468979493: Mexico 6x
@@ -2632,7 +2751,7 @@ local DATA = [[
 2474485250: Philippines 3x
 2474567962: Israel 2x
 2474901834: India 2x
-2476463368: Italy 6x
+2476463368: Italy 7x
 2476508084: Argentina 1x
 2476747258: Lithuania 1x
 2476758549: Israel 1x
@@ -2642,6 +2761,7 @@ local DATA = [[
 2479505809: Uruguay 1x
 2480422916: Argentina 1x
 2480627784: Brazil 1x
+2481420241: Netherlands 2x
 2482505297: Italy 1x
 2483272600: Australia 13x
 2484291606: Kazakhstan 1x
@@ -2649,6 +2769,7 @@ local DATA = [[
 2486553609: Italy 1x
 2487882541: Colombia 4x
 2488253619: South Korea 6x
+2488540646: Türkiye 1x
 2489358482: Brazil 3x
 2491141154: France 1x
 2493016679: Czech Republic 37x
@@ -2704,6 +2825,7 @@ local DATA = [[
 2531661755: Japan 3x
 2533696478: United States 1x
 2533839704: Brazil 5x
+2534219410: United States 1x
 2534717734: Spain 2x
 2535964972: United Kingdom 5x
 2537046636: Japan 2x
@@ -2716,7 +2838,7 @@ local DATA = [[
 2540246892: United States 2x
 2540863381: Poland 6x
 2541166305: Denmark 3x
-2541455975: Philippines 7x
+2541455975: Philippines 8x
 2542724742: Czech Republic 1x
 2542771796: South Korea 7x
 2543141041: Spain 2x
@@ -2742,6 +2864,7 @@ local DATA = [[
 2554321729: Philippines 1x
 2554801714: Kazakhstan 9x
 2555265849: Hungary 3x
+2555388344: France 2x
 2555496794: Kazakhstan 3x
 2555941330: Argentina 2x
 2557523038: Brazil 1x
@@ -2753,6 +2876,7 @@ local DATA = [[
 2567060025: Venezuela 2x
 2567074681: Spain 6x
 2569974964: Morocco 1x
+2570302950: Spain 3x
 2572958442: Malaysia 1x
 2573255546: Thailand 1x
 2573872231: Czech Republic 1x
@@ -2765,9 +2889,10 @@ local DATA = [[
 2582752900: Italy 2x
 2583045637: Italy 1x
 2584193686: Peru 2x
+2585304960: France 3x
 2585472858: France 5x
 2585702667: Brazil 9x
-2586115941: Puerto Rico 1x
+2586115941: Puerto Rico 2x
 2586305129: United States 1x
 2587264021: Poland 4x
 2587552102: Italy 2x
@@ -2775,12 +2900,13 @@ local DATA = [[
 2588889711: Türkiye 3x
 2589565851: Jordan 2x
 2589800860: United States 18x
+2591410038: Portugal 12x
 2591751504: Philippines 2x
 2594179019: Mexico 2x
 2594257421: Ecuador 1x
 2594260046: United Kingdom 1x
 2594810282: Chile 4x
-2597290429: United States 1x
+2597290429: United States 2x
 2597335270: Canada 1x
 2598805277: Malaysia 2x
 2600427688: Indonesia 1x
@@ -2788,6 +2914,7 @@ local DATA = [[
 2601427364: Spain 5x
 2602608923: Indonesia 1x
 2603664914: India 2x
+2603703086: Brazil 5x
 2605748541: Thailand 3x
 2606255906: Brazil 2x
 2606619336: Thailand 5x
@@ -2797,6 +2924,7 @@ local DATA = [[
 2611616759: United States 7x
 2612520411: Sweden 6x
 2613088348: Hong Kong 2x
+2613368534: Cambodia 1x
 2614826089: United States 1x
 2615135654: Spain 3x
 2616313666: Poland 1x
@@ -2837,6 +2965,7 @@ local DATA = [[
 2637264713: Bulgaria 3x
 2637265816: Poland 9x
 2637535927: Mexico 2x
+2637650257: Canada 1x
 2638377042: Philippines 1x
 2641246057: Bolivia 8x
 2641768120: Portugal 1x
@@ -2854,6 +2983,7 @@ local DATA = [[
 2647199340: Mexico 1x
 2647766127: Australia 1x
 2647815526: Thailand 4x
+2647996103: Ukraine 3x
 2648367479: Kyrgyzstan 4x
 2648383151: Portugal 1x
 2650675996: Brazil 4x
@@ -2864,14 +2994,16 @@ local DATA = [[
 2656869801: India 2x
 2657023306: United Kingdom 1x
 2657646974: Poland 11x
-2658071290: United States 2x
+2658071290: United States 3x
 2658435540: Australia 1x
 2660417292: Germany 1x
 2661046060: Indonesia 9x
 2661747000: Kazakhstan 22x
 2662104514: Brazil 3x
 2662444930: Mexico 1x
+2664065494: Malta 3x
 2664568903: Spain 1x
+2665427233: Libya 12x
 2667394374: Poland 1x
 2667516224: United States 1x
 2667779614: Philippines 1x
@@ -2901,6 +3033,7 @@ local DATA = [[
 2692451229: Brazil 1x
 2693918730: Germany 1x
 2694527865: Thailand 4x
+2694793356: Panama 4x
 2695956622: Japan 1x
 2696789748: Paraguay 3x
 2698113044: Peru 3x
@@ -2909,7 +3042,7 @@ local DATA = [[
 2700828701: Ecuador 1x
 2701208870: Thailand 5x
 2701828590: Chile 2x
-2701965294: United Kingdom 6x
+2701965294: United Kingdom 7x
 2703959611: Morocco 11x
 2703966062: Tunisia 13x
 2704502952: Poland 2x
@@ -2949,7 +3082,9 @@ local DATA = [[
 2729655112: India 3x
 2729720542: Colombia 2x
 2729877266: Philippines 2x
+2729885368: United States 1x
 2730439164: Brazil 4x
+2730652535: France 2x
 2731631218: Malaysia 3x
 2731692478: Australia 1x
 2731750552: Indonesia 15x
@@ -2994,6 +3129,7 @@ local DATA = [[
 2769250500: Suriname 5x
 2770473233: Cambodia 1x
 2773522965: Malaysia 2x
+2773537613: United Kingdom 19x
 2775050825: United States 20x
 2778463495: India 1x
 2778464024: Kazakhstan 3x
@@ -3087,6 +3223,7 @@ local DATA = [[
 2844198211: Brazil 10x
 2846027903: Indonesia 2x
 2846254440: Brazil 7x
+2846269035: United States 1x
 2846863239: Morocco 1x
 2847836240: Australia 1x
 2848349217: Philippines 1x
@@ -3131,6 +3268,7 @@ local DATA = [[
 2881181105: Brazil 1x
 2881541058: Spain 2x
 2883291217: Brazil 1x
+2883544241: Cambodia 1x
 2884411570: Poland 1x
 2884922547: Brazil 1x
 2885208010: India 2x
@@ -3140,6 +3278,7 @@ local DATA = [[
 2890460525: Mexico 2x
 2890533515: Chile 2x
 2891036214: Indonesia 2x
+2891891930: Austria 1x
 2892773316: United States 1x
 2892995720: Australia 3x
 2894252024: Peru 6x
@@ -3151,10 +3290,11 @@ local DATA = [[
 2900896033: Thailand 2x
 2902335573: Chile 2x
 2903519983: India 6x
-2904389034: Latvia 7x
+2904389034: Latvia 8x
 2904477140: France 1x
 2905045608: Philippines 1x
 2906287397: Guatemala 1x
+2906632872: Indonesia 1x
 2906909033: United States 3x
 2907918587: Greece 1x
 2911168287: Paraguay 3x
@@ -3186,7 +3326,7 @@ local DATA = [[
 2924599310: Canada 2x
 2925177649: Indonesia 1x
 2925457433: Japan 7x
-2927789245: United States 7x
+2927789245: United States 13x
 2931147398: Ecuador 3x
 2931374944: Malaysia 1x
 2932699417: Indonesia 4x
@@ -3214,6 +3354,7 @@ local DATA = [[
 2957763543: Guatemala 3x
 2958008661: Indonesia 2x
 2959507379: Romania 2x
+2960773398: Indonesia 4x
 2960997001: Malaysia 1x
 2961207328: Philippines 1x
 2961276683: United States 3x
@@ -3226,7 +3367,7 @@ local DATA = [[
 2965295485: Austria 2x
 2967526594: France 1x
 2968347800: Switzerland 1x
-2969208362: Germany 7x
+2969208362: Germany 14x
 2971238611: Greece 3x
 2971489336: Peru 1x
 2973289179: India 3x
@@ -3236,6 +3377,7 @@ local DATA = [[
 2976404261: Poland 1x
 2977759489: Peru 7x
 2978523649: Malaysia 1x
+2980214460: India 13x
 2980372206: France 8x
 2980580425: United States 1x
 2981407135: Spain 1x
@@ -3252,11 +3394,13 @@ local DATA = [[
 2990827322: Malaysia 1x
 2991494930: Cambodia 1x
 2991651740: Peru 11x
+2992793292: United States 1x
 2993143452: Mexico 1x
 2993498325: Iran 2x
 2994003846: India 1x
 2994544032: Spain 1x
 2995922186: Philippines 1x
+2996246573: Malaysia 1x
 2996335595: India 2x
 2999245444: Thailand 2x
 2999682393: Philippines 1x
@@ -3281,6 +3425,7 @@ local DATA = [[
 3015338195: Taiwan 1x
 3015678018: Malaysia 9x
 3016796406: Brazil 2x
+3017181008: Thailand 1x
 3017358026: Chile 1x
 3018024361: United States 1x
 3018357990: Brazil 1x
@@ -3293,12 +3438,13 @@ local DATA = [[
 3020594039: Indonesia 2x
 3020896749: Thailand 10x
 3020946667: Thailand 1x
+3021345319: Georgia 4x
 3021709435: Slovakia 2x
 3021757315: Netherlands 2x
 3022156387: Paraguay 3x
 3022300463: India 1x
 3023111653: France 3x
-3023152922: Canada 1x
+3023152922: Canada 3x
 3023237227: Malaysia 1x
 3024735192: India 2x
 3025517879: Philippines 11x
@@ -3342,16 +3488,16 @@ local DATA = [[
 3055893294: Chile 1x
 3057706983: Italy 1x
 3057944728: France 1x
-3059684310: France 4x
+3059684310: France 9x
 3060341018: United States 1x
-3060484801: Malaysia 1x
+3060484801: Malaysia 2x
 3060913548: Austria 1x
 3061849781: Tunisia 6x
 3064461924: Thailand 1x
 3064535235: Malaysia 4x
 3065052317: Spain 5x
 3066549867: Brazil 2x
-3067801167: Argentina 4x
+3067801167: Argentina 6x
 3068460154: Indonesia 1x
 3069786199: India 1x
 3071003345: Thailand 4x
@@ -3360,13 +3506,14 @@ local DATA = [[
 3072707254: United States 2x
 3073895488: Poland 1x
 3074355599: India 12x
-3074471153: Dominican Republic 13x
+3074471153: Dominican Republic 14x
 3074791508: Germany 2x
 3075141487: Brazil 1x
 3076372789: Indonesia 1x
 3076648680: South Korea 3x
 3076784336: Türkiye 2x
 3078148193: Poland 3x
+3078185284: Canada 1x
 3078595855: Indonesia 4x
 3079429872: Australia 3x
 3079801680: Thailand 4x
@@ -3392,6 +3539,7 @@ local DATA = [[
 3104069587: Poland 1x
 3106437841: Romania 1x
 3107243205: Colombia 4x
+3107761215: Philippines 1x
 3108829529: Greece 1x
 3109787092: Brazil 3x
 3110599747: France 1x
@@ -3409,7 +3557,7 @@ local DATA = [[
 3117353745: Netherlands 1x
 3117564631: Denmark 5x
 3117624887: France 4x
-3118894488: Ghana 1x
+3118894488: Ghana 2x
 3119205391: Peru 1x
 3121441896: Singapore 1x
 3121811961: Ukraine 1x
@@ -3430,6 +3578,7 @@ local DATA = [[
 3138588811: Thailand 1x
 3139004971: Netherlands 2x
 3139657387: Poland 9x
+3142169905: United States 1x
 3144100492: United Kingdom 1x
 3145444057: Indonesia 1x
 3146338137: Colombia 1x
@@ -3437,6 +3586,7 @@ local DATA = [[
 3147602360: Monaco 1x, Australia 5x
 3148388552: South Korea 3x
 3151700308: Poland 5x
+3156456033: Mexico 3x
 3158193588: India 10x
 3162471768: Estonia 1x
 3162500753: Indonesia 8x
@@ -3472,7 +3622,7 @@ local DATA = [[
 3184206926: United States 1x
 3185527305: Spain 1x
 3185762225: Brazil 2x
-3185896508: Brazil 6x
+3185896508: Brazil 7x
 3185926821: Brazil 1x
 3187533316: Germany 1x
 3187607840: Italy 1x
@@ -3484,8 +3634,9 @@ local DATA = [[
 3198871962: Ireland 7x
 3199388758: Malaysia 1x
 3200455540: Poland 1x
+3200699190: Kazakhstan 1x
 3200899912: United States 1x
-3201416060: United Kingdom 4x
+3201416060: United Kingdom 6x
 3206393885: United Kingdom 1x
 3206406557: Paraguay 1x
 3209522578: Morocco 5x
@@ -3496,7 +3647,7 @@ local DATA = [[
 3211826588: Mexico 1x, cdm 1x
 3212218269: Spain 1x
 3212344583: Germany 2x
-3213010588: Thailand 29x
+3213010588: Thailand 37x
 3213121909: Thailand 3x
 3214078477: Slovenia 1x
 3214079973: Luxembourg 7x
@@ -3531,7 +3682,7 @@ local DATA = [[
 3235669724: United Kingdom 1x
 3237901989: Denmark 3x
 3238640135: Mexico 3x
-3238776742: United States 2x
+3238776742: United States 3x
 3239407383: Argentina 9x
 3240616286: France 10x
 3240680708: Italy 1x
@@ -3560,18 +3711,20 @@ local DATA = [[
 3260615656: Taiwan 1x
 3261804003: Ukraine 3x
 3263342328: Peru 7x
-3263933107: Thailand 5x
+3263933107: Thailand 6x
 3264029270: Philippines 5x
 3264085296: Philippines 1x
 3264188484: Romania 2x
 3264265241: United States 2x
 3264621323: South Korea 3x
+3265184243: Serbia 10x
 3265305980: United States 3x
 3265511094: Brazil 1x
 3266536128: Philippines 3x, United States 5x
 3268390081: Switzerland 10x
 3269438221: Germany 4x
 3270995927: Germany 2x
+3271752585: Algeria 9x
 3272661657: Puerto Rico 1x
 3272783794: Philippines 1x
 3272968015: Taiwan 1x
@@ -3582,12 +3735,14 @@ local DATA = [[
 3278565317: Philippines 3x
 3281312629: Georgia 1x
 3281881097: Netherlands 1x
+3284808287: United States 2x
 3285163244: Czech Republic 3x
 3285436682: Brazil 3x
 3286293192: Thailand 1x
 3286600984: United Kingdom 1x
 3287066760: Israel 4x
 3287550973: Venezuela 1x
+3287571338: United Kingdom 13x
 3288260873: Morocco 2x
 3289421749: Philippines 4x
 3292173138: Philippines 2x
@@ -3628,11 +3783,12 @@ local DATA = [[
 3328191800: Sweden 1x
 3329233819: Israel 1x
 3329258083: South Korea 1x
-3329884256: Serbia 5x
+3329884256: Serbia 6x
 3330280584: Mexico 3x
 3330787017: Indonesia 1x
 3331045514: New Zealand 6x
 3331450427: Greece 1x
+3332281034: United Kingdom 7x
 3333494913: Chile 1x
 3334061117: India 1x
 3334496856: Slovakia 2x
@@ -3695,6 +3851,7 @@ local DATA = [[
 3392636244: United States 4x
 3393214549: Azerbaijan 3x
 3394999589: Thailand 8x
+3396529240: Spain 2x
 3396731281: United States 1x
 3398365344: Italy 1x
 3401482685: Serbia 4x
@@ -3704,6 +3861,7 @@ local DATA = [[
 3404555723: Sweden 1x
 3405170266: Brazil 2x
 3406740881: South Africa 2x
+3407122773: Mexico 2x
 3407565754: Serbia 3x
 3409269404: Thailand 1x
 3409694173: India 1x
@@ -3740,7 +3898,7 @@ local DATA = [[
 3440177315: Argentina 5x
 3441510205: Georgia 1x
 3443063661: United States 1x
-3443263294: Brazil 3x
+3443263294: Brazil 6x
 3445370758: Algeria 1x
 3445394042: Indonesia 1x
 3446509956: Germany 3x
@@ -3755,6 +3913,7 @@ local DATA = [[
 3455359145: Mexico 3x
 3456263057: Malaysia 4x
 3456580820: Spain 2x
+3456599906: Canada 1x
 3456676079: Argentina 2x
 3456855922: Denmark 1x
 3458480323: India 1x
@@ -3784,6 +3943,7 @@ local DATA = [[
 3482441487: Thailand 1x
 3482997251: Slovakia 6x
 3483001075: United States 5x
+3483603381: Canada 1x
 3483720791: United States 2x
 3484091065: Thailand 1x
 3487379318: Hong Kong 2x
@@ -3821,6 +3981,7 @@ local DATA = [[
 3521001957: United States 1x
 3521939072: Australia 1x
 3522891932: Finland 3x
+3523397405: Philippines 7x
 3523765627: Paraguay 1x
 3524019214: New Zealand 1x
 3524880963: Türkiye 1x
@@ -3828,12 +3989,14 @@ local DATA = [[
 3529000256: Japan 1x
 3529527716: Germany 1x
 3529560410: Philippines 1x
+3530017616: United States 1x
 3533367430: United Kingdom 1x
 3535070339: Kyrgyzstan 1x
 3536928880: Germany 1x
 3537528159: Italy 1x, 🏳️‍🌈Veneto🏳️‍🌈 Italy 1x
 3537533961: Italy 4x
 3538710960: Brazil 4x
+3538927592: United States 4x
 3544909628: Thailand 22x
 3545451312: Taiwan 1x
 3545555262: Hungary 8x
@@ -3856,40 +4019,46 @@ local DATA = [[
 3561529580: Ukraine 1x
 3562298534: Austria 1x
 3564181693: Thailand 3x
-3564202009: United States 3x
+3564202009: United States 4x
 3564660990: Netherlands 7x
 3565049370: Türkiye 2x
 3565498257: France 14x
+3566075939: Israel 1x
 3567166399: India 5x
 3569605938: Poland 10x
 3571630771: Indonesia 3x
 3571996504: United States 1x
 3572610700: Netherlands 1x
+3572957560: Spain 1x
 3574656009: Brazil 5x
 3574838979: France 13x
 3575866341: France 2x
 3577622495: Colombia 1x
 3578126905: India 1x
+3579833973: United States 4x
 3580395694: Taiwan 2x
 3581761443: Spain 1x
 3581848989: France 2x
 3582781918: Bosnia and Herzegovina 1x
 3583538904: Japan 4x
 3583840791: Peru 4x
+3585047501: Guyana 2x
 3585076864: Brazil 2x
 3585159494: France 5x
 3586284407: Malaysia 5x
 3586289782: Indonesia 2x
 3586637563: United Kingdom 4x
-3586689327: Morocco 23x
+3586689327: Morocco 24x
 3587747372: Brazil 2x
 3587937153: Romania 4x
 3589585290: United States 1x
+3591702722: Argentina 2x
 3595324173: South Korea 1x
 3598315429: Chile 3x
 3599347901: Spain 1x
 3599656348: Italy 1x
 3600044988: Argentina 11x
+3602119790: Uzbekistan 7x
 3603923350: Germany 9x
 3604678917: United Kingdom 10x
 3605292723: Philippines 1x
@@ -3912,6 +4081,7 @@ local DATA = [[
 3618828492: Hong Kong 4x
 3619324589: Ukraine 3x
 3619869089: Indonesia 1x
+3622499249: United States 6x
 3623421764: Nepal 3x
 3623692880: Malaysia 11x
 3624115419: Switzerland 3x
@@ -3963,6 +4133,7 @@ local DATA = [[
 3669511031: Malaysia 3x
 3669616627: Malaysia 2x
 3670294935: Brazil 1x
+3670488580: Mexico 3x
 3671431878: Sweden 3x
 3672017786: Austria 2x
 3673045291: Romania 1x
@@ -3996,6 +4167,7 @@ local DATA = [[
 3698767776: Thailand 1x
 3700196992: Peru 1x
 3700254314: United States 3x
+3702415489: United States 2x
 3703456356: Ukraine 1x
 3703955508: Australia 3x
 3705081471: Germany 1x
@@ -4041,6 +4213,7 @@ local DATA = [[
 3741794747: Morocco 1x
 3742571410: Spain 1x
 3742656430: Italy 1x
+3744059672: Philippines 1x
 3747539219: South Korea 1x
 3748436652: South Korea 4x
 3748472070: Mexico 1x
@@ -4053,6 +4226,7 @@ local DATA = [[
 3754053527: Algeria 2x
 3758937188: Ukraine 1x
 3761722006: Czech Republic 2x
+3764974620: Brazil 5x
 3766643210: Ecuador 3x
 3769452148: Philippines 13x
 3770890557: Slovakia 7x
@@ -4072,7 +4246,7 @@ local DATA = [[
 3780125865: United States 11x
 3780736055: Brazil 9x
 3780905421: France 2x
-3781026570: Germany 6x
+3781026570: Germany 8x
 3781503734: Mexico 2x
 3784360322: Luxembourg 3x
 3786541683: Brazil 1x
@@ -4122,15 +4296,19 @@ local DATA = [[
 3825206313: Japan 3x
 3827658775: Brazil 4x
 3828213740: Mexico 1x
+3828839210: United States 3x
 3828875923: Argentina 3x
+3829252189: United States 1x
 3829393345: Thailand 1x
+3830379131: Georgia 4x
 3830946999: Uruguay 2x
 3831968252: Australia 1x
 3832381203: Malaysia 1x
 3833069689: Thailand 7x
 3833430726: Portugal 1x
+3834724612: United Kingdom 1x
 3834908101: South Korea 3x
-3834994820: Hong Kong 9x
+3834994820: Hong Kong 10x
 3837356346: Brazil 1x
 3838620050: Azerbaijan 1x
 3839344713: Germany 1x
@@ -4160,6 +4338,7 @@ local DATA = [[
 3861601211: United Kingdom 1x
 3861976439: Mexico 1x
 3862256630: India 3x
+3863386034: Australia 1x
 3863442656: Mexico 2x
 3863449551: Honduras 1x
 3865334128: Puerto Rico 1x
@@ -4169,13 +4348,14 @@ local DATA = [[
 3870929265: France 10x
 3872964254: Estonia 2x
 3874194601: Cambodia 1x
+3875876727: Algeria 2x
 3876071153: United States 1x
 3876709437: Malaysia 2x
 3877779793: Spain 1x
 3879832013: South Korea 1x
 3879994035: Netherlands 1x
 3880254555: Germany 2x
-3880274467: Morocco 1x
+3880274467: Morocco 4x
 3880502864: Kazakhstan 1x
 3883366379: United Kingdom 5x
 3883373928: Thailand 1x
@@ -4264,6 +4444,7 @@ local DATA = [[
 3943006883: Lithuania 1x
 3944227876: Brazil 1x
 3944278192: Mexico 1x
+3944310177: Brazil 1x
 3945843687: Philippines 1x
 3946043287: Italy 2x
 3948088593: France 1x
@@ -4295,6 +4476,7 @@ local DATA = [[
 3971669627: Germany 1x
 3972304442: Türkiye 4x
 3974151558: Indonesia 2x
+3974443087: Chile 1x
 3974453092: Türkiye 7x
 3974896665: Brazil 2x
 3975058028: Brazil 1x
@@ -4302,6 +4484,7 @@ local DATA = [[
 3975838161: Tunisia 1x
 3976698662: Mexico 1x
 3977436171: Philippines 3x
+3977951325: Germany 1x
 3978401834: United Kingdom 1x
 3981247037: Italy 2x
 3981573423: Ecuador 4x
@@ -4320,6 +4503,7 @@ local DATA = [[
 3992620447: France 2x
 3992774674: Japan 2x
 3994535251: Malaysia 2x
+3994780319: South Korea 1x
 3996779543: Norway 4x
 3997596489: United States 1x
 3997746609: Philippines 4x
@@ -4370,6 +4554,7 @@ local DATA = [[
 4045783226: Argentina 3x
 4046838276: Poland 2x
 4050523787: France 11x
+4052744188: Mexico 1x
 4053416477: Japan 1x
 4053515270: Netherlands 2x
 4053517385: Kazakhstan 3x
@@ -4380,6 +4565,7 @@ local DATA = [[
 4056404015: Thailand 3x
 4060195141: South Korea 1x
 4060279225: Bulgaria 1x
+4060441414: Peru 2x
 4060752565: Brazil 1x
 4062049525: Azerbaijan 4x
 4063018349: South Korea 1x
@@ -4398,8 +4584,10 @@ local DATA = [[
 4076012849: Spain 4x
 4076344742: Sweden 11x
 4076671457: Argentina 5x
+4078326916: Colombia 1x
 4080637895: Finland 2x
 4080785756: Argentina 2x
+4080916185: Bolivia 5x
 4087563800: Netherlands 8x
 4088949971: Switzerland 2x
 4088973924: Algeria 6x
@@ -4417,6 +4605,7 @@ local DATA = [[
 4100172796: Serbia 4x
 4100346160: Dominican Republic 1x
 4101971944: Czech Republic 4x
+4102729693: United States 3x
 4103186932: United States 1x
 4103235091: Hong Kong 27x
 4104707002: Germany 2x
@@ -4497,6 +4686,7 @@ local DATA = [[
 4171019052: France 1x
 4172479787: United States 6x
 4172546759: France 1x
+4172835277: United Kingdom 8x
 4176919340: United Kingdom 6x
 4177323619: United Kingdom 3x
 4177566745: Colombia 1x
@@ -4512,7 +4702,7 @@ local DATA = [[
 4185987857: Turkmenistan 1x
 4186263808: South Korea 4x
 4186509291: Philippines 1x
-4186689802: Brazil 7x
+4186689802: Brazil 8x
 4188655579: Italy 1x
 4189472154: South Korea 1x
 4189695740: Brazil 7x
@@ -4551,6 +4741,7 @@ local DATA = [[
 4219285428: Brazil 1x
 4221727374: Hong Kong 3x
 4221840109: Brazil 1x
+4223076345: Dominican Republic 2x
 4223159783: Argentina 1x
 4223611815: South Korea 7x
 4223772737: Luxembourg 1x
@@ -4620,10 +4811,12 @@ local DATA = [[
 4289449597: France 1x
 4289993147: Germany 1x
 4290335660: Brazil 1x
+4290687203: Canada 1x
 4291043991: Malaysia 2x
 4293132837: Germany 1x
 4294164664: Belgium 1x
 4294535081: Japan 11x
+4296228452: United Kingdom 1x
 4296575732: Ecuador 26x
 4296892894: Japan 1x
 4297164660: Türkiye 1x
@@ -4659,9 +4852,10 @@ local DATA = [[
 4332638146: France 2x
 4333313322: United States 3x
 4333569387: Spain 1x
-4333770139: United States 1x
+4333770139: United States 2x
 4334191745: Mexico 1x
 4334504769: Germany 2x
+4335234914: Puerto Rico 4x
 4336771522: Switzerland 1x
 4338196245: Mexico 1x
 4338376247: Lithuania 2x
@@ -4699,12 +4893,13 @@ local DATA = [[
 4370658903: Czech Republic 6x
 4371513426: Japan 1x
 4371920119: South Korea 5x
+4372250563: United States 2x
 4373628869: Indonesia 7x
 4376235150: Mexico 3x
 4376438341: Malaysia 1x
 4378264506: South Korea 1x
 4378508753: Germany 20x
-4379298597: Brazil 1x
+4379298597: Brazil 2x
 4380018195: India 2x
 4382147725: Mexico 6x
 4382798501: Indonesia 1x
@@ -4716,6 +4911,7 @@ local DATA = [[
 4388444541: Germany 1x
 4388622132: United Kingdom 4x
 4390119118: Philippines 12x
+4390216349: Canada 1x
 4392118212: Philippines 4x
 4392910883: Philippines 7x
 4392944352: Thailand 4x
@@ -4725,7 +4921,7 @@ local DATA = [[
 4396724145: Indonesia 1x
 4396819724: United States 1x
 4397734195: Netherlands 4x
-4399333248: Germany 6x
+4399333248: Germany 7x
 4400480334: United States 1x
 4400544146: United States 1x
 4401471181: Libya 2x
@@ -4745,6 +4941,7 @@ local DATA = [[
 4407378739: Brazil 3x
 4407511129: Chile 3x
 4408534358: Thailand 1x
+4409039490: India 2x
 4409439473: Belgium 2x
 4409951828: South Korea 3x
 4410775244: India 5x
@@ -4761,6 +4958,7 @@ local DATA = [[
 4420483958: United States 4x
 4421212671: South Korea 4x
 4424177693: India 4x
+4425392691: France 3x
 4426967119: Germany 4x
 4427309747: Germany 2x
 4427508169: United Kingdom 2x
@@ -4790,6 +4988,7 @@ local DATA = [[
 4446088949: Indonesia 8x
 4446960286: Belgium 1x
 4447934309: Argentina 2x
+4448493433: Ukraine 2x
 4449733498: Denmark 2x
 4450486243: United States 1x
 4451191688: South Korea 2x
@@ -4830,6 +5029,7 @@ local DATA = [[
 4495707206: Japan 1x
 4499447582: Brazil 3x
 4499562025: Brazil 4x
+4499594599: United States 1x
 4500878213: Greece 3x
 4502668714: Hong Kong 1x
 4503390260: India 11x
@@ -4841,6 +5041,7 @@ local DATA = [[
 4507293490: Ecuador 1x
 4508336390: Mexico 4x
 4508959296: Peru 1x
+4509266584: Brazil 1x
 4510869739: Slovakia 2x
 4521269032: Cambodia 7x
 4521998466: Indonesia 22x
@@ -4861,10 +5062,12 @@ local DATA = [[
 4541388188: United Kingdom 2x
 4542966444: Japan 5x
 4543435720: Thailand 2x
+4547433113: United States 3x
 4547693596: Mexico 1x
 4552054999: United Kingdom 3x
 4552490520: Kazakhstan 1x
 4552876683: Argentina 3x
+4553357015: United States 4x
 4553910228: Hungary 4x
 4554906620: Argentina 1x
 4557043807: Switzerland 1x
@@ -4881,6 +5084,7 @@ local DATA = [[
 4567534781: Brazil 1x
 4570153020: Indonesia 1x
 4572818816: Belgium 1x
+4572863357: Australia 2x
 4573014697: Australia 6x
 4573329767: United Kingdom 4x
 4575742965: Japan 1x
@@ -4894,6 +5098,7 @@ local DATA = [[
 4583766761: Brazil 3x
 4585746117: Venezuela 1x
 4586306472: Italy 2x
+4589282077: France 19x
 4589559162: Romania 2x
 4589622202: India 4x
 4590019398: France 1x
@@ -4901,9 +5106,12 @@ local DATA = [[
 4591503170: Thailand 2x
 4592222559: Italy 1x
 4592353280: Trinidad and Tobago 1x
+4593432378: United States 3x
 4593614073: Canada 4x
+4594011529: Brazil 3x
 4594337870: Japan 11x, Poland 3x
 4594736569: Thailand 1x
+4594870178: Singapore 2x
 4595944487: Mexico 3x
 4596137630: Brazil 1x
 4596892438: El Salvador 1x
@@ -4921,6 +5129,7 @@ local DATA = [[
 4606328151: Netherlands 3x
 4606470014: Peru 5x
 4608325622: South Africa 10x
+4609742129: Brazil 3x
 4609802374: Brazil 2x
 4611779564: Finland 1x
 4613229337: United States 12x
@@ -4929,6 +5138,7 @@ local DATA = [[
 4616199454: Israel 1x
 4616622982: Thailand 1x
 4618121676: Philippines 10x
+4623340624: Ireland 4x
 4625208365: Thailand 1x
 4625368365: India 2x
 4625981559: United States 1x
@@ -4960,7 +5170,7 @@ local DATA = [[
 4649942224: Bulgaria 5x
 4650261747: Ireland 5x, France 1x
 4650473998: United States 2x
-4650583901: United States 2x
+4650583901: United States 13x
 4650972428: Kazakhstan 1x
 4652217586: Kazakhstan 1x
 4653602613: United States 1x
@@ -4992,6 +5202,7 @@ local DATA = [[
 4677142554: Moldova 3x
 4678829644: Thailand 1x
 4678886464: South Korea 1x
+4679073087: Dominican Republic 5x
 4679128889: Brazil 2x
 4681397725: Mexico 1x
 4682151063: Brazil 1x
@@ -5028,10 +5239,11 @@ local DATA = [[
 4717427385: United States 2x
 4718842956: United Kingdom 1x
 4721875653: Mexico 2x
+4725799617: United States 1x
 4726116931: Kazakhstan 1x
 4727373195: Croatia 2x
 4730266088: United Kingdom 7x
-4731119478: Bosnia and Herzegovina 1x
+4731119478: Bosnia and Herzegovina 2x
 4732836928: Mauritius 1x
 4733373136: Italy 2x
 4736101668: United States 7x
@@ -5049,6 +5261,7 @@ local DATA = [[
 4752205890: Germany 1x
 4752772055: Czech Republic 11x
 4755131288: Philippines 3x
+4755675172: Philippines 6x
 4755986490: Germany 1x
 4756746481: Costa Rica 1x
 4757280005: Canada 1x
@@ -5061,6 +5274,7 @@ local DATA = [[
 4764807569: United States 2x
 4765803046: Brazil 2x
 4765947344: Brazil 9x
+4766194087: United Kingdom 8x
 4767069195: United States 3x
 4768189862: Hong Kong 4x
 4768206287: Mexico 6x
@@ -5083,6 +5297,7 @@ local DATA = [[
 4790414191: Hungary 1x
 4791001963: Mexico 5x
 4791708083: United States 2x
+4793261685: Colombia 2x
 4793645040: United States 1x
 4793784074: Italy 1x
 4794589828: Libya 7x
@@ -5090,10 +5305,11 @@ local DATA = [[
 4797333895: El Salvador 3x
 4797499660: Italy 2x
 4799179287: United States 9x
-4799532654: Germany 2x
+4799532654: Germany 4x
 4802114566: Brazil 2x
+4803024419: Taiwan 1x
 4803201104: Brazil 2x
-4803676904: Israel 1x
+4803676904: Israel 2x
 4807718090: Italy 1x
 4812163497: Brazil 6x
 4812336252: United States 3x
@@ -5119,12 +5335,14 @@ local DATA = [[
 4837225328: United States 1x
 4837360421: India 10x
 4838128212: Portugal 20x
+4838307006: Nepal 1x
 4841453344: South Korea 1x
 4843281500: Spain 1x
 4843960067: Poland 15x
 4844238002: Peru 1x
 4844299977: Czech Republic 6x
 4844747861: Argentina 2x
+4845117987: United States 9x
 4845661027: United States 2x
 4846592196: India 1x
 4846625257: Hong Kong 1x
@@ -5159,10 +5377,12 @@ local DATA = [[
 4870367071: Japan 4x
 4872084262: Peru 2x
 4872497106: Argentina 1x
+4872701855: Serbia 4x
 4875478525: Indonesia 2x
 4875677468: Brazil 1x
 4877478228: Brazil 7x
 4878973865: Türkiye 4x
+4880217893: France 2x
 4882513339: United States 1x
 4882554603: Cambodia 2x
 4883906698: Italy 1x
@@ -5216,6 +5436,7 @@ local DATA = [[
 4924020852: Czech Republic 2x
 4924511514: India 2x
 4925587434: Denmark 6x
+4925794444: Australia 1x
 4929052231: Brazil 1x
 4929159328: Germany 1x
 4930500493: Philippines 1x
@@ -5226,15 +5447,17 @@ local DATA = [[
 4933497935: Taiwan 2x
 4934151391: Philippines 2x
 4934321711: South Korea 13x
+4935098224: United States 4x
 4935623880: Chile 1x
 4935855999: United States 1x
 4936320923: Spain 1x
+4936422218: United States 6x
 4937711785: Cambodia 1x
 4937792232: Poland 1x
 4938369431: Japan 1x
 4938426432: India 1x
 4939363429: Afghanistan 1x
-4939561160: Germany 7x
+4939561160: Germany 9x
 4939842905: Lithuania 1x
 4941570162: Bosnia and Herzegovina 1x
 4942389745: Reunion 5x
@@ -5245,12 +5468,14 @@ local DATA = [[
 4948131776: Barbados 9x
 4950560793: United States 3x
 4952886610: Hong Kong 2x
+4952946719: Serbia 10x
 4955387477: Germany 1x
 4956458224: Chile 2x
 4956797741: Italy 2x
 4957146396: Indonesia 1x
 4957348392: Brazil 11x
 4957370116: Canada 1x
+4958033435: United States 3x
 4960682081: France 1x
 4962404780: Ukraine 1x
 4963901626: Mexico 3x
@@ -5263,8 +5488,9 @@ local DATA = [[
 4968075019: South Korea 1x
 4968171472: Switzerland 1x
 4969486913: Cambodia 4x
+4969533848: New Zealand 1x
 4970086648: South Korea 1x
-4974551810: France 1x
+4974551810: France 2x
 4974979923: Philippines 1x
 4982145229: Morocco 3x
 4982437400: Spain 2x
@@ -5309,12 +5535,14 @@ local DATA = [[
 5022068067: Mexico 3x
 5022125374: Peru 1x
 5023911869: United States 4x
+5024040869: Brazil 1x
 5024421052: Canada 1x
 5025451729: Poland 1x
 5025720092: United Kingdom 1x
 5027018896: Mexico 3x
 5029650660: India 2x
 5030196130: Ireland 1x
+5030283632: Ecuador 3x
 5030466468: Czech Republic 1x
 5030561454: Belgium 2x
 5032131396: Thailand 2x
@@ -5322,7 +5550,7 @@ local DATA = [[
 5033838813: Mexico 1x
 5034025602: Germany 8x
 5034372769: Seychelles 1x
-5034374220: Dominican Republic 1x
+5034374220: Dominican Republic 4x
 5035080682: Mexico 2x
 5035113013: India 1x
 5037100849: United Kingdom 1x
@@ -5334,6 +5562,7 @@ local DATA = [[
 5043042418: Philippines 5x
 5043666676: Germany 2x
 5043758195: Spain 1x
+5044864734: United States 1x
 5045820885: Germany 15x
 5046682441: United Kingdom 26x
 5047034450: Spain 1x
@@ -5379,11 +5608,12 @@ local DATA = [[
 5089655389: France 1x
 5090044867: Brazil 5x
 5090918454: Indonesia 1x
-5091238228: New Zealand 1x
+5091238228: New Zealand 6x
 5092917614: Mexico 3x
 5094433100: India 12x
 5094678209: Brazil 3x
 5095180955: Chile 1x
+5095747367: United States 1x
 5096445248: Malaysia 1x
 5097452673: Venezuela 1x
 5097550504: Germany 1x
@@ -5395,10 +5625,10 @@ local DATA = [[
 5103585593: South Korea 6x
 5104372866: Ukraine 1x
 5104841822: Germany 1x
-5104960206: Azerbaijan 1x
+5104960206: Azerbaijan 2x
 5105152705: Brazil 2x
 5105188004: Brazil 6x
-5105422739: United States 3x
+5105422739: United States 4x
 5106103460: Costa Rica 1x
 5106639892: Venezuela 4x
 5108330443: Sweden 2x
@@ -5413,10 +5643,12 @@ local DATA = [[
 5111329643: Germany 1x
 5111345343: United Kingdom 1x
 5111360106: Italy 11x
+5111424680: United States 8x
 5111445500: Brazil 2x
 5111701726: Mexico 1x
 5111780776: Brazil 7x
 5111945529: Mexico 3x
+5111988562: United States 2x
 5112020999: United States 1x
 5112029514: Brazil 1x
 5112112851: Panama 14x
@@ -5430,6 +5662,7 @@ local DATA = [[
 5114024416: Spain 13x
 5114081702: France 2x
 5114184774: Italy 2x
+5114202493: Spain 1x
 5114214744: Democratic Republic of the Congo 1x
 5114806324: Germany 1x
 5114809074: Germany 1x
@@ -5467,6 +5700,7 @@ local DATA = [[
 5126762144: Spain 1x
 5126808918: Serbia 4x
 5126971608: Argentina 1x
+5127413891: Canada 2x
 5127553461: Italy 1x
 5127738690: Spain 1x
 5127845861: United States 2x
@@ -5493,8 +5727,10 @@ local DATA = [[
 5142388893: Morocco 1x
 5143531360: Germany 2x
 5144083674: Mexico 1x
+5144888780: Thailand 1x
 5145635691: Hong Kong 2x
 5146659585: Germany 1x
+5146863417: Israel 1x
 5147570694: United States 8x
 5147755722: Panama 2x
 5149059158: Thailand 1x
@@ -5524,6 +5760,7 @@ local DATA = [[
 5164349864: Brazil 12x
 5166242553: United States 4x
 5166357597: Switzerland 2x
+5169167455: Brazil 2x
 5173916759: Italy 1x
 5174893901: Venezuela 7x
 5176814090: France 1x
@@ -5547,10 +5784,11 @@ local DATA = [[
 5188610938: France 3x
 5192414046: Brazil 3x
 5192477834: Philippines 8x
+5193435487: United Kingdom 3x
 5193442413: Japan 2x
 5193719233: Belgium 3x
-5193860907: Thailand 1x
-5194714117: Brazil 8x
+5193860907: Thailand 2x
+5194714117: Brazil 12x
 5198214174: Germany 1x
 5198965713: Austria 1x, Germany 1x
 5198997471: United States 1x
@@ -5563,6 +5801,7 @@ local DATA = [[
 5205982868: United States 1x
 5208690149: Malaysia 6x
 5210133798: India 5x
+5211374646: Canada 1x
 5211416246: United States 1x
 5214150368: Thailand 4x
 5215045941: Hong Kong 1x
@@ -5589,6 +5828,7 @@ local DATA = [[
 5237727141: Italy 4x
 5238970813: Spain 1x
 5239083321: Argentina 1x
+5240051741: United States 1x
 5242695193: France 3x
 5244094455: Thailand 1x
 5245423136: South Korea 1x
@@ -5617,12 +5857,13 @@ local DATA = [[
 5278805341: Panama 2x
 5279525411: United States 1x
 5279540957: Argentina 10x
+5280639428: United States 1x
 5281183727: Indonesia 4x
 5281798600: Indonesia 3x
 5282376929: France 8x
 5285652247: Argentina 1x
 5286267520: Brazil 1x
-5287337296: South Korea 3x
+5287337296: South Korea 5x
 5287649186: Indonesia 3x
 5288680250: Morocco 4x
 5289901332: Italy 3x
@@ -5637,12 +5878,14 @@ local DATA = [[
 5294730396: United States 1x
 5295263926: United States 1x
 5296304511: Brunei Darussalam 1x
+5297794233: Canada 4x
 5299081770: Brazil 1x
 5302225069: Netherlands 2x
 5302359032: Austria 1x
 5304001889: Poland 1x
 5304906076: United States 1x
 5305954505: United States 1x
+5306095818: Australia 3x
 5307465028: Taiwan 15x
 5307881222: Germany 1x
 5309436152: Spain 4x
@@ -5718,6 +5961,8 @@ local DATA = [[
 5373033710: Dominican Republic 9x
 5373635304: United States 1x
 5373874303: Italy 1x
+5375221961: Puerto Rico 2x
+5378021257: United States 1x
 5378896061: Mexico 1x
 5380097692: Indonesia 3x
 5381223017: Brazil 1x
@@ -5742,7 +5987,7 @@ local DATA = [[
 5401163962: United States 1x
 5402512408: Japan 2x
 5403290954: Germany 1x
-5405595787: United Kingdom 5x
+5405595787: United Kingdom 7x
 5405876539: Germany 1x
 5406987091: Pakistan 1x
 5410652219: Philippines 1x
@@ -5773,7 +6018,7 @@ local DATA = [[
 5433173007: Côte d'Ivoire 23x
 5433290473: Peru 11x
 5433590409: Chile 1x
-5433936750: Brazil 5x
+5433936750: Brazil 6x
 5434560007: India 1x
 5435136167: Serbia 1x
 5436064003: Uruguay 3x
@@ -5786,10 +6031,13 @@ local DATA = [[
 5438766481: India 1x
 5439203955: Czech Republic 11x
 5441421774: Poland 1x
+5441901927: Switzerland 3x
 5445383866: Italy 1x
+5447603319: South Korea 2x
 5448570038: Spain 10x
 5450236730: Brazil 1x
 5450592058: United States 8x
+5450652766: France 1x
 5451762178: Mexico 1x
 5452710037: Japan 1x
 5452923116: Indonesia 1x
@@ -5811,7 +6059,7 @@ local DATA = [[
 5467309745: Tunisia 10x
 5468013406: Brazil 1x
 5468068762: United States 2x
-5470289567: Brazil 4x
+5470289567: Brazil 5x
 5470886451: Brazil 2x
 5471262343: Poland 1x
 5471319517: Hong Kong 1x
@@ -5850,7 +6098,7 @@ local DATA = [[
 5514332649: United States 1x
 5514350153: United States 2x
 5516045593: Canada 1x
-5516279583: United States 2x
+5516279583: United States 3x
 5517140142: United States 3x
 5517876022: South Korea 5x, Taiwan 4x
 5518081151: Brazil 3x
@@ -5910,6 +6158,7 @@ local DATA = [[
 5580286189: Spain 1x
 5581216737: United States 7x
 5581622773: Japan 3x
+5584100443: Guinea-Bissau 2x
 5585007560: Brazil 1x
 5585251287: United States 3x
 5587396174: Venezuela 1x
@@ -5980,6 +6229,7 @@ local DATA = [[
 5661180751: Philippines 3x
 5662344267: India 10x
 5662730152: Peru 9x
+5662861428: United Kingdom 14x
 5663358749: Philippines 1x
 5664576106: Poland 2x
 5665004925: Thailand 2x
@@ -6017,6 +6267,7 @@ local DATA = [[
 5695458037: India 8x
 5697011167: United States 1x
 5700349225: Romania 1x
+5700388852: United States 1x
 5701151731: France 3x
 5701683276: France 6x
 5701777888: Brazil 1x
@@ -6032,6 +6283,7 @@ local DATA = [[
 5712351435: Switzerland 5x
 5713207317: Spain 3x
 5713956244: Hungary 6x
+5715204722: United States 1x
 5715433764: Germany 1x
 5719261400: Brazil 2x
 5720264865: Morocco 3x
@@ -6055,7 +6307,7 @@ local DATA = [[
 5743053908: Morocco 1x
 5745471193: Cambodia 1x
 5750184584: Mexico 5x
-5753341661: Honduras 1x
+5753341661: Honduras 3x
 5753685575: Greece 2x
 5753847139: India 2x
 5755276321: Peru 4x
@@ -6088,6 +6340,7 @@ local DATA = [[
 5778927717: United States 2x
 5779962820: Spain 1x
 5781031565: Thailand 2x
+5782122235: Singapore 7x
 5783884019: Germany 1x
 5788906190: India 1x
 5789678013: South Korea 1x
@@ -6108,7 +6361,7 @@ local DATA = [[
 5807757677: Thailand 8x
 5811519909: Japan 4x
 5811552393: Mexico 1x
-5813423318: United States 2x
+5813423318: United States 8x
 5814136175: United States 3x
 5814137654: South Korea 3x
 5815430802: South Korea 1x
@@ -6138,9 +6391,10 @@ local DATA = [[
 5852926397: Slovakia 2x
 5853098243: Spain 1x
 5853629111: Brazil 1x
+5857339515: Thailand 1x
 5857790206: United States 1x
 5858338482: Indonesia 1x
-5858818820: Germany 2x
+5858818820: Germany 5x
 5858903531: Venezuela 3x
 5860459247: Mexico 1x
 5861808533: Cambodia 1x
@@ -6185,6 +6439,7 @@ local DATA = [[
 6039371607: Bosnia and Herzegovina 1x
 6042789506: Malaysia 2x
 6044111155: Philippines 2x
+6044431295: United States 1x
 6046961565: Poland 1x
 6046962906: Japan 3x
 6047015557: Australia 5x
@@ -6202,6 +6457,7 @@ local DATA = [[
 6062122341: Philippines 1x
 6063056440: United Kingdom 5x
 6072675548: France 2x
+6074500272: United States 1x
 6075105436: Uzbekistan 2x
 6076127730: Greece 1x
 6076268713: Brazil 1x
@@ -6213,9 +6469,11 @@ local DATA = [[
 6080013150: Japan 4x
 6083304618: Kyrgyzstan 2x
 6084797528: France 16x, Guadeloupe 1x
+6087639156: Spain 1x
 6088871707: Brazil 1x
 6088891864: Brazil 3x
 6092064788: Pakistan 8x
+6092719298: Indonesia 1x
 6093026124: Argentina 6x
 6093522351: United States 5x
 6097591959: Argentina 7x
@@ -6232,13 +6490,15 @@ local DATA = [[
 6110106001: Ireland 1x
 6110286664: Morocco 7x
 6110416312: Japan 2x
-6110562639: Canada 16x
+6110562639: Canada 28x
 6112366178: India 1x
 6114976360: Brazil 1x
 6115017703: Brazil 6x
+6115507972: India 1x
 6116369174: Indonesia 1x
 6119104720: South Korea 2x
 6120038094: Pakistan 4x
+6120735237: France 13x
 6121012287: Tunisia 2x
 6122716042: United Kingdom 1x
 6123468497: Malaysia 1x
@@ -6250,11 +6510,12 @@ local DATA = [[
 6126454977: France 4x
 6128245532: Germany 1x
 6129261394: Argentina 1x
-6130675128: Türkiye 4x
+6130675128: Türkiye 8x
 6130769981: France 1x
 6131185380: Brazil 1x
 6131352121: Morocco 1x
 6132201818: United Kingdom 2x
+6134875732: United States 1x
 6137236873: Colombia 1x
 6137981198: United States 11x
 6138452385: Philippines 1x
@@ -6279,10 +6540,12 @@ local DATA = [[
 6157731635: France 13x
 6157917543: Brazil 3x
 6159011370: Italy 1x
+6160143103: United States 1x
 6161327501: Philippines 1x
 6163100874: France 1x
 6163556648: Argentina 1x
 6164316438: Peru 1x
+6165512727: Indonesia 4x
 6165809355: Philippines 9x
 6167681479: Thailand 1x
 6168287721: Morocco 4x
@@ -6290,6 +6553,7 @@ local DATA = [[
 6170671226: Philippines 3x
 6170859249: Germany 1x
 6171982051: Cambodia 1x
+6172254393: India 2x
 6173034385: Italy 3x
 6175036495: Indonesia 2x
 6176182718: Tunisia 4x
@@ -6304,6 +6568,7 @@ local DATA = [[
 6182157862: Hungary 1x
 6185234290: Brazil 2x
 6189229468: Germany 1x
+6189535807: Australia 4x
 6189576717: Hungary 1x
 6189780967: Cambodia 5x
 6191715774: South Korea 4x
@@ -6317,6 +6582,7 @@ local DATA = [[
 6196688258: Algeria 5x
 6197263825: Peru 3x
 6199447711: South Korea 17x
+6200031891: Australia 7x
 6201290716: Spain 2x
 6201523155: Italy 3x
 6201894761: United States 1x
@@ -6328,6 +6594,7 @@ local DATA = [[
 6207006298: Cambodia 5x
 6207541995: United States 1x
 6209503841: Japan 2x
+6211363194: United States 1x
 6211744531: France 1x
 6212711271: Spain 1x
 6214116197: Italy 2x
@@ -6339,15 +6606,17 @@ local DATA = [[
 6219062638: United States 1x
 6220747554: India 3x
 6220756454: Hong Kong 2x
-6220897732: Malaysia 6x
+6220897732: Malaysia 10x
 6221063788: Philippines 2x
 6221158606: Japan 1x
 6221448940: Romania 1x
 6221787876: Indonesia 1x
 6222439449: Venezuela 1x
+6223035613: France 3x
 6226678183: Poland 2x
 6226695374: Italy 1x
 6227544825: United States 4x
+6227906071: Dominican Republic 3x
 6228256854: United States 1x
 6228684383: Brazil 1x
 6229594122: Philippines 7x
@@ -6357,6 +6626,7 @@ local DATA = [[
 7001655014: Indonesia 2x
 7003332890: India 1x
 7003621893: Germany 13x
+7005070861: Mexico 2x
 7005368624: Chile 3x
 7005398580: United States 3x
 7005446474: Poland 6x
@@ -6393,6 +6663,7 @@ local DATA = [[
 7040823292: Guam 1x
 7041233958: Algeria 2x
 7041551836: Poland 1x
+7042008425: Morocco 3x
 7043601516: Colombia 1x
 7043680228: Brazil 8x
 7044165284: Canada 3x
@@ -6407,6 +6678,7 @@ local DATA = [[
 7049311070: Hong Kong 1x
 7049421586: Cambodia 1x
 7049824007: India 4x
+7049978113: Philippines 2x
 7050909864: Philippines 2x
 7051142930: Hong Kong 2x
 7051865191: South Korea 1x
@@ -6419,6 +6691,7 @@ local DATA = [[
 7062139619: Australia 7x
 7062297007: Brazil 1x
 7063119600: Greece 4x
+7063522878: Israel 2x
 7063923844: Nicaragua 4x
 7065010732: Thailand 2x
 7065720605: United Kingdom 7x
@@ -6427,6 +6700,7 @@ local DATA = [[
 7067216097: Switzerland 1x
 7069204125: United States 2x
 7070652998: Italy 4x
+7070821023: Algeria 1x
 7071986402: South Korea 4x
 7074093433: South Korea 2x
 7075320718: Ecuador 1x
@@ -6454,7 +6728,7 @@ local DATA = [[
 7098483846: United States 2x
 7098504848: Mexico 2x
 7100060435: Serbia 1x
-7100485707: Canada 1x
+7100485707: Canada 2x
 7100966162: Czech Republic 2x
 7101852216: Puerto Rico 1x
 7102714163: France 1x
@@ -6462,6 +6736,7 @@ local DATA = [[
 7103996751: Hong Kong 1x
 7105823327: Malaysia 1x
 7105902644: Peru 1x
+7110914297: United States 1x
 7111114989: France 1x
 7111347912: Germany 4x
 7112429252: Germany 1x
@@ -6481,13 +6756,14 @@ local DATA = [[
 7121472330: United States 9x
 7121630649: Brazil 1x
 7124467712: Brazil 2x
-7126410654: United States 1x, Hong Kong 1x
+7126410654: United States 2x, Hong Kong 1x
 7127933743: Hong Kong 7x
 7128477196: Thailand 9x
 7129192958: Thailand 1x
 7129263746: Uzbekistan 5x
-7129488278: United Kingdom 14x
+7129488278: United Kingdom 15x
 7129596309: Spain 3x
+7130301481: Canada 5x
 7130516227: United Kingdom 2x
 7132929619: United States 13x
 7134317930: Italy 1x
@@ -6521,6 +6797,7 @@ local DATA = [[
 7170818557: Hong Kong 1x
 7171036715: Indonesia 1x
 7171093231: South Korea 6x
+7172808920: Russia 1x
 7173235473: Hong Kong 2x
 7175861443: Czech Republic 6x
 7176316548: Czech Republic 1x
@@ -6555,6 +6832,7 @@ local DATA = [[
 7198836420: Chile 2x
 7199507955: Mexico 3x
 7201780865: Finland 11x
+7202492605: Greece 2x
 7203881525: Hong Kong 1x
 7204689958: Taiwan 1x
 7204790639: Georgia 5x
@@ -6566,6 +6844,7 @@ local DATA = [[
 7206862295: Ecuador 1x
 7207475819: Philippines 4x
 7207706408: Japan 1x
+7207740082: Hong Kong 2x
 7207746845: Mexico 6x
 7208653873: United Kingdom 2x
 7209863239: Thailand 1x
@@ -6605,6 +6884,7 @@ local DATA = [[
 7239888367: Australia 3x
 7240744037: Morocco 2x
 7241112245: Indonesia 3x
+7241324185: Israel 1x
 7241415106: France 1x
 7242013347: Thailand 2x
 7242760499: Canada 1x
@@ -6612,6 +6892,7 @@ local DATA = [[
 7243891773: Philippines 1x
 7244436477: United States 1x
 7244783172: Kazakhstan 1x
+7245203882: United States 1x
 7246828667: Mexico 2x
 7248783064: Australia 1x
 7249137211: Singapore 1x
@@ -6637,7 +6918,7 @@ local DATA = [[
 7268178913: Belgium 7x
 7268420410: South Korea 1x
 7268839520: Romania 15x
-7269140636: Israel 1x
+7269140636: Israel 2x
 7269430662: United Kingdom 1x
 7271715628: Japan 3x
 7272860416: Malaysia 1x
@@ -6663,12 +6944,13 @@ local DATA = [[
 7285689198: Portugal 5x
 7288377303: Kyrgyzstan 2x
 7290453042: Argentina 3x
+7290609586: Norway 2x
 7290638594: Kazakhstan 2x
 7291009030: Guatemala 1x
 7291160125: United Kingdom 2x
 7292246857: Germany 1x
 7292753076: Mexico 1x
-7293036893: Peru 1x
+7293036893: Peru 3x
 7294954450: United States 2x
 7295046914: Romania 1x
 7295163093: Spain 1x
@@ -6676,7 +6958,7 @@ local DATA = [[
 7296240790: France 1x
 7296682511: Spain 1x
 7297440032: Brazil 1x
-7298549468: Poland 6x
+7298549468: Poland 7x
 7299081258: Italy 2x
 7299936680: Brazil 1x
 7301577330: Thailand 1x
@@ -6774,6 +7056,7 @@ local DATA = [[
 7380703176: Italy 2x
 7380793524: Japan 19x
 7381268751: Brazil 3x
+7381645370: Mexico 2x
 7382513057: South Korea 12x
 7383916443: Israel 2x
 7384697364: Bangladesh 4x
@@ -6784,7 +7067,7 @@ local DATA = [[
 7385573460: India 1x
 7387137525: United States 2x
 7388305612: India 1x
-7388500731: Canada 4x
+7388500731: Canada 5x
 7389704015: Finland 2x
 7391362916: Argentina 4x
 7396179418: India 2x
@@ -6801,7 +7084,7 @@ local DATA = [[
 7407943716: Malaysia 1x
 7409712270: Thailand 1x
 7411421267: Netherlands 1x
-7411489381: Poland 2x
+7411489381: Poland 4x
 7411924957: Argentina 2x
 7413369594: Morocco 2x
 7413987057: Finland 1x
@@ -6809,6 +7092,7 @@ local DATA = [[
 7415338666: Nepal 1x
 7415368213: Morocco 1x
 7415946724: Malaysia 1x
+7416533932: Indonesia 2x
 7417028355: Malaysia 11x
 7418305668: Spain 2x
 7418607471: Brazil 2x
@@ -6845,6 +7129,7 @@ local DATA = [[
 7449192668: South Korea 3x
 7449664712: Canada 2x
 7454451702: United States 1x
+7454923293: India 6x
 7454998933: United Kingdom 1x
 7457122009: South Korea 1x
 7457150631: India 3x
@@ -6884,7 +7169,9 @@ local DATA = [[
 7488874681: Germany 1x
 7489037790: United States 3x
 7490848757: Nepal 2x
+7491855786: United Kingdom 2x
 7493679548: Philippines 2x
+7493858500: Japan 1x
 7493876862: Australia 1x
 7496273542: Japan 1x
 7497133967: Japan 1x
@@ -6901,6 +7188,7 @@ local DATA = [[
 7514604406: Thailand 1x
 7516633738: Spain 5x
 7517763069: United States 1x
+7517967970: Philippines 2x
 7518581911: France 6x
 7520714657: India 12x
 7521724662: India 1x
@@ -6915,6 +7203,7 @@ local DATA = [[
 7528057303: Indonesia 9x
 7528209234: Brazil 1x
 7529282292: Philippines 1x
+7529559279: Philippines 13x
 7531089488: South Korea 7x
 7531684934: South Africa 1x
 7532072268: France 6x
@@ -6931,7 +7220,7 @@ local DATA = [[
 7545195488: Australia 1x
 7547200628: Mexico 2x
 7547706347: United Kingdom 8x
-7548382517: Canada 13x
+7548382517: Canada 14x
 7548469342: Indonesia 1x
 7549245942: Indonesia 2x
 7550879029: Romania 1x
@@ -6954,12 +7243,14 @@ local DATA = [[
 7575652292: Indonesia 3x
 7575996047: India 2x
 7576132783: Germany 3x
+7576355361: Mexico 3x
 7576467408: Mexico 1x
 7576787473: Poland 3x
 7576994433: Thailand 3x
 7577361399: Indonesia 1x
 7581587021: India 2x
 7582096548: Morocco 1x
+7585340069: India 6x
 7586707608: India 2x
 7587576630: United States 18x
 7588156325: Italy 2x
@@ -6977,6 +7268,7 @@ local DATA = [[
 7595682708: Indonesia 6x
 7596079884: United States 1x
 7596683839: Romania 3x
+7596849266: United States 1x
 7597963798: India 1x
 7598004194: Sweden 4x
 7599220250: United Kingdom 1x
@@ -7009,6 +7301,7 @@ local DATA = [[
 7625063510: Guatemala 1x
 7625688485: Hong Kong 1x
 7626780817: Germany 9x
+7627059420: United States 1x
 7627220560: Mexico 6x
 7629782839: Hong Kong 1x
 7632977368: South Korea 6x
@@ -7051,6 +7344,7 @@ local DATA = [[
 7669273378: Germany 1x
 7669879037: Albania 1x
 7670234710: South Korea 2x
+7671573954: Brazil 4x
 7671902406: Brazil 3x
 7673390199: Guatemala 6x
 7673593493: Puerto Rico 4x
@@ -7088,7 +7382,7 @@ local DATA = [[
 7708922873: Malaysia 3x
 7709814657: Brazil 1x
 7710137619: India 1x
-7710254343: Germany 1x
+7710254343: Germany 3x
 7712461375: Indonesia 2x
 7713723154: Canada 2x
 7713821464: Indonesia 1x
@@ -7129,7 +7423,7 @@ local DATA = [[
 7749498791: Italy 5x
 7750567077: United States 2x
 7750734453: Brazil 2x
-7751324893: United States 1x
+7751324893: United States 6x
 7752669614: Pakistan 1x
 7752988961: Poland 4x
 7753201301: Poland 2x
@@ -7140,6 +7434,7 @@ local DATA = [[
 7754664383: Argentina 1x
 7754955962: Italy 1x
 7755086199: United States 2x
+7756411648: United States 1x
 7758093960: United States 5x
 7758609239: Indonesia 1x
 7759050669: United States 2x
@@ -7192,6 +7487,7 @@ local DATA = [[
 7802249120: Indonesia 6x
 7803004225: United Kingdom 2x
 7803604254: Brazil 2x
+7803980513: Romania 1x
 7804029394: Morocco 1x
 7804265730: Brazil 4x
 7805581225: Japan 2x
@@ -7206,6 +7502,7 @@ local DATA = [[
 7811797666: Thailand 3x
 7812220952: Indonesia 9x
 7813053985: India 1x
+7813519086: United Kingdom 5x
 7814762668: Sweden 2x
 7818460458: South Korea 2x
 7819401981: Indonesia 1x
@@ -7214,6 +7511,7 @@ local DATA = [[
 7821286701: Greece 1x
 7821519756: United Kingdom 5x
 7822017687: Brazil 1x
+7822558318: United States 2x
 7822636094: Peru 1x
 7823414252: Australia 1x
 7823433222: New Zealand 1x
@@ -7225,6 +7523,7 @@ local DATA = [[
 7826758400: Mexico 1x
 7827050139: Peru 3x
 7827612040: Mexico 5x
+7827668630: France 4x
 7828321016: South Korea 2x
 7828441811: Indonesia 1x
 7828997877: Malaysia 3x
@@ -7252,6 +7551,7 @@ local DATA = [[
 7840503588: Morocco 3x
 7842112349: Japan 2x
 7842649261: Mexico 1x
+7843212385: India 6x
 7843920648: India 1x
 7844781973: Thailand 1x
 7845382258: Brazil 2x
@@ -7259,6 +7559,7 @@ local DATA = [[
 7845619021: Argentina 1x
 7846196457: Tunisia 1x
 7846733502: Thailand 1x
+7847665016: France 1x
 7850171009: Indonesia 1x
 7851073411: India 1x
 7851808737: Australia 1x
@@ -7270,6 +7571,7 @@ local DATA = [[
 7855985087: India 1x
 7856629300: Brazil 2x
 7856855240: India 4x
+7857877115: United States 1x
 7859847100: Australia 1x
 7860170969: Chile 1x
 7860884487: Japan 1x
@@ -7288,6 +7590,7 @@ local DATA = [[
 7866318213: Bolivia 2x
 7866481777: Mexico 1x
 7866779256: United States 1x
+7867455357: United States 1x
 7867728008: Japan 8x
 7868269341: France 1x
 7871540324: Cambodia 2x
@@ -7300,6 +7603,7 @@ local DATA = [[
 7878935798: Morocco 6x
 7879585747: Israel 1x
 7879666584: Japan 2x
+7879852485: United States 3x
 7880739718: Thailand 1x
 7880948798: Philippines 1x
 7881069589: Peru 2x
@@ -7316,17 +7620,23 @@ local DATA = [[
 7885986323: France 1x
 7888134435: Netherlands 2x
 7889007544: Italy 9x
+7889908980: Brazil 8x
 7890334434: Japan 1x
 7890594824: Malaysia 1x
 7890816401: France 1x
 7892572916: Brazil 1x
+7893036002: Uruguay 4x
+7893085144: United States 1x
 7893113646: Canada 2x
+7893272871: Mexico 2x
 7894112886: Uzbekistan 1x
 7895649193: Chile 2x
 7896597514: Peru 2x
+7897413878: Australia 3x
 7898199187: Hong Kong 1x
 7899300254: India 2x
 7899329369: India 1x
+7900820869: India 2x
 7901148853: United Kingdom 1x
 7901786775: Peru 3x
 7902723538: South Korea 1x
@@ -7387,10 +7697,12 @@ local DATA = [[
 7941068521: Indonesia 1x
 7941190385: India 1x
 7942457009: Germany 7x
+7942910099: Colombia 2x
 7946293971: South Korea 4x
 7946480491: India 14x
 7946730384: Morocco 3x
 7948912491: United States 1x
+7949584702: India 1x
 7951289383: United States 1x
 7951461981: Mexico 1x
 7952426366: Spain 1x
@@ -7400,6 +7712,7 @@ local DATA = [[
 7954262761: Pakistan 2x
 7956624429: South Korea 2x
 7957111616: Colombia 2x
+7957270931: Portugal 6x
 7959419159: Costa Rica 1x
 7961326252: South Korea 6x
 7961436716: India 1x
@@ -7411,6 +7724,7 @@ local DATA = [[
 7966630526: Hong Kong 4x
 7969415692: Mexico 1x
 7970866322: Japan 2x
+7971851802: Singapore 2x
 7974961505: Hungary 2x
 7974985338: Mexico 1x
 7975714439: Indonesia 1x
@@ -7418,6 +7732,7 @@ local DATA = [[
 7976668708: Tunisia 3x
 7976785424: Slovakia 1x
 7977918609: United States 1x
+7978364465: Hong Kong 2x
 7979846171: Thailand 3x
 7980837647: Moldova 2x
 7981538758: Brazil 1x
@@ -7441,6 +7756,7 @@ local DATA = [[
 8000205436: Romania 2x
 8001061387: India 4x
 8001879733: France 15x
+8002232626: United States 1x
 8002865816: Canada 1x
 8003182643: Costa Rica 2x
 8003440131: Kazakhstan 1x
@@ -7470,6 +7786,7 @@ local DATA = [[
 8023031436: Pakistan 3x
 8023976131: United Kingdom 1x, Vietnam 2x
 8025354530: Argentina 1x
+8025642027: United States 3x
 8029895699: France 1x
 8032010664: Japan 1x
 8033440413: United Kingdom 2x
@@ -7517,6 +7834,7 @@ local DATA = [[
 8066477656: Czech Republic 1x
 8066480568: Brazil 3x
 8067073203: Belgium 2x
+8067804785: United States 2x
 8068508137: Brazil 2x
 8068637707: Netherlands 1x
 8069653315: India 2x
@@ -7537,6 +7855,7 @@ local DATA = [[
 8085893203: Italy 1x
 8085982454: Greece 1x
 8088258811: Mexico 2x
+8089946187: Brazil 3x
 8090338095: South Korea 3x
 8090416868: Philippines 2x
 8090779828: United States 2x
@@ -7572,6 +7891,7 @@ local DATA = [[
 8122007883: Hong Kong 3x
 8122336488: Sweden 1x
 8122652688: South Korea 1x
+8122864598: Spain 5x
 8122895636: Dominican Republic 1x
 8124156060: Thailand 1x
 8125682260: New Zealand 2x
@@ -7616,13 +7936,16 @@ local DATA = [[
 8160428707: France 1x
 8160490736: France 1x
 8160599101: Indonesia 4x
+8160619663: Brazil 1x
 8162099687: Japan 5x
+8163053133: United States 1x
 8163786127: United States 1x
 8164754396: Mexico 3x
 8166301825: Mexico 2x
 8167409118: Mexico 6x
 8167416913: France 1x
 8167941285: Poland 1x
+8168822111: Indonesia 3x
 8169837714: Philippines 14x
 8171609008: Hong Kong 1x
 8172688767: Brazil 8x
@@ -7661,8 +7984,10 @@ local DATA = [[
 8202737071: Mauritius 1x
 8205674566: India 5x
 8206431741: Japan 5x
+8207647078: United States 5x
 8209150463: Colombia 3x
 8209596558: Hong Kong 7x
+8210041171: Philippines 2x
 8211187469: Türkiye 1x
 8212090255: Indonesia 10x
 8212134307: Poland 2x
@@ -7675,7 +8000,7 @@ local DATA = [[
 8216712189: Germany 6x
 8223322466: New Zealand 15x
 8224471858: India 2x
-8224887506: Australia 2x
+8224887506: Australia 3x
 8225515542: Indonesia 4x
 8228236529: Morocco 1x
 8228841755: United States 2x
@@ -7729,6 +8054,7 @@ local DATA = [[
 8275023472: Belgium 1x
 8275285880: Germany 2x
 8275351459: Brazil 3x
+8275964136: Honduras 2x
 8276369287: France 1x
 8276838216: Japan 2x
 8278154104: Philippines 1x
@@ -7754,6 +8080,7 @@ local DATA = [[
 8306908327: Mexico 3x
 8308147839: France 2x
 8308527196: Philippines 1x
+8309134769: Indonesia 2x
 8309359675: South Korea 2x
 8309614094: France 7x
 8310180982: Indonesia 4x
@@ -7766,6 +8093,8 @@ local DATA = [[
 8323567328: Russia 3x
 8325468403: India 1x
 8328203587: France 10x
+8328939660: Spain 2x
+8330974438: United States 2x
 8331749264: Brazil 1x
 8333381120: Kazakhstan 1x
 8333694136: Thailand 1x
@@ -7779,7 +8108,7 @@ local DATA = [[
 8342524258: Hong Kong 1x
 8344496217: Germany 5x
 8344870054: Brazil 1x
-8345442194: Germany 2x
+8345442194: Germany 4x
 8345802892: Kazakhstan 2x
 8347769691: South Korea 6x
 8348597279: India 1x
@@ -7790,6 +8119,7 @@ local DATA = [[
 8351102636: Thailand 1x
 8353049842: Thailand 3x
 8354236529: United States 1x
+8354467005: United Kingdom 4x
 8354908079: Brazil 1x
 8357051076: Colombia 1x
 8357767197: Philippines 2x
@@ -7837,6 +8167,7 @@ local DATA = [[
 8396311282: Peru 15x
 8396694332: United States 1x
 8398110239: United States 1x
+8398142713: Norway 1x
 8401281985: Thailand 1x
 8401705947: Ukraine 8x
 8402315371: France 1x
@@ -7877,7 +8208,7 @@ local DATA = [[
 8436338003: South Korea 1x
 8436970569: Denmark 4x
 8437463147: Suriname 1x
-8438108980: Netherlands 1x
+8438108980: United States 1x, Netherlands 1x
 8438324563: Mexico 3x
 8438485272: Thailand 1x
 8438550406: Mexico 3x
@@ -7907,6 +8238,7 @@ local DATA = [[
 8460739334: Poland 4x
 8461276520: Ukraine 1x
 8462014985: Argentina 1x
+8463963627: Philippines 3x
 8464252315: Indonesia 1x
 8465646425: United States 1x
 8466789413: Mexico 4x
@@ -7914,6 +8246,7 @@ local DATA = [[
 8469240562: Malaysia 2x
 8469801095: Indonesia 4x
 8470062614: Indonesia 1x
+8470586313: France 2x
 8470967008: United States 1x
 8471130192: Uzbekistan 1x
 8472491238: India 1x
@@ -7927,6 +8260,7 @@ local DATA = [[
 8479319217: Pakistan 4x
 8482631903: Argentina 1x
 8486441138: Kazakhstan 3x
+8486765744: United States 7x
 8486927430: Hong Kong 1x
 8487522289: Germany 1x
 8487548459: United Kingdom 3x
@@ -7935,6 +8269,7 @@ local DATA = [[
 8492506956: Thailand 1x
 8493537805: Yemen 1x
 8494281561: Croatia 1x
+8496021279: United States 9x
 8496484638: Mexico 1x
 8498502238: Thailand 9x
 8499785161: Indonesia 1x
@@ -7969,7 +8304,7 @@ local DATA = [[
 8524086089: Colombia 1x
 8526939907: Japan 2x
 8527481093: Hong Kong 13x
-8527783499: India 1x
+8527783499: India 2x
 8528697019: United Kingdom 1x
 8529046765: Philippines 3x
 8531096415: Thailand 1x
@@ -7985,8 +8320,10 @@ local DATA = [[
 8537228188: India 19x
 8537256237: Spain 1x
 8537420770: Tunisia 1x
+8537466268: Philippines 11x
 8539147693: Philippines 1x
 8539453429: Belgium 1x
+8540124611: United States 1x
 8540237019: Romania 3x
 8541619907: United Kingdom 1x
 8542251432: Philippines 2x
@@ -8018,14 +8355,17 @@ local DATA = [[
 8573381961: Japan 2x
 8575045958: Nepal 2x
 8578355176: Indonesia 3x
+8578936760: Philippines 1x
 8582238559: Brazil 4x
 8585439419: Estonia 1x
 8587139550: India 3x
 8587268069: Greece 1x
 8588216398: Pakistan 1x
 8589115164: Indonesia 3x
+8589612819: Indonesia 2x
 8590107075: Ecuador 1x
 8590616454: Indonesia 2x
+8591851870: India 1x
 8592492343: India 2x
 8593808532: Italy 1x
 8594250293: India 1x
@@ -8039,6 +8379,7 @@ local DATA = [[
 8599786447: Philippines 1x
 8600189344: Philippines 3x
 8601282046: Morocco 2x
+8602443246: Hong Kong 1x
 8602455605: Venezuela 1x
 8602995867: Philippines 1x
 8603383455: Philippines 1x
@@ -8107,6 +8448,7 @@ local DATA = [[
 8660723340: India 10x
 8661822855: Philippines 1x
 8662111087: Indonesia 6x
+8663809846: United States 1x
 8664759398: Colombia 4x
 8664871173: Brazil 1x
 8665555547: Pakistan 1x
@@ -8145,6 +8487,7 @@ local DATA = [[
 8694252937: Spain 1x
 8694906006: Brazil 3x
 8695609362: Germany 4x
+8695987133: Philippines 1x
 8696899201: Germany 1x
 8697262123: Thailand 7x
 8697923200: Guatemala 2x
@@ -8158,6 +8501,7 @@ local DATA = [[
 8705769299: Philippines 2x
 8706270603: Italy 1x
 8707078576: India 2x
+8707660013: Morocco 3x
 8712132775: Indonesia 2x
 8713354444: Thailand 4x
 8713670572: Thailand 2x
@@ -8181,6 +8525,7 @@ local DATA = [[
 8727056723: Argentina 1x
 8727272533: Germany 2x
 8728442940: Indonesia 1x
+8729047015: Malaysia 3x
 8729543295: Indonesia 3x
 8730093161: Morocco 2x
 8730305536: Belgium 9x
@@ -8239,7 +8584,7 @@ local DATA = [[
 8770791407: United Kingdom 3x
 8770880441: Philippines 1x
 8772703533: Spain 2x
-8772924616: United Kingdom 5x
+8772924616: United Kingdom 7x
 8773431261: Indonesia 1x
 8773826140: United States 2x
 8774454167: Indonesia 8x
@@ -8253,7 +8598,7 @@ local DATA = [[
 8778018557: Morocco 1x
 8779075361: United States 1x
 8780068992: Brazil 1x
-8780280004: India 2x
+8780280004: India 10x
 8780759392: South Korea 1x
 8780762062: United States 2x
 8780980470: Colombia 1x
@@ -8267,6 +8612,7 @@ local DATA = [[
 8785966785: France 2x
 8786261295: Hong Kong 1x
 8786341984: France 2x
+8786630762: Spain 1x
 8787963160: Chile 3x
 8788240201: United States 12x
 8790924941: India 2x
@@ -8300,9 +8646,11 @@ local DATA = [[
 8810924083: Indonesia 2x
 8811606656: Morocco 2x
 8815046525: Argentina 4x
+8816302834: Morocco 4x
 8816469091: Indonesia 8x
 8816722382: Italy 1x
 8817830302: Brazil 2x
+8819646787: France 1x
 8819864985: France 1x
 8820442391: Dominican Republic 1x
 8821449905: Honduras 1x
@@ -8333,7 +8681,8 @@ local DATA = [[
 8843670602: Japan 1x
 8843677038: Brazil 3x
 8845129473: Chile 1x
-8845129551: Algeria 7x
+8845129551: Algeria 10x
+8845593668: United States 3x
 8846236159: Venezuela 1x
 8846369054: Hong Kong 2x
 8846370745: Japan 1x
@@ -8369,6 +8718,7 @@ local DATA = [[
 8870898223: Croatia 3x
 8870913559: Greece 1x
 8870960322: Austria 1x
+8871186592: Brazil 1x
 8872071663: United States 3x
 8872292974: Ecuador 9x
 8873264875: India 2x
@@ -8407,7 +8757,7 @@ local DATA = [[
 8893903132: Indonesia 1x
 8894155472: India 2x
 8894173156: Philippines 3x
-8895712017: Colombia 5x
+8895712017: Colombia 8x
 8896063761: Spain 13x
 8896207395: United States 1x
 8896844567: Germany 1x
@@ -8459,6 +8809,8 @@ local DATA = [[
 8935115182: Japan 1x
 8936608596: South Korea 1x
 8938130238: Italy 2x
+8940515837: Brazil 1x
+8941389336: United States 3x
 8942330091: Malaysia 7x
 8943228408: Indonesia 11x
 8944525763: Australia 1x
@@ -8487,7 +8839,7 @@ local DATA = [[
 8962950030: United States 9x
 8964082494: Switzerland 1x
 8966807028: United States 8x
-8967140769: Singapore 4x
+8967140769: Singapore 5x
 8967349143: Brazil 1x
 8967819808: India 1x
 8971971246: India 1x
@@ -8498,6 +8850,7 @@ local DATA = [[
 8974389566: Peru 2x
 8974390613: Brazil 1x
 8975311915: France 1x
+8975877816: United States 2x
 8976765497: Philippines 1x
 8977310525: France 2x
 8979487879: Pakistan 1x
@@ -8518,6 +8871,7 @@ local DATA = [[
 8987985090: South Korea 3x
 8989446910: India 1x
 8990542559: Spain 3x
+8991803892: Philippines 1x
 8992424251: Indonesia 1x
 8993304795: Pakistan 3x
 8994475238: Kazakhstan 5x
@@ -8535,6 +8889,7 @@ local DATA = [[
 9002202602: Italy 5x
 9002337321: India 4x
 9003822234: Belgium 1x
+9005320017: Bolivia 1x
 9005484759: Sweden 1x
 9008948798: Brazil 2x
 9009546619: Venezuela 1x
@@ -8543,7 +8898,7 @@ local DATA = [[
 9011177720: India 4x
 9014986787: Colombia 4x
 9015297392: United States 4x
-9016934834: Venezuela 9x
+9016934834: Venezuela 11x
 9016941371: Chile 1x
 9018947709: Uruguay 8x
 9019922553: Indonesia 3x
@@ -8577,6 +8932,7 @@ local DATA = [[
 9044439742: Venezuela 1x
 9045463090: Indonesia 2x
 9046691696: Cambodia 1x
+9046751217: United States 1x
 9048909092: Indonesia 6x
 9049126900: Malaysia 1x
 9051309626: United Kingdom 1x
@@ -8595,6 +8951,7 @@ local DATA = [[
 9067702458: Canada 3x
 9067984555: United States 1x
 9069353420: United States 2x
+9070041404: United States 2x
 9070290461: United States 1x
 9070372409: Indonesia 4x
 9073873583: Thailand 7x
@@ -8622,11 +8979,13 @@ local DATA = [[
 9093014683: India 1x
 9093186531: India 5x
 9093762734: Kenya 1x
+9094198640: Taiwan 1x
 9095670049: United Kingdom 6x
 9095691778: Cambodia 1x
 9096987166: Germany 1x
 9097856922: Costa Rica 3x
 9099361556: Indonesia 17x
+9100463776: Thailand 1x
 9101369476: Morocco 1x
 9103308145: South Africa 1x
 9103460816: Italy 7x
@@ -8655,6 +9014,7 @@ local DATA = [[
 9130052894: India 1x
 9130584909: Libya 2x
 9132276604: Philippines 1x
+9134627916: United States 1x
 9135290085: United States 1x
 9135701188: Brunei Darussalam 5x
 9136032672: Philippines 1x
@@ -8667,7 +9027,7 @@ local DATA = [[
 9146031685: Serbia 3x
 9146843843: Mexico 5x
 9147923522: Indonesia 1x
-9148262272: United States 1x
+9148262272: United States 2x
 9148636512: Norway 11x
 9148760017: Malaysia 2x
 9150030681: Japan 1x
@@ -8696,7 +9056,7 @@ local DATA = [[
 9182827810: Indonesia 1x
 9186610124: India 5x
 9187720023: Argentina 2x
-9188467578: Peru 9x
+9188467578: Peru 14x
 9189529465: Philippines 2x
 9189984337: United Kingdom 1x
 9190482636: Philippines 2x
@@ -8736,19 +9096,21 @@ local DATA = [[
 9230085789: Bulgaria 1x
 9230453343: Indonesia 2x
 9232246960: India 6x
+9232812895: Türkiye 1x
 9233614797: Spain 1x
 9236362658: Honduras 1x
 9237677010: United States 1x
 9238255355: Mexico 2x
 9244880496: Japan 4x
 9250311371: India 1x
-9250469846: Azerbaijan 8x
+9250469846: Azerbaijan 9x
 9250757069: Belgium 1x
 9251936862: United States 1x
 9253479201: Israel 3x
 9253516887: Indonesia 1x
 9253648566: Canada 1x
 9255503909: Mexico 1x
+9257102915: Libya 3x
 9259745290: Malaysia 1x
 9262549944: Philippines 2x
 9263531641: Germany 2x
@@ -8814,6 +9176,7 @@ local DATA = [[
 9346575968: Malaysia 1x
 9348823846: France 2x
 9349784629: Greece 1x
+9350227076: Cambodia 1x
 9350850767: Austria 2x
 9355482972: United Kingdom 3x
 9356605751: Peru 7x
@@ -8821,6 +9184,7 @@ local DATA = [[
 9357171963: Indonesia 4x
 9357656600: Sweden 1x
 9358066630: South Korea 6x
+9361322221: Germany 2x
 9363026961: Italy 1x
 9363780967: United States 3x
 9365287588: Togo 3x
@@ -8838,6 +9202,7 @@ local DATA = [[
 9379607016: South Korea 1x
 9382085848: India 7x
 9382371922: Antarctica 8x
+9382661594: Brazil 4x
 9384796662: United States 1x
 9386390328: Indonesia 4x
 9386755004: India 1x
@@ -8912,12 +9277,14 @@ local DATA = [[
 9459296733: Romania 1x
 9459471592: Tunisia 1x
 9459589422: India 13x
+9463404351: Colombia 1x
 9463887178: Mexico 4x
 9465530683: Mexico 1x
 9466793058: France 2x
 9467568681: Malaysia 2x
 9468847158: Spain 1x
 9469094816: Greece 1x
+9470603815: Côte d'Ivoire 5x
 9471159534: Argentina 3x
 9471487408: Paraguay 10x
 9473861693: United States 1x
@@ -8957,6 +9324,7 @@ local DATA = [[
 9510597832: Uzbekistan 11x
 9512306018: France 1x
 9513626800: Venezuela 2x
+9513945970: United States 1x
 9514047855: India 2x
 9515394375: Italy 5x
 9515491799: Mexico 5x
@@ -8967,6 +9335,7 @@ local DATA = [[
 9519227979: Colombia 1x
 9519780415: Morocco 1x
 9521105450: Brazil 1x, United States 1x
+9521470345: Colombia 1x
 9521903972: Mexico 3x
 9522883759: Philippines 1x
 9525702867: India 3x
@@ -8978,6 +9347,7 @@ local DATA = [[
 9532461984: Australia 1x
 9532942318: Israel 1x
 9533212761: Australia 1x
+9535667900: Ukraine 3x
 9535891805: Germany 8x
 9538462030: Venezuela 2x
 9538466055: Philippines 1x
@@ -8997,6 +9367,7 @@ local DATA = [[
 9559566372: United States 1x
 9560390155: Thailand 3x
 9561049720: Australia 3x
+9562568783: United States 2x
 9563308933: Nepal 1x
 9563671952: Indonesia 3x
 9565617561: Pakistan 1x
@@ -9006,14 +9377,17 @@ local DATA = [[
 9575881102: Dominican Republic 8x
 9576490734: Mexico 1x
 9576551881: Thailand 2x
+9577137202: Thailand 1x
 9577992504: Indonesia 10x
 9579360523: United Kingdom 1x
+9581293120: United States 1x
 9584538324: Pakistan 1x
 9585153185: South Korea 1x
 9588084736: Indonesia 3x
 9589336683: Finland 1x
 9591062877: Spain 1x
 9591142176: Argentina 3x
+9595270377: Philippines 1x
 9595715065: Colombia 1x
 9595900089: India 5x
 9596815974: France 2x
@@ -9041,13 +9415,14 @@ local DATA = [[
 9629342010: Spain 1x
 9631395957: Malaysia 4x
 9635138329: Mexico 4x
+9635318285: Brazil 4x
 9635999892: India 1x
 9637155782: United States 2x
 9638349312: Argentina 1x
 9639269861: India 15x
 9639440122: Indonesia 2x
 9642090912: Malaysia 2x
-9644434028: Brazil 2x
+9644434028: Brazil 6x
 9644543367: Germany 2x
 9646156673: Tunisia 2x
 9646954457: United States 1x
@@ -9072,6 +9447,7 @@ local DATA = [[
 9672949656: Hong Kong 1x
 9672988293: Malaysia 2x
 9674454938: South Korea 8x
+9674620049: United Kingdom 4x
 9675205634: India 6x
 9675642146: South Korea 2x
 9675803518: Serbia 1x
@@ -9133,6 +9509,7 @@ local DATA = [[
 9728978680: Indonesia 1x
 9729548189: United States 1x
 9732906669: France 3x
+9736183116: Pakistan 1x
 9736302414: Argentina 2x
 9738228448: Indonesia 1x
 9738713598: Malaysia 12x
@@ -9179,8 +9556,10 @@ local DATA = [[
 9797774193: Brazil 1x
 9798777862: Indonesia 1x
 9803059866: India 1x
+9804036024: Brazil 3x
 9806793359: Italy 1x
 9807635812: Sweden 1x
+9808809476: United States 1x
 9809118632: Brazil 11x
 9809775997: India 3x
 9811480044: Malaysia 1x
@@ -9221,9 +9600,11 @@ local DATA = [[
 9861264147: Japan 1x
 9862656788: Azerbaijan 3x
 9863038055: Brazil 2x
+9864394208: United States 1x
 9864410870: France 1x
 9865367537: Brazil 2x
 9867810053: Chile 1x
+9869268781: Hong Kong 1x
 9873017381: Netherlands 3x
 9874072984: Australia 2x
 9874874486: Germany 2x
@@ -9242,6 +9623,7 @@ local DATA = [[
 9893192152: United States 1x
 9898090327: Philippines 1x
 9901530815: Laos 1x
+9902996054: South Korea 1x
 9903914319: Malaysia 2x
 9905286847: Philippines 1x
 9905930988: Thailand 3x
@@ -9264,15 +9646,18 @@ local DATA = [[
 9930185004: Spain 2x
 9930601073: Taiwan 1x
 9931452049: Indonesia 5x
-9931505897: Ukraine 6x
+9931505897: Ukraine 7x
 9932311086: Pakistan 2x
+9934637947: United States 1x
 9935175358: United States 2x
+9935373258: Malaysia 2x
 9935952512: Peru 1x
 9936968327: Hong Kong 7x
-9938108366: Germany 1x
+9938108366: Germany 2x
 9939910246: Morocco 1x
 9940893559: Hong Kong 1x
 9943862363: Thailand 1x
+9946363867: Jamaica 1x
 9946493787: Dominican Republic 1x
 9946947814: Argentina 8x
 9947433407: Mexico 10x
@@ -9298,9 +9683,11 @@ local DATA = [[
 9970343580: United States 1x
 9971242470: Argentina 1x
 9971370995: United States 3x
+9971472664: Venezuela 1x
 9975682344: United States 1x
 9976320470: Ukraine 3x
 9977444765: Brazil 1x
+9977864674: Brazil 1x
 9979126986: Indonesia 1x
 9979857116: Uzbekistan 8x
 9982715719: Brazil 2x
@@ -9323,14 +9710,17 @@ local DATA = [[
 10002983064: United Kingdom 1x
 10005145174: Japan 6x
 10006500779: Netherlands 26x
+10006562024: United States 1x
 10007564201: Mexico 4x
 10009600768: Malaysia 3x
 10010400749: Colombia 4x
 10011995415: Poland 2x
 10012216779: Chile 2x
 10013890335: Bolivia 1x
+10014027289: Bolivia 2x
 10016121223: Japan 1x
 10016433851: Czech Republic 2x
+10017261912: South Africa 19x
 10017980115: Italy 1x
 10018765759: Japan 1x
 10018886380: Spain 22x
@@ -9367,7 +9757,7 @@ local DATA = [[
 10045513472: Thailand 1x
 10049189248: Pakistan 4x
 10050069336: Guatemala 1x
-10050109512: United Kingdom 7x
+10050109512: United Kingdom 10x
 10051285429: Malaysia 1x
 10051832548: Cambodia 8x
 10052047212: Indonesia 2x
@@ -9404,18 +9794,20 @@ local DATA = [[
 10090195996: South Korea 1x
 10094481613: Venezuela 2x
 10095487388: India 1x
-10095665583: Sweden 94x, United States 10x
+10095665583: Sweden 99x, United States 10x
 10095680347: United States 2x
 10096229927: Kazakhstan 3x
 10096415237: Japan 8x
 10096852784: Hong Kong 5x
 10097346138: India 3x
+10097767081: Puerto Rico 2x
 10098600920: Indonesia 1x
 10099351575: Montenegro 5x
 10099438665: United Kingdom 1x
 10100030503: Peru 2x
 10100083302: United States 2x
 10101148226: Peru 1x
+10101173944: Canada 7x
 10101545356: Philippines 1x
 10102347533: Indonesia 2x
 10102998375: India 1x
@@ -9424,13 +9816,16 @@ local DATA = [[
 10108609054: Indonesia 3x
 10108990819: Germany 1x
 10109812952: Czech Republic 2x
+10110455188: Algeria 2x
 10114395818: South Korea 2x
 10114912684: South Africa 3x
 10115787261: Germany 6x
 10115907227: Peru 17x
+10116451764: United States 1x
 10119896925: Germany 5x
 10120540168: India 6x
 10121874060: Brazil 2x
+10122034539: Peru 2x
 10122045586: Mexico 2x
 10122104622: Mexico 2x
 10122256987: Taiwan 1x
@@ -9456,6 +9851,7 @@ local DATA = [[
 10140217914: Germany 1x
 10140469566: Italy 1x
 10140546247: Brazil 3x
+10141360324: United States 1x
 10141416245: Brazil 1x
 10142559529: Philippines 4x
 10143789511: India 1x
@@ -9554,7 +9950,7 @@ local DATA = [[
 10206197444: Sweden 7x
 10208452505: United States 4x
 10209375028: Chile 2x
-10209872854: United Kingdom 3x, Wales United Kingdom 1x
+10209872854: United Kingdom 4x, Wales United Kingdom 1x
 10210028338: United States 1x
 10210416322: United States 1x
 10210581792: France 1x
@@ -9567,6 +9963,7 @@ local DATA = [[
 10219683087: Colombia 2x
 10220567806: Germany 13x
 10221158387: Brazil 7x
+10223377810: Canada 1x
 10225673000: Germany 1x
 10226529328: India 2x
 10227525903: Japan 1x
@@ -9579,6 +9976,7 @@ local DATA = [[
 10231152332: Argentina 1x
 10232342530: Chile 2x
 10233820147: India 1x
+10234124845: India 3x
 10234456339: Taiwan 3x
 10235083922: India 2x
 10235110152: India 2x
@@ -9596,6 +9994,7 @@ local DATA = [[
 10243875896: Ecuador 4x
 10244028839: Costa Rica 1x
 10244624125: Jamaica 1x
+10244798892: Mexico 1x
 10246152180: Japan 1x
 10247431252: Philippines 6x
 10248183660: France 13x
@@ -9619,7 +10018,7 @@ local DATA = [[
 10263165822: Latvia 1x
 10263686600: Malaysia 8x
 10264293837: Serbia 3x
-10265710986: Romania 2x
+10265710986: Romania 3x
 10266958820: Mexico 1x
 10268878415: Hong Kong 2x
 10269675976: India 3x
@@ -9631,12 +10030,16 @@ local DATA = [[
 10272717588: Kazakhstan 1x
 10272718064: United States 3x
 10272763453: United Kingdom 1x
+10273380695: United States 1x
 10273778555: Peru 1x
 10275151992: Kazakhstan 1x
 10277264679: India 5x
 10277300556: Brazil 3x
 10277842768: France 1x
+10278677483: Israel 1x
+10279987765: Brazil 1x
 10280409700: Mexico 3x
+10281738293: Indonesia 3x
 10281886179: Indonesia 1x
 10282984321: Hungary 1x
 10283526701: Italy 1x
@@ -9682,6 +10085,7 @@ local DATA = [[
 10305857844: Hong Kong 1x
 10306448504: Philippines 1x
 10307028770: Trinidad and Tobago 1x
+10307105491: Indonesia 2x
 10307444866: India 1x
 10308331606: Israel 3x
 10310373892: Serbia 2x
@@ -9698,11 +10102,13 @@ local DATA = [[
 10319934779: Italy 5x
 10320864735: India 1x
 10321923230: Germany 4x
+10322100440: Australia 1x
 10322246626: Guatemala 1x
 10322466676: Japan 2x
 10323288636: Canada 3x
 10324096058: Brazil 3x
 10325977781: Italy 2x
+10326261384: Thailand 2x
 10327027978: Poland 3x
 10328121659: United States 1x
 10328567302: Brazil 1x
@@ -9736,9 +10142,11 @@ local DATA = [[
 10344839351: Japan 1x
 10345098908: India 1x
 10345200150: United States 19x
+10346677903: Indonesia 4x
 10347863798: Azerbaijan 3x
 10348307594: Pakistan 1x
 10348320668: Sweden 1x
+10348389578: Canada 1x
 10349038707: Canada 1x
 10350303542: Argentina 1x
 10350485830: Brazil 5x
@@ -9823,7 +10231,7 @@ local DATA = [[
 10404837246: Germany 3x
 10406122074: Spain 1x
 10406192412: India 2x
-10406806985: United States 4x
+10406806985: United States 6x
 10408304593: Spain 1x
 10408342993: Belgium 1x
 10408458512: Colombia 1x
@@ -9837,7 +10245,9 @@ local DATA = [[
 10413596370: Spain 1x
 10415845802: Thailand 4x
 10416649086: Argentina 1x
+10418292304: Morocco 1x
 10418616977: Finland 1x
+10419542683: United States 1x
 10422408128: Philippines 1x
 10422907723: Serbia 2x
 10423222254: India 1x
@@ -9850,6 +10260,7 @@ local DATA = [[
 10427226171: Spain 5x
 10427551950: Italy 5x
 10428359001: Colombia 1x
+10429177943: United States 2x
 10429189207: Morocco 15x
 10429384226: Argentina 7x
 10429690355: Brazil 1x
@@ -9865,10 +10276,12 @@ local DATA = [[
 10438720153: Switzerland 16x
 10438755495: Indonesia 1x
 10438757618: Türkiye 2x
+10441926270: Australia 3x
 10442041241: Mexico 1x
 10444031817: Philippines 1x
 10444440310: Vietnam 1x
 10444612772: Kazakhstan 1x
+10444869855: United States 2x
 10444986243: Germany 3x
 10445036107: Germany 3x
 10445157451: United States 3x
@@ -9882,6 +10295,7 @@ local DATA = [[
 10453959785: Angola 1x
 10454413352: Kazakhstan 3x
 10455294771: India 2x
+10456488236: Nicaragua 1x
 10456730966: Mexico 1x
 10457623199: India 1x
 10458404374: Philippines 1x
@@ -9893,6 +10307,7 @@ local DATA = [[
 10462714590: South Korea 1x
 10464885792: Türkiye 1x
 10465359253: United States 1x
+10465851884: Australia 2x
 10466374031: Japan 1x
 10466535261: India 1x
 10467834811: Philippines 1x
@@ -9907,6 +10322,9 @@ local DATA = [[
 10473494383: United States 2x
 10473976598: Mexico 1x
 10474694844: India 7x
+10475875165: Morocco 2x
+10476449304: United States 1x
+10478336672: United States 5x
 10478783157: India 13x
 10479458398: United Kingdom 1x
 10479940704: Thailand 1x
@@ -9930,6 +10348,7 @@ local DATA = [[
 10500985265: United States 3x
 10501094800: Poland 15x
 10501301201: United States 3x
+10502479600: Ukraine 2x
 10503436748: Germany 2x
 10503482703: United States 1x
 10503729492: Ukraine 1x
@@ -9978,6 +10397,7 @@ local DATA = [[
 10542959284: Peru 3x
 10543106019: Malaysia 1x
 10543328130: Hong Kong 2x
+10543920827: United States 1x
 10543929427: Sweden 3x
 10547658777: United States 1x
 10548660451: India 3x
@@ -9997,6 +10417,8 @@ local DATA = [[
 10556805058: Norway 3x
 10557535790: Malaysia 3x
 10558757007: United States 13x
+10560465939: Philippines 2x
+10560769199: Brazil 4x
 10561987022: Germany 1x
 10562459920: Thailand 2x
 10562555930: Taiwan 2x
@@ -10029,6 +10451,7 @@ local DATA = [[
 10578769264: Argentina 8x
 10579235788: Thailand 1x
 10579286745: Hong Kong 1x
+10580016682: India 1x
 10582333143: India 16x
 10583141564: Philippines 2x
 10587166113: United States 2x
@@ -10041,9 +10464,10 @@ local DATA = [[
 10592359904: Latvia 2x
 10592621176: South Korea 2x
 10592693537: Philippines 1x
-10592835485: Philippines 16x
+10592835485: Philippines 20x
 10592853474: Argentina 6x
 10593362970: France 1x
+10593463834: Mexico 2x
 10594013551: Germany 1x
 10594083193: Spain 4x
 10594336301: Germany 1x
@@ -10051,6 +10475,7 @@ local DATA = [[
 10594676183: Romania 1x
 10595822409: United States 1x
 10596029323: United States 1x
+10596133693: Morocco 5x
 10597895998: Uzbekistan 1x
 10598186122: Germany 1x
 10598219644: South Korea 4x
@@ -10089,12 +10514,14 @@ local DATA = [[
 10630384815: India 1x
 10630820780: Colombia 1x
 10631504492: United Kingdom 9x
+10631587745: United States 3x
 10631625004: Australia 1x
 10633587758: India 9x
 10633842017: India 1x
 10633857785: Australia 1x
 10633910298: Canada 1x
 10634042711: Pakistan 1x
+10634747476: Brazil 2x
 10634827389: Philippines 3x
 10637933166: Brazil 3x
 10639621098: India 1x
@@ -10112,8 +10539,11 @@ local DATA = [[
 10646076357: Italy 1x
 10646236837: Germany 6x
 10646860686: India 8x
+10647797045: Fiji 1x
 10648347216: Australia 1x
+10648645025: United States 1x
 10649426323: Germany 2x
+10649494314: Canada 1x
 10650549673: South Korea 1x
 10651117111: India 3x
 10651289988: Germany 11x
@@ -10161,8 +10591,10 @@ local DATA = [[
 10679323292: India 13x
 10679492123: Sweden 3x
 10680656763: Pakistan 3x
+10681385183: Romania 4x
 10681935725: United States 1x
-10683575012: Venezuela 19x
+10683575012: Venezuela 22x
+10683584251: Türkiye 2x
 10683870295: Indonesia 3x
 10684453682: Malaysia 2x
 10684454276: Indonesia 1x
@@ -10195,11 +10627,12 @@ local DATA = [[
 10699567701: Hong Kong 2x
 10700253346: Brazil 1x
 10701415938: United States 1x
+10701530742: Mexico 1x
 10701542225: India 1x
-10705381888: Brazil 4x
+10705381888: Brazil 6x
 10706128293: Morocco 1x
 10706394843: Uruguay 1x
-10706584734: Australia 2x
+10706584734: Australia 5x
 10706645943: New Zealand 1x
 10708215018: Indonesia 1x
 10708810654: South Korea 20x
@@ -10226,21 +10659,25 @@ local DATA = [[
 10725836692: Thailand 2x
 10725992059: India 2x
 10726600743: Ukraine 4x
+10727237879: United States 3x
 10728390060: United States 1x
 10729269361: New Caledonia 8x
 10729708413: Japan 8x
 10729751420: Venezuela 2x
 10730796361: Thailand 9x
+10731310991: Israel 2x
 10731577104: Indonesia 5x
 10732606823: Japan 1x
 10732646943: Switzerland 1x
 10732895071: Japan 1x
 10733271397: Singapore 1x
 10734068914: Spain 1x
+10734134506: United States 1x
 10734461017: Indonesia 2x
 10735170632: Libya 1x
 10736617882: Argentina 2x
 10736638407: Indonesia 3x
+10737267490: Hong Kong 1x
 10737385015: France 1x
 10737861157: Indonesia 1x
 10738516638: Japan 2x
@@ -10291,13 +10728,14 @@ local DATA = [[
 10767432271: Poland 1x
 10767877415: Pakistan 6x
 10768148393: Singapore 7x
-10768650241: United States 1x
+10768650241: United States 2x
 10769954950: Indonesia 2x
 10770630836: United States 2x
 10772204942: Peru 1x
 10772377783: Hong Kong 4x
 10775271786: Czech Republic 1x
 10776779720: Poland 1x
+10776986098: Bolivia 2x
 10776997461: Greece 3x
 10777246396: Brazil 2x
 10778775134: Mexico 1x
@@ -10351,6 +10789,7 @@ local DATA = [[
 10802832084: United Kingdom 2x
 10802843935: Brazil 3x
 10802946341: Peru 1x
+10802978491: United States 1x
 10803047463: Venezuela 1x
 10803331748: Brazil 1x
 10803338901: Brazil 1x
@@ -10361,6 +10800,7 @@ local DATA = [[
 10806535276: Thailand 3x
 10807538224: France 2x
 10807580000: Dominican Republic 1x
+10807693248: United States 1x
 10808659792: Japan 6x
 10808699652: Hungary 1x
 10809057183: Morocco 1x
@@ -10395,13 +10835,15 @@ local DATA = [[
 10826220324: Peru 3x
 10826608099: Peru 7x
 10826673008: New Zealand 1x
+10827430333: Philippines 1x
 10827454380: Cambodia 16x
 10829598019: Portugal 1x
 10831202492: Pakistan 1x
 10831671810: Indonesia 1x
+10832315857: United States 1x
 10832565581: Thailand 1x
 10832602124: Kyrgyzstan 1x
-10832759494: United States 2x
+10832759494: United States 4x
 10833008794: India 5x
 10833571299: India 2x
 10833843799: Morocco 7x
@@ -10422,6 +10864,7 @@ local DATA = [[
 10843639872: Hong Kong 1x
 10844269559: Peru 15x
 10844341486: Colombia 1x
+10844781086: United States 1x
 10845543823: Philippines 2x
 10845559832: Philippines 2x
 10845848966: Indonesia 1x
@@ -10457,10 +10900,12 @@ local DATA = [[
 10867396107: Morocco 1x
 10869213190: United States 2x
 10869801115: Canada 1x
+10869932627: Bosnia and Herzegovina 1x
 10870263759: Serbia 1x
 10871971956: India 1x
 10873178980: Philippines 2x
 10874315942: Mexico 2x
+10874879372: United States 1x
 10876035574: Luxembourg 16x
 10877164760: India 2x
 10877252154: Pakistan 5x
@@ -10507,6 +10952,7 @@ local DATA = [[
 10893542240: Chile 1x
 10894084915: Dominican Republic 1x
 10894285738: Bulgaria 1x
+10894293795: Chile 2x
 10894514221: Brazil 1x
 10894867976: France 1x
 10895433960: Peru 1x
@@ -10523,6 +10969,7 @@ local DATA = [[
 10899035118: Indonesia 2x
 10900047615: United States 2x
 10900486486: Poland 12x
+10900646769: Algeria 1x
 10900685621: Serbia 3x
 10901730018: Thailand 1x
 10902178764: Bosnia and Herzegovina 1x
@@ -10540,7 +10987,8 @@ local DATA = [[
 10908719743: India 1x
 10910212231: South Korea 3x
 10910681668: Brazil 2x
-10910740059: Hong Kong 3x
+10910723270: France 7x
+10910740059: Hong Kong 7x
 10911580524: Cambodia 1x
 10911690833: Philippines 1x
 10912450720: Morocco 1x
@@ -10567,6 +11015,7 @@ local DATA = [[
 10923685305: Japan 1x
 10923985172: Bangladesh 1x
 10924107753: Denmark 13x
+10924589685: United States 4x
 10924704699: Mexico 1x
 10924983066: Norway 1x
 10925606249: Mexico 2x
@@ -10615,6 +11064,7 @@ local DATA = [[
 10945441155: Spain 1x
 10946483454: Morocco 1x
 10946659249: Philippines 8x
+10947157032: Philippines 2x
 10947526848: Germany 1x
 10948797833: Denmark 4x
 10949483817: Ukraine 1x
@@ -10634,10 +11084,11 @@ local DATA = [[
 10954926495: Philippines 1x
 10955577483: Indonesia 3x
 10956054617: India 1x
+10956352590: Hong Kong 1x
 10956818254: India 1x
 10957205084: Philippines 10x
 10957346770: Sweden 3x
-10957637934: Bosnia and Herzegovina 1x
+10957637934: Bosnia and Herzegovina 2x
 10957772685: Uzbekistan 3x
 10959311750: Hong Kong 1x
 10959651946: Thailand 1x
@@ -10648,6 +11099,7 @@ local DATA = [[
 10961953495: United Kingdom 2x
 10962008545: India 9x
 10962090406: Thailand 2x
+10964006634: Philippines 1x
 10964386130: Indonesia 3x
 10965887060: Brazil 3x
 10965933480: Hong Kong 1x
@@ -10701,7 +11153,7 @@ local DATA = [[
 10988930501: South Korea 1x
 10988975412: Japan 1x
 10989247791: Brazil 1x
-10989451573: Venezuela 6x
+10989451573: Venezuela 9x
 10990846325: Venezuela 3x
 10991363244: Hong Kong 1x
 10991479660: Singapore 1x
@@ -10710,7 +11162,7 @@ local DATA = [[
 10993660442: South Korea 2x
 10993660555: Indonesia 1x
 10994048338: India 1x
-10994808209: Israel 1x
+10994808209: Israel 2x
 10994994158: Argentina 1x
 10994998242: Germany 2x
 10998003436: Australia 6x
@@ -10742,7 +11194,7 @@ local DATA = [[
 11010696272: Honduras 1x
 11011155543: Brazil 1x
 11011664114: United States 1x
-11012854085: France 2x
+11012854085: France 4x
 11013157213: Hong Kong 7x
 11013407545: Australia 1x
 11013528744: India 4x
@@ -10765,12 +11217,12 @@ local DATA = [[
 11023820889: Germany 1x
 11024025386: Philippines 4x
 11024308627: Netherlands 8x
-11025026979: South Korea 6x
+11025026979: South Korea 7x
 11025164263: Paraguay 1x
 11025445595: Australia 5x
 11025737639: India 3x
 11025835116: Algeria 4x
-11026179472: Bosnia and Herzegovina 3x
+11026179472: Bosnia and Herzegovina 4x
 11026340713: Spain 4x
 11026542673: United Kingdom 1x
 11026738657: Brazil 5x
@@ -10806,6 +11258,7 @@ local DATA = [[
 11040968396: Philippines 5x
 11041085126: Tunisia 1x
 11041162892: Germany 1x
+11041199146: Philippines 3x
 11041348985: Kyrgyzstan 11x
 11041704957: United States 3x
 11041787819: India 5x
@@ -10818,6 +11271,8 @@ local DATA = [[
 11044549531: India 4x
 11044825971: Thailand 2x
 11044916231: India 16x
+11045074435: United States 4x
+11045172038: Montenegro 1x
 11045458125: Thailand 1x
 11045508258: Algeria 4x
 11045978936: Malaysia 1x
@@ -10830,22 +11285,26 @@ local DATA = [[
 11046752934: Germany 1x
 11047654383: India 1x
 11048063032: Peru 1x
+11048777342: Philippines 2x
 11049938695: Philippines 2x
 11050293808: India 6x
 11050463573: Morocco 10x
 11050605307: Puerto Rico 1x
 11051228883: Brazil 1x
+11051498445: Guatemala 1x
 11052179119: Trinidad and Tobago 1x
 11052992705: Indonesia 3x
 11053835808: Brazil 1x
 11054479844: Japan 1x
+11055094244: Canada 1x
 11055129667: United Kingdom 1x
-11055476975: United States 2x
+11055476975: United States 3x
 11055658663: Serbia 8x
 11056059692: Philippines 2x
 11056411667: Brazil 5x
 11056532304: Indonesia 2x
 11057103121: India 1x
+11057114458: Honduras 1x
 11057466123: India 1x
 11057738546: Philippines 7x
 11058084054: Vietnam 3x
@@ -10856,6 +11315,7 @@ local DATA = [[
 11059980169: Spain 3x
 11060344080: Belgium 1x
 11060939585: Serbia 1x
+11061245038: Morocco 1x
 11061355982: Brazil 2x
 11061751120: Brazil 3x
 11062130951: Japan 4x
@@ -10891,6 +11351,7 @@ local DATA = [[
 11075650485: India 3x
 11075756291: Hong Kong 1x
 11076206398: Switzerland 2x
+11076773386: Algeria 1x
 11077625423: Peru 1x
 11077965805: United States 1x
 11078019183: India 2x
@@ -10903,6 +11364,7 @@ local DATA = [[
 11082905489: South Korea 4x
 11083664168: India 1x
 11085275253: Bolivia 2x
+11085503480: Morocco 3x
 11086506673: United States 2x
 11087636691: Brazil 12x
 11087712517: Chile 11x
@@ -10939,6 +11401,7 @@ local DATA = [[
 11105959695: Israel 1x
 11106498145: United States 1x
 11106649561: Italy 2x
+11106721675: Australia 1x
 11106816049: Taiwan 1x
 11106963154: Poland 4x
 11107011393: Lebanon 2x
@@ -10969,6 +11432,7 @@ local DATA = [[
 11122192787: Brazil 2x
 11122358219: Hong Kong 1x
 11123001512: South Korea 3x
+11123479857: Brazil 3x
 11123844628: Canada 1x
 11124093824: Portugal 9x
 11124346444: Brazil 4x
@@ -10983,7 +11447,7 @@ local DATA = [[
 11129697278: Poland 1x
 11130113854: Taiwan 1x
 11130404634: Brazil 14x
-11130468431: Bulgaria 2x
+11130468431: Bulgaria 3x
 11130887416: Mexico 7x
 11131117057: Colombia 1x
 11131498183: Germany 3x
@@ -10995,8 +11459,11 @@ local DATA = [[
 11133441353: Thailand 1x
 11133943149: South Korea 1x
 11134262222: Taiwan 1x
+11134457210: Brazil 1x
 11134507082: Cambodia 1x
+11135133275: Morocco 2x
 11135259391: Germany 1x
+11135644211: United States 2x
 11135859622: Bolivia 2x
 11135935247: United States 9x
 11136427282: Colombia 1x
@@ -11030,12 +11497,13 @@ local DATA = [[
 11146029290: Switzerland 1x
 11146264845: France 3x
 11146360192: Spain 2x
+11146599018: Malaysia 1x
 11146921825: United States 1x
 11147014077: Germany 4x
 11147092097: Colombia 3x
 11147709987: Brazil 1x
 11147886544: India 5x
-11148615636: India 1x
+11148615636: India 2x
 11148773463: France 1x
 11149088112: Brazil 3x
 11149395201: Brazil 1x
@@ -11043,7 +11511,7 @@ local DATA = [[
 11151160844: India 1x
 11153473686: United Kingdom 1x
 11153781075: Libya 2x
-11154369672: Morocco 1x
+11154369672: Morocco 16x
 11155178271: Spain 3x
 11155383660: Colombia 3x
 11155889479: United States 1x
@@ -11054,9 +11522,11 @@ local DATA = [[
 11157178528: United Kingdom 3x
 11157699311: Libya 2x
 11157723976: France 5x
-11157895709: India 1x
+11157895709: India 2x
 11158653258: India 9x
 11159015627: Indonesia 1x
+11159536316: Philippines 2x
+11159898401: United States 1x
 11160006558: United Kingdom 2x
 11160035130: France 1x
 11161295670: Dominican Republic 1x
@@ -11116,16 +11586,17 @@ local DATA = [[
 11181806011: Algeria 1x
 11182089562: Germany 1x
 11182118704: South Korea 7x
-11182127581: Morocco 2x
+11182127581: Morocco 17x
 11182284427: Colombia 4x
 11182829670: Montenegro 2x
 11183309777: United States 1x
-11183476251: Honduras 2x
+11183476251: Honduras 5x
 11183512532: Tunisia 1x
 11183640448: Spain 1x
 11184030093: France 1x
 11184652219: Brazil 5x
 11184844696: United States 6x
+11185396922: Thailand 2x
 11185431286: Hong Kong 2x
 11185450928: Australia 3x
 11185618959: Hong Kong 8x
@@ -11174,7 +11645,7 @@ local DATA = [[
 11200873433: Bosnia and Herzegovina 1x
 11201001894: India 4x
 11201361124: Argentina 1x
-11201847446: Peru 1x
+11201847446: Peru 2x
 11202598261: Taiwan 2x
 11203838037: Philippines 1x
 11203887482: South Korea 1x
@@ -11189,10 +11660,11 @@ local DATA = [[
 11206297522: South Korea 1x
 11206623768: Dominican Republic 3x
 11207691464: Uruguay 1x
-11208032619: Vietnam 8x
+11208032619: Vietnam 9x
 11208269374: Brazil 1x
 11208333128: Vietnam 1x
 11208489131: Vietnam 1x
+11208567667: United States 1x
 11208819382: Vietnam 1x
 11208926390: Japan 1x
 11208932651: Vietnam 1x
@@ -11214,6 +11686,8 @@ local DATA = [[
 11213192070: Morocco 7x
 11213523667: Hong Kong 2x
 11213770087: Argentina 7x
+11214098467: United States 1x
+11214244109: Canada 1x
 11215129087: Indonesia 2x
 11215291649: South Korea 3x
 11215633906: Algeria 1x
@@ -11233,9 +11707,11 @@ local DATA = [[
 11218859768: Italy 1x
 11219009313: France 1x
 11219158683: Mexico 1x
+11219195010: Philippines 2x
 11219698818: Algeria 4x
 11220282029: Indonesia 1x
 11220347735: South Africa 1x
+11220670242: United States 3x
 11220754675: Indonesia 3x
 11220904387: India 6x
 11221393443: Romania 2x
@@ -11260,7 +11736,9 @@ local DATA = [[
 11228633201: Brazil 5x
 11228869322: Poland 1x
 11229347401: Azerbaijan 3x
+11230086349: Brazil 2x
 11230504571: Denmark 2x
+11230530314: United States 2x
 11230626991: Brazil 1x
 11232499136: United States 1x
 11232557180: Thailand 1x
@@ -11276,6 +11754,7 @@ local DATA = [[
 11235465898: Poland 1x
 11235485627: Hong Kong 17x
 11235501998: Indonesia 1x
+11235843805: Hong Kong 1x
 11236852823: Brazil 2x
 11237057256: Poland 1x
 11237264435: Algeria 5x
@@ -11284,13 +11763,15 @@ local DATA = [[
 11238148513: Hong Kong 1x
 11238160913: Trinidad and Tobago 1x
 11238210819: Dominican Republic 3x
+11238517121: United States 1x
+11238951907: United States 1x
 11239146764: Portugal 1x
 11240492565: Hong Kong 1x
 11240657562: Japan 3x
 11240699667: South Korea 4x
 11240894442: Sweden 1x
 11241271674: Brazil 1x
-11241457615: Germany 3x
+11241457615: Germany 5x
 11241458681: India 1x
 11242462684: Brazil 1x
 11242924878: Italy 1x
@@ -11309,7 +11790,7 @@ local DATA = [[
 11246817528: Poland 3x
 11247046377: Croatia 1x
 11247397572: Libya 1x
-11247648624: India 9x
+11247648624: India 10x
 11247780548: United States 3x
 11247788078: Peru 1x
 11247838662: Australia 1x
@@ -11325,7 +11806,7 @@ local DATA = [[
 11251341230: Germany 2x
 11251530188: Taiwan 2x
 11252113308: Germany 6x
-11252330234: United States 5x
+11252330234: United States 6x
 11252415009: Kazakhstan 1x
 11252427483: Malaysia 6x
 11252553156: France 1x
@@ -11341,9 +11822,11 @@ local DATA = [[
 11254133922: France 1x
 11254155237: Brazil 6x
 11254225541: Italy 1x
+11254951596: United States 1x
 11255172321: Croatia 1x
 11255312568: Australia 1x
 11255331359: Germany 5x
+11255485198: Singapore 4x
 11255876659: Vietnam 3x
 11256100581: Romania 3x
 11256395295: Hong Kong 1x
@@ -11371,22 +11854,27 @@ local DATA = [[
 11261577543: Indonesia 1x
 11261866503: Thailand 3x
 11262560633: Philippines 4x
+11262786208: Mexico 1x
 11263159542: Thailand 1x
 11263908922: South Korea 1x
 11264151872: Switzerland 31x
 11264670842: Japan 14x
 11264756736: Brazil 2x
 11265864547: India 1x
+11266246991: Colombia 1x
 11266898344: Indonesia 2x
 11267717777: South Korea 5x
 11267836506: India 1x
 11267903919: Israel 1x
 11268941076: Vietnam 1x
+11268963636: United States 1x
 11269160309: Belgium 2x
 11269263586: France 2x
 11269380780: Taiwan 2x
+11269434819: Greece 2x
 11269822083: Tunisia 4x
 11270017018: Poland 2x
+11270255996: Indonesia 1x
 11270317228: Philippines 2x
 11270409402: Brazil 2x
 11270476411: Brazil 3x
@@ -11396,6 +11884,7 @@ local DATA = [[
 11271362560: Morocco 26x
 11271477857: Puerto Rico 1x
 11271772220: Chile 2x
+11272651303: United States 2x
 11273060615: Philippines 8x
 11273916692: Philippines 1x
 11274011680: South Korea 1x
@@ -11423,6 +11912,7 @@ local DATA = [[
 11283342849: Mexico 2x
 11283500456: Argentina 3x
 11283927064: Mexico 1x
+11284117671: United States 1x
 11284203413: United States 1x
 11284296057: Chile 1x
 11285092340: Vietnam 1x
@@ -11468,6 +11958,7 @@ local DATA = [[
 11300219622: India 3x
 11300404353: Indonesia 2x
 11300460367: Türkiye 5x
+11300525957: United States 2x
 11300853721: Germany 1x
 11301264587: Poland 1x
 11301318906: Japan 1x
@@ -11488,6 +11979,7 @@ local DATA = [[
 11305878389: Algeria 6x
 11306007029: Vietnam 1x
 11306567513: Singapore 3x
+11306694800: United States 1x
 11306701313: Hong Kong 1x
 11306908074: Vietnam 5x
 11307159698: India 5x
@@ -11556,6 +12048,7 @@ local DATA = [[
 11326313491: Philippines 8x
 11326314109: Japan 3x
 11326456404: India 10x
+11326558230: United States 3x
 11326735008: Sweden 1x
 11326775155: France 2x
 11326949668: Kazakhstan 1x
@@ -11563,6 +12056,7 @@ local DATA = [[
 11327733132: India 2x
 11328198977: Algeria 4x
 11328520597: Morocco 1x
+11328719048: Dominican Republic 3x
 11328813231: Thailand 3x
 11329030891: South Korea 1x
 11329258507: South Korea 1x
@@ -11581,13 +12075,14 @@ local DATA = [[
 11331481405: Hong Kong 1x
 11331659170: Kenya 1x
 11331803742: Thailand 3x
-11331912923: Hong Kong 1x, Singapore 1x
+11331912923: Singapore 2x, Hong Kong 1x
 11332215453: Hong Kong 5x
 11332364358: United States 3x
 11332978594: Japan 2x
 11334061378: South Korea 1x
 11334435079: Brazil 1x
 11334589574: Romania 1x
+11335043482: Indonesia 1x
 11335613666: Ukraine 1x
 11335726507: Mexico 4x
 11335801609: Canada 2x
@@ -11611,6 +12106,7 @@ local DATA = [[
 11340193749: Netherlands 5x
 11340349578: Brazil 3x
 11340927251: India 1x
+11341072026: United States 1x
 11341273947: Brazil 2x
 11341543703: South Korea 1x
 11341809506: United States 1x
@@ -11672,6 +12168,7 @@ local DATA = [[
 11356410651: Australia 1x
 11356723231: Indonesia 4x
 11357368267: South Korea 1x
+11357543306: Vietnam 1x
 11357655047: Thailand 1x
 11358330375: Macao 10x
 11359389286: Spain 1x
@@ -11710,7 +12207,7 @@ local DATA = [[
 11373218246: Hong Kong 1x
 11374233959: Peru 1x
 11375358680: Spain 1x
-11375637959: Netherlands 12x
+11375637959: Netherlands 14x
 11375690752: Hong Kong 4x
 11375736500: United States 1x
 11376252630: Morocco 2x
@@ -11727,6 +12224,7 @@ local DATA = [[
 11379325192: Brazil 1x
 11379360130: Hong Kong 3x
 11379496454: Spain 2x
+11379737851: United States 1x
 11379827879: Georgia 1x
 11379885493: United Kingdom 2x
 11380018732: Belarus 1x
@@ -11766,6 +12264,7 @@ local DATA = [[
 11387864921: Thailand 2x
 11388416415: Pakistan 9x
 11388929491: United Kingdom 1x
+11389043339: United States 7x
 11389054911: South Korea 2x
 11390024586: Canada 1x
 11390898682: India 3x
@@ -11798,6 +12297,7 @@ local DATA = [[
 11398356055: Ukraine 9x
 11398598700: Kazakhstan 3x
 11399110481: Italy 3x
+11399276514: United States 2x
 11399897650: South Korea 2x
 11400165886: United Kingdom 1x
 11400839790: Norway 4x
@@ -11819,6 +12319,7 @@ local DATA = [[
 11407031220: United States 1x
 11407176238: Germany 1x
 11407274213: United States 1x
+11407341095: Hong Kong 3x
 11407473332: Sweden 6x
 11407702049: Bolivia 3x
 11407729879: South Korea 9x
@@ -11837,7 +12338,7 @@ local DATA = [[
 11411246353: United States 1x
 11411295976: India 1x
 11411410514: Israel 7x
-11411838755: United States 1x
+11411838755: United States 4x
 11412027196: Uzbekistan 4x
 11412448671: Mexico 2x
 11412606686: United States 1x
@@ -11877,7 +12378,7 @@ local DATA = [[
 11422024139: South Korea 1x
 11422103499: Netherlands 7x
 11422756420: United States 1x
-11423107072: Brazil 3x
+11423107072: Brazil 5x
 11423145637: United States 1x
 11423334834: Hong Kong 2x
 11423730320: India 1x
@@ -11887,6 +12388,7 @@ local DATA = [[
 11424442238: United States 16x
 11425402355: Argentina 1x
 11425507551: Bolivia 1x
+11426277797: United States 1x
 11426406843: United States 1x
 11426440064: Indonesia 1x
 11427451078: Hong Kong 1x
@@ -11904,6 +12406,7 @@ local DATA = [[
 11430206131: India 2x
 11430725994: Canada 5x
 11430810217: Nigeria 2x
+11430846233: United States 1x
 11431171113: Algeria 1x
 11431793371: United States 1x
 11432580813: Bolivia 1x
@@ -11934,16 +12437,18 @@ local DATA = [[
 11441482675: Brazil 1x
 11441512584: United States 4x
 11441547859: Argentina 1x
-11442553833: Dominican Republic 2x
+11442553833: Dominican Republic 5x
+11443193784: Australia 1x
 11443729012: United States 1x
 11443904674: Malaysia 1x
 11444395821: Peru 2x
 11444804372: Argentina 1x
 11445072376: Philippines 4x
 11445205432: France 1x
-11445575983: Spain 9x
+11445575983: Spain 10x
 11445752185: India 1x
 11446347455: Hong Kong 1x
+11446352639: India 12x
 11446513520: Cambodia 1x
 11446603965: Indonesia 1x
 11447086627: India 1x
@@ -11985,13 +12490,16 @@ local DATA = [[
 11458045599: Italy 4x
 11458249516: Dominican Republic 1x
 11458264470: Mexico 5x
+11458502354: United States 1x
 11458808598: Mexico 3x
 11459630547: France 1x
 11460282622: United States 1x
 11460300964: India 3x
 11460566288: India 1x
+11460679785: United States 3x
 11460786473: United States 2x
 11461803390: Indonesia 3x
+11462242896: United States 1x
 11462311233: Hong Kong 1x
 11462629613: Taiwan 8x
 11462876979: Hong Kong 4x, United States 2x
@@ -12009,6 +12517,7 @@ local DATA = [[
 11469289144: Germany 2x
 11469566070: United States 3x
 11469709652: Croatia 1x
+11470253726: United States 1x
 11470267885: South Korea 1x
 11471491484: United States 2x
 11471786496: India 2x
@@ -12085,6 +12594,7 @@ local DATA = [[
 11500644143: Algeria 6x
 11500674763: Pakistan 10x
 11500761776: Cambodia 5x
+11500941994: Nicaragua 3x
 11501005635: Tunisia 4x
 11501102265: Morocco 1x
 11501226094: Germany 1x
@@ -12096,6 +12606,7 @@ local DATA = [[
 11509068549: Indonesia 1x
 11509447491: Philippines 1x
 11509453819: Hong Kong 1x
+11509617982: United States 1x
 11509816525: Spain 4x
 11510626540: Hong Kong 1x
 11510942656: Poland 6x
@@ -12105,7 +12616,7 @@ local DATA = [[
 11511863107: Brazil 5x
 11512512119: Germany 1x
 11512541312: Colombia 1x
-11512627139: Philippines 1x
+11512627139: Philippines 3x
 11512637668: Morocco 5x
 11513359626: Paraguay 1x
 11513553011: Paraguay 2x
@@ -12133,6 +12644,7 @@ local DATA = [[
 11520267556: India 8x
 11520879845: United Kingdom 1x
 11520932614: Brazil 2x
+11520976372: United States 1x
 11520998182: Brazil 2x
 11521492791: South Korea 2x
 11521540904: Peru 2x
@@ -12161,6 +12673,7 @@ local DATA = [[
 11530288376: Indonesia 6x
 11530601765: Malaysia 7x
 11531583128: Hong Kong 1x
+11531763851: Brazil 2x
 11531858303: Japan 10x
 11532153691: Czech Republic 1x
 11532241316: Kazakhstan 5x
@@ -12173,8 +12686,9 @@ local DATA = [[
 11533028545: Kazakhstan 2x
 11533067433: France 4x
 11533194331: India 11x
+11533223778: United States 3x
 11533262752: Kazakhstan 4x
-11533510350: United States 2x
+11533510350: United States 13x
 11533594985: Spain 1x
 11533757579: United States 3x
 11533911393: United States 6x
@@ -12237,8 +12751,11 @@ local DATA = [[
 11551801686: Italy 1x
 11552004958: United Kingdom 1x
 11552284331: Netherlands 1x
+11552316311: France 3x
 11552592860: Brazil 1x
 11552883461: United States 2x
+11553172051: Hong Kong 2x
+11553713506: United States 1x
 11553843330: Vietnam 2x
 11554044222: Malaysia 1x
 11554218629: India 1x
@@ -12257,8 +12774,10 @@ local DATA = [[
 11557675032: India 1x
 11558431196: Paraguay 1x
 11559038926: Japan 4x
+11559174906: United States 2x
 11559208368: United Kingdom 1x
 11559799826: France 2x
+11560116603: Australia 1x
 11560544617: United Kingdom 1x
 11560979476: Peru 4x
 11561370933: Hong Kong 19x
@@ -12275,6 +12794,7 @@ local DATA = [[
 11565829179: Ukraine 4x
 11566317579: Morocco 1x
 11566333840: Brazil 1x
+11566521146: Georgia 6x
 11566813895: Brazil 1x
 11567199937: South Korea 1x
 11567208311: Japan 1x
@@ -12289,6 +12809,7 @@ local DATA = [[
 11568336839: Philippines 1x
 11568406876: Romania 1x
 11568488835: Poland 1x, Sweden 1x
+11568498718: Serbia 1x
 11568783917: Hong Kong 2x
 11569035435: Belgium 2x
 11569129583: Thailand 1x
@@ -12343,6 +12864,7 @@ local DATA = [[
 11576404392: Japan 10x
 11576419074: Indonesia 3x
 11576778433: India 12x
+11576803563: Hong Kong 1x
 11576885930: Vietnam 6x
 11577094003: Vietnam 3x
 11577504319: Colombia 1x
@@ -12351,6 +12873,7 @@ local DATA = [[
 11577659899: United Kingdom 1x
 11577672143: Poland 2x
 11577726489: Indonesia 1x
+11577928808: Spain 3x
 11578029404: Peru 1x
 11578124362: Hong Kong 6x
 11578167381: Brazil 1x
@@ -12360,7 +12883,7 @@ local DATA = [[
 11578430362: Spain 3x
 11578689963: Netherlands 2x
 11578709326: South Korea 5x
-11578934654: India 2x
+11578934654: India 12x
 11579239393: Peru 1x
 11579255218: United States 3x
 11579275221: South Korea 2x
@@ -12384,6 +12907,7 @@ local DATA = [[
 11582165746: Vietnam 2x
 11582312168: Switzerland 2x
 11582372885: United States 1x
+11582466570: Trinidad and Tobago 4x
 11582676639: Kazakhstan 1x
 11583092910: Mexico 4x
 11583271091: Italy 9x
@@ -12399,6 +12923,7 @@ local DATA = [[
 11584104360: Hong Kong 1x
 11584276086: South Korea 1x
 11584333984: Philippines 2x
+11584382293: United States 1x
 11584500713: Hong Kong 1x
 11584569184: India 1x
 11584677065: Hong Kong 1x
@@ -12425,6 +12950,7 @@ local DATA = [[
 11586976795: Italy 6x
 11587161235: Mexico 4x
 11587201280: Bolivia 1x
+11587388389: United States 2x
 11587491852: Vietnam 10x
 11587573119: United States 1x
 11587818761: Uzbekistan 1x
@@ -12434,7 +12960,7 @@ local DATA = [[
 11588369482: Singapore 2x
 11588430770: Denmark 8x
 11588849127: United States 1x
-11588880143: Thailand 1x
+11588880143: Thailand 2x
 11588911668: South Korea 1x
 11588919636: South Korea 1x
 11589123142: United States 1x
@@ -12460,7 +12986,7 @@ local DATA = [[
 11592622459: Malaysia 2x
 11592665445: United States 10x
 11592759148: Netherlands 1x
-11592890219: United States 1x
+11592890219: United States 24x
 11593064633: United States 2x
 11593068896: Hong Kong 1x
 11593092490: Hong Kong 9x, Germany 6x
@@ -12469,7 +12995,7 @@ local DATA = [[
 11593813984: North Macedonia 1x
 11594050178: Algeria 1x
 11594363431: Libya 1x
-11594837266: Faroe Islands 1x, Syria 1x, United Kingdom 5x
+11594837266: United Kingdom 7x, Faroe Islands 1x, Syria 1x
 11594942471: Hong Kong 2x
 11595045505: Vietnam 3x
 11595278332: Brazil 1x
@@ -12576,7 +13102,7 @@ local DATA = [[
 11609563236: South Korea 2x
 11609565885: India 12x
 11609869859: Kyrgyzstan 1x
-11609910735: United States 1x
+11609910735: United States 2x
 11610029297: South Korea 1x
 11610119815: Algeria 3x
 11610285924: Libya 4x
@@ -12625,12 +13151,14 @@ local DATA = [[
 11615535913: India 1x
 11615635183: South Korea 5x
 11615728562: Spain 5x
+11616400681: United Kingdom 2x
 11616527146: India 1x
 11616562709: United Kingdom 3x
 11616647094: Malaysia 2x
 11616668074: Algeria 9x
 11617155414: Hong Kong 2x
 11617245767: Romania 1x
+11617279340: United States 1x
 11617577598: Spain 3x
 11617595726: Italy 2x
 11617768455: India 3x
@@ -12656,7 +13184,10 @@ local DATA = [[
 11620154229: Mexico 1x
 11620321401: United Kingdom 8x
 11620406542: Latvia 1x
+11620459664: United States 1x
 11620464149: Mexico 5x
+11620498751: Singapore 1x
+11620743739: United Kingdom 1x
 11620747115: United States 4x
 11620934901: Brazil 3x
 11621082495: Algeria 1x
@@ -12756,6 +13287,7 @@ local DATA = [[
 11636911557: South Korea 6x
 11637030197: Paraguay 5x
 11637231967: India 6x
+11637275582: United States 1x
 11637295160: United States 2x
 11637501132: Spain 1x
 11637627035: Brazil 2x
@@ -12835,7 +13367,7 @@ local DATA = [[
 11646074648: Ecuador 4x
 11646311384: Philippines 1x
 11646652465: Chile 1x
-11646822301: Argentina 6x
+11646822301: Argentina 8x
 11647079021: Indonesia 2x
 11647164033: Japan 1x
 11647222629: South Korea 1x
@@ -12859,6 +13391,7 @@ local DATA = [[
 11649481379: Sweden 9x
 11649536902: United Kingdom 1x
 11649780894: Kazakhstan 2x
+11649792693: India 6x
 11649857317: Colombia 6x
 11650148864: Brazil 1x
 11650188342: Brazil 1x
@@ -12869,9 +13402,11 @@ local DATA = [[
 11650730510: New Zealand 2x
 11650855699: Mexico 13x
 11650938145: Indonesia 2x
+11651010433: Mexico 3x
 11651148791: India 2x
 11651150760: South Korea 6x
 11651188594: Hong Kong 5x
+11651422161: Hong Kong 3x
 11651499725: Philippines 7x
 11651707594: India 2x
 11652090925: India 1x
@@ -12891,6 +13426,7 @@ local DATA = [[
 11653544962: India 1x
 11653616134: Morocco 2x
 11653786241: India 2x
+11653945368: Singapore 2x
 11654035697: South Korea 5x
 11654161577: Somalia 1x
 11654271928: Poland 6x
@@ -12949,15 +13485,18 @@ local DATA = [[
 11660174828: Germany 1x
 11660191764: Netherlands 16x
 11660194522: Japan 5x
-11660258786: United Kingdom 2x
+11660258786: Spain 3x, United Kingdom 2x
 11660924379: Austria 1x
 11661105129: Morocco 1x
 11661123640: United States 1x
 11661390918: Japan 2x
+11661395537: Canada 1x
 11661417791: United States 1x
 11661496176: Brazil 1x
+11661643917: United States 1x
 11661654463: India 4x
 11661687804: Brazil 2x
+11661782877: Hong Kong 1x
 11661909948: Brazil 1x
 11662085963: Australia 1x
 11662210463: Indonesia 3x
@@ -13087,13 +13626,17 @@ local DATA = [[
 11674480389: Thailand 1x
 11674518801: Hong Kong 26x
 11674581868: South Korea 11x
+11674666396: United Kingdom 1x
 11674672803: United Kingdom 3x
 11674814056: Italy 1x
 11674845074: France 1x
 11674929022: Germany 3x
 11674987725: Singapore 2x
 11675052304: Brazil 2x
-11675063221: Serbia 1x
+11675063221: Serbia 4x
+11675124304: Colombia 3x
+11675199863: Venezuela 3x
+11675264300: Canada 1x
 11675416571: United Kingdom 2x
 11675522158: South Korea 1x
 11675548569: Peru 5x
@@ -13156,6 +13699,7 @@ local DATA = [[
 11679375572: Switzerland 5x
 11679491609: Brazil 1x
 11679579439: South Korea 3x
+11679714926: Hong Kong 1x
 11679761419: Ukraine 1x
 11679797438: South Korea 6x
 11679976981: India 1x
@@ -13203,12 +13747,13 @@ local DATA = [[
 11681970683: United Kingdom 2x
 11682084079: Hong Kong 2x
 11682116148: United Kingdom 5x
-11682218441: Pakistan 12x
+11682218441: Pakistan 15x
 11682223512: Poland 4x
 11682246182: India 1x
 11682302489: Canada 1x
 11682423665: Italy 7x
 11682525781: Mexico 1x
+11682596471: Czech Republic 1x
 11682620647: Brazil 1x
 11682621358: Denmark 1x
 11682688057: United States 8x
@@ -13217,6 +13762,7 @@ local DATA = [[
 11682808677: Mexico 3x
 11682811751: Germany 2x
 11682843232: Spain 2x
+11683018957: Italy 3x
 11683124166: South Korea 1x
 11683144580: Nepal 6x
 11683231939: Ecuador 8x
@@ -13240,6 +13786,7 @@ local DATA = [[
 11684624535: Thailand 12x
 11684630557: India 3x
 11684646295: Hong Kong 13x
+11684663453: Puerto Rico 1x
 11684695052: Paraguay 1x
 11684740190: France 1x
 11684820824: Vietnam 1x
@@ -13305,7 +13852,7 @@ local DATA = [[
 11686941248: Brazil 4x
 11687044297: United Kingdom 7x
 11687070164: Netherlands 1x
-11687110414: Mexico 1x
+11687110414: Netherlands 1x, Mexico 1x
 11687180700: Peru 4x
 11687193732: United States 2x
 11687305538: Norway 5x
@@ -13351,6 +13898,7 @@ local DATA = [[
 11689822113: Kazakhstan 1x
 11689830682: Hong Kong 1x
 11689849131: Australia 7x
+11689935348: India 1x
 11689953916: Lithuania 1x
 11689964858: India 1x
 11690002028: South Korea 2x
@@ -13498,6 +14046,7 @@ local DATA = [[
 11694330342: Argentina 3x
 11694336145: Mexico 3x
 11694444240: Germany 2x
+11694570834: Turkmenistan 1x
 11694640836: Uruguay 1x
 11694756191: South Korea 6x
 11694757492: Mexico 1x
@@ -13545,6 +14094,7 @@ local DATA = [[
 11696699364: France 1x, Switzerland 1x, United States 6x
 11696769007: Philippines 1x
 11696801038: Indonesia 1x
+11696845756: Australia 1x
 11696932614: South Korea 1x
 11696934124: Japan 2x
 11696938129: United Kingdom 2x
@@ -13570,6 +14120,7 @@ local DATA = [[
 11697929203: Hong Kong 1x
 11697935933: South Korea 4x
 11697938506: Italy 2x
+11697983181: Tunisia 1x
 11698003009: India 1x
 11698009146: Japan 1x, South Korea 9x
 11698025771: Vietnam 1x
@@ -13611,12 +14162,15 @@ local DATA = [[
 11699330550: Brazil 8x
 11699360503: Russia 4x
 11699459975: Netherlands 1x
+11699496252: Algeria 2x
 11699574662: Australia 2x
+11699623456: Brazil 6x
 11699626051: United Kingdom 1x
 11699663751: Guatemala 1x
 11699780887: United Kingdom 1x
 11699797532: Mexico 2x
 11699969326: Netherlands 2x, Poland 1x
+11699994442: Canada 4x
 11700113653: Philippines 2x
 11700204522: Pakistan 3x
 11700240988: Philippines 4x
@@ -13671,7 +14225,7 @@ local DATA = [[
 11701455669: India 2x
 11701462216: Hong Kong 5x
 11701498554: South Korea 1x
-11701526620: Spain 11x
+11701526620: Spain 13x
 11701541294: Brazil 2x
 11701555383: Colombia 2x
 11701572646: Denmark 5x
@@ -13694,6 +14248,7 @@ local DATA = [[
 11701970015: Japan 10x
 11701976512: India 3x
 11702020829: United States 5x
+11702031636: Brazil 2x
 11702058692: Poland 2x
 11702075099: Belgium 1x
 11702083558: India 2x
@@ -13721,7 +14276,7 @@ local DATA = [[
 11702356106: Germany 6x
 11702358671: Norway 1x
 11702369495: Russia 1x
-11702374171: Spain 12x
+11702374171: Spain 14x
 11702384600: Germany 1x
 11702407774: Germany 4x
 11702439673: Austria 7x
@@ -13745,7 +14300,7 @@ local DATA = [[
 11703245992: Brazil 1x
 11703258416: United States 2x
 11703298292: Mexico 4x
-11703360110: United States 3x
+11703360110: United States 5x
 11703426931: Peru 3x
 11703438692: Israel 1x
 11703439777: United States 1x
@@ -13785,6 +14340,7 @@ local DATA = [[
 11704447828: Australia 1x
 11704468287: Kazakhstan 2x
 11704481613: Vietnam 1x
+11704509375: Philippines 1x
 11704531660: Italy 1x
 11704557521: Indonesia 2x
 11704559390: South Korea 1x
@@ -13881,6 +14437,7 @@ local DATA = [[
 11706612556: Germany 8x
 11706615412: Switzerland 14x
 11706643157: Chile 1x
+11706661514: United Kingdom 1x
 11706674317: United Kingdom 1x
 11706717760: Morocco 1x
 11706773490: Netherlands 1x
@@ -13904,6 +14461,7 @@ local DATA = [[
 11707269684: United States 1x
 11707274591: United States 1x
 11707277018: United Kingdom 1x
+11707285399: United States 1x
 11707287876: United States 5x
 11707303192: Hong Kong 1x
 11707324783: France 2x
@@ -13911,7 +14469,7 @@ local DATA = [[
 11707378742: Peru 1x
 11707410929: Uzbekistan 1x
 11707478691: Morocco 2x
-11707499735: Hong Kong 6x
+11707499735: Hong Kong 9x
 11707511588: France 1x
 11707547380: Malaysia 1x
 11707559046: United Kingdom 5x
@@ -14007,12 +14565,13 @@ local DATA = [[
 11710231342: Thailand 1x
 11710284203: Brazil 1x
 11710300285: Spain 3x
-11710357103: Brazil 5x
+11710357103: Brazil 7x
 11710379718: United Kingdom 1x
 11710523220: Mexico 1x
 11710567819: Spain 1x
 11710569059: United States 5x
 11710581931: United Kingdom 11x
+11710585152: Belgium 8x
 11710589544: Brazil 1x
 11710647387: Argentina 1x
 11710698350: Switzerland 1x
@@ -14022,10 +14581,12 @@ local DATA = [[
 11710825114: Russia 1x
 11710827172: Spain 10x
 11710833528: Canada 1x
-11710901171: United Kingdom 2x
+11710901171: United Kingdom 3x
 11710903508: Venezuela 1x
 11710909942: United States 1x
+11710931212: Germany 1x
 11710939879: Costa Rica 1x
+11711026090: Australia 2x
 11711055431: Singapore 2x
 11711078810: Germany 15x
 11711086692: Germany 1x
@@ -14034,6 +14595,7 @@ local DATA = [[
 11711160753: India 1x
 11711213604: Brazil 1x
 11711248260: Brazil 1x
+11711367809: United States 2x
 11711393512: Hong Kong 1x
 11711394042: United States 1x
 11711404577: India 1x
@@ -14050,7 +14612,7 @@ local DATA = [[
 11711719407: United States 3x
 11711754719: United States 2x
 11711761117: Canada 1x
-11711860979: United States 1x
+11711860979: United States 12x
 11711864218: United Kingdom 1x
 11711879861: Hong Kong 2x
 11711898307: Japan 1x
@@ -14075,7 +14637,10 @@ local DATA = [[
 11712513536: Hong Kong 4x
 11712524137: Romania 2x
 11712528500: Russia 2x
+11712533263: Hong Kong 1x
+11712570988: India 1x
 11712574877: Hong Kong 3x
+11712583350: Thailand 1x
 11712622726: United Kingdom 7x
 11712661826: Netherlands 1x
 11712666145: France 1x
@@ -14112,25 +14677,45 @@ local DATA = [[
 11713528426: Jordan 1x
 11713585385: South Korea 1x
 11713627074: South Korea 2x
+11713773959: Hong Kong 3x
+11713789630: Italy 2x
+11713817349: Indonesia 1x
 11713979990: South Korea 8x
 11714074462: United Kingdom 2x
-11714231903: United States 1x
+11714135426: United Kingdom 2x
+11714166191: Brazil 1x
+11714184762: United Kingdom 4x
+11714231903: United States 3x
 11714261829: United Kingdom 1x
+11714421356: Canada 1x
 11714458012: Japan 18x
 11714510534: United Kingdom 1x
+11714552878: France 2x
 11714589730: Romania 1x
 11714615076: Spain 1x
+11714693861: Canada 7x
+11714733477: Germany 1x
 11714748224: Georgia 4x
+11714836489: Brazil 2x
 11714884104: United Kingdom 3x
 11714926085: Morocco 1x
 11714949852: Tunisia 1x
+11714952197: Germany 4x
+11715136852: Brazil 1x
+11715162550: Hong Kong 2x
+11715182872: France 1x
+11715198353: United States 2x
+11715237649: United States 1x
+11715554480: Indonesia 1x
 ]]
 -- ============================================================
 
 local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
 
--- Parse "userid: Country emoji Nx" lines -> { [userId] = "Country" }
-local watchlist = {}
+-- Parse watchlist
+local watchlist = {}   -- [userId] = country
 for line in DATA:gmatch("[^\r\n]+") do
     line = line:match("^%s*(.-)%s*$")
     if line ~= "" then
@@ -14142,31 +14727,24 @@ for line in DATA:gmatch("[^\r\n]+") do
         end
     end
 end
+local function countList() local n=0 for _ in pairs(watchlist) do n=n+1 end return n end
+print("[CountryWatcher] Loaded " .. countList() .. " tracked players.")
 
-print("[CountryWatcher] Loaded " .. (function()
-    local n = 0; for _ in pairs(watchlist) do n = n + 1 end return n
-end)() .. " tracked players.")
-
--- ===== COMPATIBILITY HELPERS =====
--- WaitForChildWhichIsA doesn't exist on some executors (Xeno) — emulate it
-local function waitForPart(char, timeout)
-    local ok, head = pcall(function()
-        return char:WaitForChild("Head", timeout)
-    end)
-    if ok and head then return head end
-    -- fallback: poll for any BasePart
-    local t0 = tick()
-    while tick() - t0 < (timeout or 10) do
-        local part = char:FindFirstChildWhichIsA("BasePart")
-        if part then return part end
-        task.wait(0.1)
-    end
+-- ===== COMPAT HELPERS =====
+local function safeCall(fn, ...) 
+    local ok, a, b = pcall(fn, ...)
+    if ok then return a, b end
     return nil
 end
 
--- ===== GET PLAYER'S COUNTRY TAG (from the game's overhead UI) =====
+local function getRootChar(player)
+    local char = player.Character
+    if not char then return nil end
+    return char:FindFirstChild("HumanoidRootPart") or char:FindFirstChildWhichIsA("BasePart")
+end
+
+-- ===== GET COUNTRY TAG (from game's overhead UI) =====
 local function getCountryTag(player)
-    -- Method 1: StringValue on the player object
     local ok1, tag = pcall(function()
         return player:FindFirstChild("Country") or player:FindFirstChild("CountryTag")
     end)
@@ -14174,7 +14752,6 @@ local function getCountryTag(player)
         return tag.Value
     end
 
-    -- Method 2: BillboardGui on the character (the tag above their head)
     local char = player.Character
     if char then
         for _, part in pairs(char:GetChildren()) do
@@ -14194,30 +14771,17 @@ local function getCountryTag(player)
             end
         end
     end
-
-    -- Method 3: PlayerGui fallback (pcall — some executors block this)
-    local ok2, pg = pcall(function()
-        return player:FindFirstChild("PlayerGui")
-    end)
-    if ok2 and pg then
-        for _, gui in pairs(pg:GetDescendants()) do
-            if (gui:IsA("TextLabel") or gui:IsA("TextButton")) and gui.Text then
-                local t = gui.Text:match("^%s*(.-)%s*$")
-                if #t >= 2 and #t <= 3 and t:upper() == t and t:match("^%u%u") then
-                    return t
-                end
-            end
-        end
-    end
-
     return nil
 end
 
--- ===== OVERHEAD LABEL =====
-local function createLabel(player)
-    if player == Players.LocalPlayer then return end
+-- ===== OVERHEAD LABELS =====
+local overheads = {} -- [player] = holder
+
+local function createOverhead(player)
+    if player == LocalPlayer then return end
     local trackedCountry = watchlist[player.UserId]
-    if not trackedCountry then return end -- only label people on your list
+    if not trackedCountry then return end
+    if overheads[player] then return end
 
     local holder = Instance.new("BillboardGui")
     holder.Name = "CountryWatcherTag"
@@ -14230,59 +14794,319 @@ local function createLabel(player)
     label.Name = "Label"
     label.Size = UDim2.new(1, 0, 1, 0)
     label.BackgroundTransparency = 1
-    label.Text = trackedCountry .. " (loading tag...)"
+    label.Text = trackedCountry .. " (?)"
     label.TextColor3 = Color3.fromRGB(0, 255, 0)
     label.TextStrokeTransparency = 0.3
     label.TextScaled = true
     label.Font = Enum.Font.GothamBold
     label.Parent = holder
 
+    overheads[player] = holder
+
     local function attach(char)
         task.spawn(function()
-            local head = waitForPart(char, 10)
-            if head then
-                local ok = pcall(function() holder.Parent = head end)
-                if not ok then print("[CountryWatcher] attach failed") end
+            local t0 = tick()
+            local head
+            while tick() - t0 < 10 and not head do
+                head = char:FindFirstChild("Head") or char:FindFirstChildWhichIsA("BasePart")
+                if not head then task.wait(0.1) end
+            end
+            if head and overheads[player] == holder then
+                pcall(function() holder.Parent = head end)
             end
         end)
     end
 
     if player.Character then attach(player.Character) end
-    player.CharacterAdded:Connect(attach)
+    player.CharacterAdded:Connect(function(char)
+        pcall(function() holder.Parent = nil end)
+        attach(char)
+    end)
 
-    -- live update: verify the game's own tag matches your saved country
     task.spawn(function()
-        while holder and holder.Parent and player.Parent do
+        while overheads[player] == holder and player.Parent do
             local ok, country = pcall(getCountryTag, player)
             country = ok and country or nil
             if country then
                 label.Text = trackedCountry .. " | " .. country
                 label.TextColor3 = (country:upper() == trackedCountry:upper())
-                    and Color3.fromRGB(0, 255, 0)
-                    or Color3.fromRGB(255, 80, 80)
+                    and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 80, 80)
             else
-                label.Text = trackedCountry .. " (?)" -- tag not loaded yet
+                label.Text = trackedCountry .. " (?)"
             end
             task.wait(1)
         end
         pcall(function() holder:Destroy() end)
+        overheads[player] = nil
     end)
 end
 
--- ===== ATTACH TO EVERYONE + LIVE JOIN/LEAVE =====
-for _, player in pairs(Players:GetPlayers()) do
-    task.spawn(createLabel, player)
-end
-
-Players.PlayerAdded:Connect(function(player)
-    task.wait(1)
-    createLabel(player)
+for _, p in pairs(Players:GetPlayers()) do task.spawn(createOverhead, p) end
+Players.PlayerAdded:Connect(function(p) task.wait(1) createOverhead(p) refreshList() end)
+Players.PlayerRemoving:Connect(function(p)
+    if overheads[p] then pcall(function() overheads[p]:Destroy() end) overheads[p] = nil end
+    if watchlist[p.UserId] then
+        print("[CountryWatcher] TRACKED player left: " .. p.Name .. " (" .. watchlist[p.UserId] .. ")")
+    end
+    refreshList()
 end)
 
-Players.PlayerRemoving:Connect(function(player)
-    if watchlist[player.UserId] then
-        print("[CountryWatcher] TRACKED player left: " .. player.Name .. " (" .. watchlist[player.UserId] .. ")")
+-- ===== FEATURE STATE =====
+local viewing = nil        -- player currently viewed
+local viewConn = nil
+local spamTPPlayer = nil
+local spamTPOn = false
+
+local function stopView()
+    if viewConn then pcall(function() viewConn:Disconnect() end) viewConn = nil end
+    viewing = nil
+    local cam = workspace.CurrentCamera
+    if cam and LocalPlayer.Character then
+        local hum = LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+        if hum then pcall(function() cam.CameraSubject = hum end) end
+        pcall(function() cam.CameraType = Enum.CameraType.Custom end)
+    end
+end
+
+local function startView(player)
+    stopView()
+    viewing = player
+    local cam = workspace.CurrentCamera
+    if not cam then return end
+    pcall(function() cam.CameraType = Enum.CameraType.Scriptable end)
+    viewConn = RunService.RenderStepped:Connect(function()
+        if not viewing or not viewing.Parent then stopView() return end
+        local root = getRootChar(viewing)
+        local cam2 = workspace.CurrentCamera
+        if root and cam2 then
+            pcall(function()
+                cam2.CFrame = CFrame.new(root.Position + Vector3.new(0, 8, 12), root.Position)
+            end)
+        end
+    end)
+end
+
+local function tpTo(player)
+    local myRoot = getRootChar(LocalPlayer)
+    local theirRoot = getRootChar(player)
+    if myRoot and theirRoot then
+        pcall(function()
+            myRoot.CFrame = theirRoot.CFrame + theirRoot.CFrame.LookVector * 3 + Vector3.new(0, 2, 0)
+        end)
+    end
+end
+
+-- ===== GUI =====
+local gui = Instance.new("ScreenGui")
+gui.Name = "CountryWatcherGui"
+gui.ResetOnSpawn = false
+pcall(function() gui.Parent = game:GetService("CoreGui") end)
+if not gui.Parent then gui.Parent = LocalPlayer:WaitForChild("PlayerGui") end
+
+local main = Instance.new("Frame")
+main.Name = "Main"
+main.Size = UDim2.new(0, 260, 0, 340)
+main.Position = UDim2.new(0, 20, 0.5, -170)
+main.BackgroundColor3 = Color3.fromRGB(25, 25, 30)
+main.BorderSizePixel = 0
+main.Active = true
+main.Parent = gui
+Instance.new("UICorner", main).CornerRadius = UDim.new(0, 8)
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, 0, 0, 30)
+title.BackgroundTransparency = 1
+title.Text = "👀 Country Watcher"
+title.TextColor3 = Color3.fromRGB(0, 255, 120)
+title.Font = Enum.Font.GothamBold
+title.TextSize = 15
+title.Parent = main
+
+-- Draggable (works on both executors via InputBegan/InputChanged)
+do
+    local dragging, dragStart, startPos = false, nil, nil
+    title.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            dragging = true
+            dragStart = input.Position
+            startPos = main.Position
+        end
+    end)
+    local uis = game:GetService("UserInputService")
+    uis.InputChanged:Connect(function(input)
+        if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+            local delta = input.Position - dragStart
+            main.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+        end
+    end)
+    uis.InputEnded:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            dragging = false
+        end
+    end)
+end
+
+-- Scrollable player list
+local scroll = Instance.new("ScrollingFrame")
+scroll.Size = UDim2.new(1, -16, 1, -130)
+scroll.Position = UDim2.new(0, 8, 0, 34)
+scroll.BackgroundColor3 = Color3.fromRGB(35, 35, 42)
+scroll.BorderSizePixel = 0
+scroll.ScrollBarThickness = 4
+scroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+scroll.AutomaticCanvasSize = Enum.AutomaticSize.Y
+scroll.Parent = main
+Instance.new("UICorner", scroll).CornerRadius = UDim.new(0, 6)
+local listLayout = Instance.new("UIListLayout", scroll)
+listLayout.Padding = UDim.new(0, 4)
+listLayout.SortOrder = Enum.SortOrder.LayoutOrder
+local pad = Instance.new("UIPadding", scroll)
+pad.PaddingLeft = UDim.new(0, 6); pad.PaddingRight = UDim.new(0, 6)
+pad.PaddingTop = UDim.new(0, 6); pad.PaddingBottom = UDim.new(0, 6)
+
+local selectedPlayer = nil
+local selectedLabel = Instance.new("TextLabel")
+selectedLabel.Size = UDim2.new(1, -16, 0, 22)
+selectedLabel.Position = UDim2.new(0, 8, 1, -88)
+selectedLabel.BackgroundTransparency = 1
+selectedLabel.Text = "Selected: none"
+selectedLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+selectedLabel.Font = Enum.Font.Gotham
+selectedLabel.TextSize = 13
+selectedLabel.TextXAlignment = Enum.TextXAlignment.Left
+selectedLabel.Parent = main
+
+-- Buttons
+local function makeButton(text, yPos, color)
+    local b = Instance.new("TextButton")
+    b.Size = UDim2.new(1, -16, 0, 24)
+    b.Position = UDim2.new(0, 8, 1, yPos)
+    b.BackgroundColor3 = color
+    b.Text = text
+    b.TextColor3 = Color3.fromRGB(255, 255, 255)
+    b.Font = Enum.Font.GothamBold
+    b.TextSize = 13
+    b.Parent = main
+    Instance.new("UICorner", b).CornerRadius = UDim.new(0, 6)
+    return b
+end
+
+local tpBtn      = makeButton("⚡ TP", -60, Color3.fromRGB(40, 110, 60))
+local spamTpBtn  = makeButton("🔁 Spam TP: OFF", -32, Color3.fromRGB(110, 80, 30))
+local viewBtn    = makeButton("🎥 View", -4, Color3.fromRGB(50, 70, 130))
+
+local function getSelected()
+    if selectedPlayer and selectedPlayer.Parent then return selectedPlayer end
+    return nil
+end
+
+tpBtn.MouseButton1Click:Connect(function()
+    local p = getSelected()
+    if p then tpTo(p) end
+end)
+
+spamTpBtn.MouseButton1Click:Connect(function()
+    local p = getSelected()
+    if not p then return end
+    if spamTPOn and spamTPPlayer == p then
+        spamTPOn = false
+        spamTpBtn.Text = "🔁 Spam TP: OFF"
+        spamTpBtn.BackgroundColor3 = Color3.fromRGB(110, 80, 30)
+    else
+        spamTPPlayer = p
+        spamTPOn = true
+        spamTpBtn.Text = "🔁 Spam TP: ON (" .. p.Name .. ")"
+        spamTpBtn.BackgroundColor3 = Color3.fromRGB(180, 120, 40)
     end
 end)
 
-print("[CountryWatcher] Running — labels update every second.")
+viewBtn.MouseButton1Click:Connect(function()
+    local p = getSelected()
+    if not p then return end
+    if viewing == p then
+        stopView()
+        viewBtn.Text = "🎥 View"
+    else
+        startView(p)
+        viewBtn.Text = "🎥 Stop View"
+    end
+end)
+
+-- spam TP loop
+task.spawn(function()
+    while true do
+        if spamTPOn and spamTPPlayer and spamTPPlayer.Parent then
+            tpTo(spamTPPlayer)
+        elseif spamTPOn and (not spamTPPlayer or not spamTPPlayer.Parent) then
+            spamTPOn = false
+            spamTpBtn.Text = "🔁 Spam TP: OFF"
+            spamTpBtn.BackgroundColor3 = Color3.fromRGB(110, 80, 30)
+        end
+        task.wait(0.1)
+    end
+end)
+
+-- ===== PLAYER LIST (live update, only watchlist players) =====
+local rows = {}
+
+local function refreshList()
+    -- clear old rows
+    for _, r in pairs(rows) do pcall(function() r:Destroy() end) end
+    rows = {}
+    if selectedPlayer and (not selectedPlayer.Parent or not watchlist[selectedPlayer.UserId]) then
+        selectedPlayer = nil
+        selectedLabel.Text = "Selected: none"
+    end
+    for _, player in pairs(Players:GetPlayers()) do
+        local country = watchlist[player.UserId]
+        if country and player ~= LocalPlayer then
+            local row = Instance.new("TextButton")
+            row.Size = UDim2.new(1, 0, 0, 26)
+            row.BackgroundColor3 = Color3.fromRGB(45, 45, 55)
+            row.Text = ""
+            row.AutoButtonColor = true
+            row.Parent = scroll
+            Instance.new("UICorner", row).CornerRadius = UDim.new(0, 5)
+
+            local nameLbl = Instance.new("TextLabel")
+            nameLbl.Size = UDim2.new(1, -10, 1, 0)
+            nameLbl.Position = UDim2.new(0, 8, 0, 0)
+            nameLbl.BackgroundTransparency = 1
+            -- display name + username + country
+            local dn = player.DisplayName
+            local un = player.Name
+            nameLbl.Text = (dn == un and un or dn .. " (@" .. un .. ")") .. "  •  " .. country
+            nameLbl.TextColor3 = Color3.fromRGB(230, 230, 230)
+            nameLbl.Font = Enum.Font.Gotham
+            nameLbl.TextSize = 12
+            nameLbl.TextXAlignment = Enum.TextXAlignment.Left
+            nameLbl.Parent = row
+
+            row.MouseButton1Click:Connect(function()
+                selectedPlayer = player
+                selectedLabel.Text = "Selected: " .. dn .. " (@" .. un .. ")"
+                for otherR, otherLbl in pairs(rows) do
+                    -- highlight handling below
+                end
+                -- simple highlight: recolor all rows
+                for _, r2 in pairs(scroll:GetChildren()) do
+                    if r2:IsA("TextButton") then
+                        r2.BackgroundColor3 = (r2 == row) and Color3.fromRGB(60, 110, 70) or Color3.fromRGB(45, 45, 55)
+                    end
+                end
+            end)
+            table.insert(rows, row)
+        end
+    end
+end
+
+-- live refresh every 2s (catches joins/leaves and name changes)
+task.spawn(function()
+    while true do
+        refreshList()
+        task.wait(2)
+    end
+end)
+refreshList()
+
+print("[CountryWatcher] GUI loaded — tracked players only. Drag by the title bar.")
