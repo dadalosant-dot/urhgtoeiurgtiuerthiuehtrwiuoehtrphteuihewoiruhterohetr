@@ -1,6 +1,325 @@
--- Generated from merged.txt | 65,051 unique players
--- Country Watcher | generated script. All selected country entries are embedded below.
-local DATA = [====[
+-- Standalone Country Watcher V5; full readable country list.
+-- 65,051 unique user IDs; 65,051 source entries; no compact encoding.
+-- Copy and run the ENTIRE generated file.
+local EXPECTED_COUNT = 65051
+-- Country Watcher — full country list, standalone client script.
+print("[CountryWatcher] Starting build 5 (plain full list)")
+local Players = game:GetService("Players")
+local UIS = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local alive = true
+local gui, cleanup
+local function boot()
+    local localPlayer = Players.LocalPlayer
+    if not localPlayer then
+        local deadline = os.clock() + 20
+        repeat task.wait(0.1); localPlayer = Players.LocalPlayer until localPlayer or os.clock() > deadline
+    end
+    assert(localPlayer, "LocalPlayer unavailable. Run this script on the Roblox client after joining a server.")
+    local connections, rows, tags = {}, {}, {}
+    local selected, viewing, repeatTarget, viewConn
+    local watchlist, loaded, loading, failure = {}, 0, true, nil
+    local refresh, syncControls
+    local colors = {
+        base = Color3.fromRGB(18, 21, 30), card = Color3.fromRGB(29, 35, 48),
+        text = Color3.fromRGB(235, 241, 250), muted = Color3.fromRGB(158, 173, 196),
+        accent = Color3.fromRGB(110, 231, 195), active = Color3.fromRGB(37, 84, 74),
+    }
+    local function connect(signal, callback)
+        local connection = signal:Connect(callback)
+        table.insert(connections, connection)
+        return connection
+    end
+    local function create(class, properties, parent)
+        local object = Instance.new(class)
+        for key, value in pairs(properties) do object[key] = value end
+        object.Parent = parent
+        return object
+    end
+    local function corner(object, radius)
+        create("UICorner", {CornerRadius = UDim.new(0, radius or 8)}, object)
+    end
+    local function text(parent, value, position, size, fontSize, color)
+        return create("TextLabel", {
+            Text = value, Position = position, Size = size, BackgroundTransparency = 1,
+            TextColor3 = color or colors.text, TextSize = fontSize or 13,
+            Font = Enum.Font.Gotham, TextXAlignment = Enum.TextXAlignment.Left,
+            TextTruncate = Enum.TextTruncate.AtEnd,
+        }, parent)
+    end
+    local function button(parent, value, position, size, color)
+        local object = create("TextButton", {
+            Text = value, Position = position, Size = size,
+            BackgroundColor3 = color or colors.card, BorderSizePixel = 0,
+            TextColor3 = colors.text, TextSize = 13, Font = Enum.Font.GothamBold,
+            AutoButtonColor = true,
+        }, parent)
+        corner(object)
+        return object
+    end
+    gui = create("ScreenGui", {
+        Name = "CountryWatcherGui", ResetOnSpawn = false, Enabled = true,
+        DisplayOrder = 1000000, ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+    })
+    -- Try each supported GUI parent independently; a protected service must not stop startup.
+    local function tryParent(parent)
+        if not parent then return false end
+        local ok = pcall(function() gui.Parent = parent end)
+        return ok and gui.Parent == parent
+    end
+    -- Use Roblox's standard rendered GUI container first.
+    local playerGui = localPlayer:FindFirstChildOfClass("PlayerGui") or localPlayer:WaitForChild("PlayerGui", 10)
+    local mounted = tryParent(playerGui)
+    if not mounted then
+        local ok, parent = pcall(function() return game:GetService("CoreGui") end)
+        if ok then mounted = tryParent(parent) end
+    end
+    if not mounted and type(gethui) == "function" then
+        local ok, parent = pcall(gethui)
+        if ok then mounted = tryParent(parent) end
+    end
+    assert(mounted, "Unable to attach GUI to gethui, CoreGui or PlayerGui.")
+    -- Cleanup earlier versions when they expose a shutdown hook.
+    for _, old in ipairs(gui.Parent:GetChildren()) do
+        if old ~= gui and old:IsA("ScreenGui") and old.Name == gui.Name then
+            local event = old:FindFirstChild("CountryWatcherShutdown") or old:FindFirstChild("Shutdown")
+            if event and event:IsA("BindableEvent") then pcall(function() event:Fire() end) end
+            old:Destroy()
+        end
+    end
+    local main = create("Frame", {
+        Name = "Main", Size = UDim2.new(0, 360, 0, 450), Position = UDim2.new(0, 16, 0, 24),
+        BackgroundColor3 = colors.base, BorderSizePixel = 0, Active = true,
+    }, gui)
+    corner(main, 12)
+    pcall(function()
+        create("UIStroke", {Color = Color3.fromRGB(52, 64, 83), Thickness = 1}, main)
+    end)
+    local title = text(main, "COUNTRY WATCHER  /  V5", UDim2.new(0, 16, 0, 10), UDim2.new(1, -86, 0, 28), 16, colors.accent)
+    title.Font = Enum.Font.GothamBold; title.Active = true
+    local closeButton = button(main, "X", UDim2.new(1, -42, 0, 12), UDim2.new(0, 28, 0, 28))
+    local summary = text(main, "GUI ready. Loading your full country list...", UDim2.new(0, 16, 0, 43), UDim2.new(1, -32, 0, 22), 12, colors.muted)
+    local scroll = create("ScrollingFrame", {
+        Size = UDim2.new(1, -32, 0, 238), Position = UDim2.new(0, 16, 0, 76),
+        BackgroundColor3 = Color3.fromRGB(23, 28, 39), BorderSizePixel = 0,
+        ScrollBarThickness = 4, CanvasSize = UDim2.new(0, 0, 0, 0),
+    }, main)
+    corner(scroll)
+    local layout = create("UIListLayout", {Padding = UDim.new(0, 6), SortOrder = Enum.SortOrder.LayoutOrder}, scroll)
+    create("UIPadding", {PaddingLeft = UDim.new(0, 6), PaddingRight = UDim.new(0, 6), PaddingTop = UDim.new(0, 6)}, scroll)
+    -- Explicit canvas sizing avoids relying on AutomaticCanvasSize support.
+    connect(layout:GetPropertyChangedSignal("AbsoluteContentSize"), function()
+        scroll.CanvasSize = UDim2.new(0, 0, 0, layout.AbsoluteContentSize.Y + 12)
+    end)
+    local empty = text(scroll, "Reading all entries. Please wait...", UDim2.new(), UDim2.new(1, -12, 0, 100), 13, colors.muted)
+    empty.TextWrapped = true; empty.TextXAlignment = Enum.TextXAlignment.Center
+    local selection = text(main, "Selected: none", UDim2.new(0, 16, 0, 325), UDim2.new(1, -32, 0, 22), 12, colors.muted)
+    local tpButton = button(main, "Teleport", UDim2.new(0, 16, 0, 356), UDim2.new(0.5, -20, 0, 34), colors.active)
+    local viewButton = button(main, "View", UDim2.new(0.5, 4, 0, 356), UDim2.new(0.5, -20, 0, 34))
+    local repeatButton = button(main, "Spam TP: OFF", UDim2.new(0, 16, 0, 398), UDim2.new(1, -32, 0, 34))
+    pcall(function()
+        local camera = workspace.CurrentCamera
+        if camera and camera.ViewportSize.X > 0 and camera.ViewportSize.Y > 0 then
+            create("UIScale", {Scale = math.min(1, (camera.ViewportSize.X - 32) / 360, (camera.ViewportSize.Y - 64) / 450)}, main)
+        end
+    end)
+    local function root(player)
+        local char = player and player.Character
+        return char and (char:FindFirstChild("HumanoidRootPart") or char:FindFirstChildWhichIsA("BasePart"))
+    end
+    local function stopView()
+        if viewConn then viewConn:Disconnect(); viewConn = nil end
+        local wasViewing = viewing ~= nil
+        viewing = nil
+        local camera = workspace.CurrentCamera
+        if wasViewing and camera then
+            local char = localPlayer.Character
+            local humanoid = char and char:FindFirstChildOfClass("Humanoid")
+            if humanoid then camera.CameraSubject = humanoid end
+            camera.CameraType = Enum.CameraType.Custom
+        end
+        if syncControls then syncControls() end
+    end
+    local function teleport(player)
+        local mine, target = root(localPlayer), root(player)
+        if mine and target then
+            local ok = pcall(function()
+                mine.CFrame = target.CFrame + target.CFrame.LookVector * 3 + Vector3.new(0, 2, 0)
+            end)
+            return ok
+        end
+        return false
+    end
+    local function trim(value) return value:match("^%s*(.-)%s*$") end
+    local function observedCountry(player)
+        local value = player:FindFirstChild("Country") or player:FindFirstChild("CountryTag")
+        if value and value:IsA("StringValue") and value.Value ~= "" then return value.Value end
+        local char = player.Character
+        if not char then return end
+        for _, part in ipairs(char:GetChildren()) do
+            if part:IsA("BasePart") then
+                for _, billboard in ipairs(part:GetChildren()) do
+                    if billboard:IsA("BillboardGui") and billboard.Name ~= "CountryWatcherTag" then
+                        for _, item in ipairs(billboard:GetDescendants()) do
+                            if item:IsA("TextLabel") then
+                                local valueText = trim(item.Text)
+                                if #valueText >= 2 and #valueText <= 3 and valueText:upper() == valueText and valueText:match("^%u%u") then return valueText end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+    local function countryMatches(listed, observed)
+        local function clean(value)
+            value = trim(value):gsub("%s*%d+%s*[xX]%s*$", "")
+            value = trim(value:gsub("%s*%d+%s*×%s*$", ""))
+            return trim(value:gsub("\240\159\135[\166-\191]", "")):lower()
+        end
+        for entry in listed:gmatch("[^,]+") do
+            if clean(entry) == clean(observed) then return true end
+        end
+        return false
+    end
+    local function removePlayer(player)
+        local row = rows[player]
+        if row then row.button:Destroy(); rows[player] = nil end
+        local tag = tags[player]
+        if tag then tag.holder:Destroy(); tags[player] = nil end
+    end
+    local function addPlayer(player)
+        if player == localPlayer or not watchlist[player.UserId] or rows[player] then return end
+        local rowButton = button(scroll, "", UDim2.new(), UDim2.new(1, -12, 0, 54))
+        local name = text(rowButton, player.DisplayName .. " (@" .. player.Name .. ")", UDim2.new(0, 10, 0, 6), UDim2.new(1, -20, 0, 20), 12)
+        local country = text(rowButton, watchlist[player.UserId], UDim2.new(0, 10, 0, 28), UDim2.new(1, -20, 0, 18), 11, colors.accent)
+        rows[player] = {button = rowButton, name = name, country = country}
+        rowButton.MouseButton1Click:Connect(function() selected = player; syncControls() end)
+        local holder = create("BillboardGui", {
+            Name = "CountryWatcherTag", Size = UDim2.new(0, 260, 0, 38),
+            StudsOffset = Vector3.new(0, 3.2, 0), AlwaysOnTop = true, MaxDistance = 1000,
+        }, gui)
+        local tagLabel = text(holder, watchlist[player.UserId] .. " (?)", UDim2.new(), UDim2.new(1, 0, 1, 0), 13, colors.accent)
+        tagLabel.TextXAlignment = Enum.TextXAlignment.Center; tagLabel.TextStrokeTransparency = 0.3
+        tagLabel.TextWrapped = true
+        tags[player] = {holder = holder, label = tagLabel}
+    end
+    syncControls = function()
+        if selected and selected.Parent ~= Players then selected = nil end
+        selection.Text = selected and ("Selected: " .. selected.DisplayName .. " (@" .. selected.Name .. ")") or "Selected: none"
+        viewButton.Text = viewing and "Stop View" or "View"
+        repeatButton.Text = repeatTarget and ("Spam TP: ON (@" .. repeatTarget.Name .. ")") or "Spam TP: OFF"
+        repeatButton.TextSize = repeatTarget and 11 or 13
+        repeatButton.BackgroundColor3 = repeatTarget and colors.active or colors.card
+        for player, row in pairs(rows) do row.button.BackgroundColor3 = player == selected and colors.active or colors.card end
+    end
+    refresh = function(excluded)
+        if not alive then return end
+        for player in pairs(rows) do
+            if player == excluded or player.Parent ~= Players then removePlayer(player) end
+        end
+        local onlinePlayers = Players:GetPlayers()
+        table.sort(onlinePlayers, function(a, b) return a.Name:lower() < b.Name:lower() end)
+        local online = 0
+        for order, player in ipairs(onlinePlayers) do
+            if player ~= excluded then addPlayer(player) end
+            local row = rows[player]
+            if row then
+                online = online + 1
+                row.button.LayoutOrder = order
+                row.name.Text = player.DisplayName .. " (@" .. player.Name .. ")"
+                local tag = tags[player]
+                local char = player.Character
+                local head = char and (char:FindFirstChild("Head") or char:FindFirstChildWhichIsA("BasePart"))
+                tag.holder.Adornee = head
+                local ok, observed = pcall(observedCountry, player)
+                observed = ok and observed or nil
+                tag.label.Text = watchlist[player.UserId] .. (observed and (" | " .. observed) or " (?)")
+                tag.label.TextColor3 = observed and (countryMatches(watchlist[player.UserId], observed) and colors.accent or Color3.fromRGB(255, 110, 130)) or colors.accent
+            end
+        end
+        empty.Visible = online == 0
+        if failure then
+            summary.Text = "Country list error — check the message below"
+            empty.Text = failure
+        elseif not loading then
+            summary.Text = loaded .. "/" .. EXPECTED_COUNT .. " loaded  |  " .. online .. " online"
+            empty.Text = "Your full list is loaded.\nNo listed players are currently in this server."
+        end
+        syncControls()
+    end
+    connect(tpButton.MouseButton1Click, function()
+        if selected and not teleport(selected) then selection.Text = "Waiting for both characters to spawn..." end
+    end)
+    connect(viewButton.MouseButton1Click, function()
+        if viewing == selected and viewing or not selected then stopView(); return end
+        stopView(); viewing = selected
+        viewConn = connect(RunService.RenderStepped, function()
+            if not alive or not viewing or viewing.Parent ~= Players then stopView(); return end
+            local target, camera = root(viewing), workspace.CurrentCamera
+            if target and camera then
+                camera.CameraType = Enum.CameraType.Scriptable
+                camera.CFrame = CFrame.new(target.Position + Vector3.new(0, 8, 12), target.Position)
+            end
+        end)
+        syncControls()
+    end)
+    connect(repeatButton.MouseButton1Click, function()
+        if repeatTarget == selected or not selected then repeatTarget = nil else repeatTarget = selected end
+        syncControls()
+    end)
+    connect(Players.PlayerAdded, function() refresh() end)
+    connect(Players.PlayerRemoving, function(player)
+        if selected == player then selected = nil end
+        if repeatTarget == player then repeatTarget = nil end
+        if viewing == player then stopView() end
+        removePlayer(player); refresh(player)
+    end)
+    connect(localPlayer.CharacterAdded, function(char)
+        task.spawn(function()
+            local humanoid = char:WaitForChild("Humanoid", 10)
+            if alive and not viewing and humanoid and workspace.CurrentCamera then workspace.CurrentCamera.CameraSubject = humanoid end
+        end)
+    end)
+    local dragInput, dragStart, startPos
+    connect(title.InputBegan, function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            dragInput, dragStart, startPos = input, input.Position, main.Position
+        end
+    end)
+    connect(UIS.InputChanged, function(input)
+        if dragInput and (input == dragInput or (dragInput.UserInputType == Enum.UserInputType.MouseButton1 and input.UserInputType == Enum.UserInputType.MouseMovement)) then
+            local delta = input.Position - dragStart
+            main.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+        end
+    end)
+    connect(UIS.InputEnded, function(input) if input == dragInput then dragInput = nil end end)
+    cleanup = function()
+        if not alive then return end
+        alive = false; repeatTarget = nil
+        if viewing then stopView() end
+        for _, connection in ipairs(connections) do connection:Disconnect() end
+        for player in pairs(rows) do removePlayer(player) end
+        if gui then gui:Destroy() end
+    end
+    local shutdown = create("BindableEvent", {Name = "CountryWatcherShutdown"}, gui)
+    connect(shutdown.Event, cleanup)
+    connect(closeButton.MouseButton1Click, cleanup)
+    connect(gui.Destroying, cleanup)
+    task.spawn(function()
+        while alive do
+            task.wait(0.1)
+            if alive and repeatTarget then
+                if repeatTarget.Parent == Players then teleport(repeatTarget)
+                else repeatTarget = nil; syncControls() end
+            end
+        end
+    end)
+    task.spawn(function()
+        -- The GUI exists before this task starts reading the complete readable list.
+        task.wait()
+        local ok, problem = pcall(function()
+            local DATA = [====[
 65877: United States 2x
 81236: India 1x
 84973: Ukraine 21x
@@ -65051,644 +65370,62 @@ local DATA = [====[
 11783258996: Malaysia 2x
 11783283777: Germany 2x
 11783371224: South Korea 4x
-11783440965: Hong Kong 2x
-]====]
-
--- ===================== END OF YOUR COUNTRY LIST =====================
-
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
-local LocalPlayer = Players.LocalPlayer
-while not LocalPlayer do
-    task.wait(0.1)
-    LocalPlayer = Players.LocalPlayer
-end
-local playerGui = LocalPlayer:WaitForChild("PlayerGui")
-local gui
-local cleanup
-local function runWatcher()
-local alive = true
-local connections = {}
-local function connect(signal, callback)
-    local connection = signal:Connect(callback)
-    table.insert(connections, connection)
-    return connection
-end
-
--- The same parser handles both the script block and the in-game paste box.
-local watchlist, loadedCount, skippedCount = {}, 0, 0
-local function trim(value) return value:match("^%s*(.-)%s*$") end
-local function parseList(text)
-    local parsed, count, skipped = {}, 0, 0
-    text = text:gsub("\239\187\191", ""):gsub("\194\160", " ")
-    -- Recover entries even when copying turns line breaks into spaces.
-    text = text:gsub("(%d+)%s*:", "\n%1:")
-    for rawLine in text:gmatch("[^\r\n]+") do
-        local line = trim(rawLine)
-        if line ~= "" and not line:match("^%-%-") and not line:match("^#") then
-            local uid, country = line:match("^(%d+)%s*:%s*(.+)$")
-            if uid then
-                local countries = {}
-                for rawItem in country:gmatch("[^,]+") do
-                    local item = trim(rawItem):gsub("%s*%d+%s*[xX]%s*$", "")
-                    item = trim(item:gsub("%s*%d+%s*×%s*$", ""))
-                    if item ~= "" then table.insert(countries, item) end
-                end
-                country = table.concat(countries, ", ")
-                local id = tonumber(uid)
-                if id and id > 0 and id <= 9007199254740991 and country ~= "" then
-                    if not parsed[id] then count = count + 1 end
-                    parsed[id] = country
-                else skipped = skipped + 1 end
-            else skipped = skipped + 1 end
-        end
-    end
-    return parsed, count, skipped
-end
-watchlist, loadedCount, skippedCount = parseList(DATA)
-local function countList() return loadedCount end
-print("[CountryWatcher] Loaded " .. loadedCount .. " tracked players; skipped " .. skippedCount .. " lines.")
-
--- ===== COMPAT HELPERS =====
-local function safeCall(fn, ...) 
-    local ok, a, b = pcall(fn, ...)
-    if ok then return a, b end
-    return nil
-end
-
-local function getRootChar(player)
-    local char = player.Character
-    if not char then return nil end
-    return char:FindFirstChild("HumanoidRootPart") or char:FindFirstChildWhichIsA("BasePart")
-end
-
--- ===== GET COUNTRY TAG (from game's overhead UI) =====
-local function getCountryTag(player)
-    local ok1, tag = pcall(function()
-        return player:FindFirstChild("Country") or player:FindFirstChild("CountryTag")
-    end)
-    if ok1 and tag and tag:IsA("StringValue") and tag.Value ~= "" then
-        return tag.Value
-    end
-
-    local char = player.Character
-    if char then
-        for _, part in pairs(char:GetChildren()) do
-            if part:IsA("BasePart") then
-                for _, bb in pairs(part:GetChildren()) do
-                    if bb:IsA("BillboardGui") then
-                        for _, label in pairs(bb:GetDescendants()) do
-                            if label:IsA("TextLabel") and label.Text then
-                                local t = label.Text:match("^%s*(.-)%s*$")
-                                if #t >= 2 and #t <= 3 and t:upper() == t and t:match("^%u%u") then
-                                    return t
-                                end
-                            end
-                        end
+11783440965: Hong Kong 2x]====]
+            local parsed, count, skipped, processed = {}, 0, 0, 0
+            for rawLine in DATA:gmatch("[^\r\n]+") do
+                local line = trim(rawLine:gsub("\239\187\191", ""):gsub("\194\160", " "))
+                if line ~= "" and not line:match("^#") and not line:match("^%-%-") then
+                    local uid, country = line:match("^(%d+)%s*:%s*(.+)$")
+                    local id = uid and tonumber(uid)
+                    if id and id > 0 and id <= 9007199254740991 and country ~= "" then
+                        if not parsed[id] then count = count + 1 end
+                        parsed[id] = country -- Full original country text, flags, counts and multiple countries.
+                    else skipped = skipped + 1 end
+                    processed = processed + 1
+                    if processed % 1000 == 0 then
+                        summary.Text = "Loading " .. count .. " / " .. EXPECTED_COUNT .. "..."
+                        if not alive then return end
+                        task.wait()
                     end
                 end
             end
-        end
-    end
-    return nil
-end
-
-local function sameCountry(listed, observed)
-    local function clean(value)
-        return trim(value:gsub("\240\159\135[\166-\191]", "")):lower()
-    end
-    local target = clean(observed)
-    if target == "" then return listed:find(observed, 1, true) ~= nil end
-    for item in listed:gmatch("[^,]+") do
-        if clean(item) == target then return true end
-    end
-    return false
-end
-
--- ===== OVERHEAD LABELS =====
-local refreshList
-local overheads = {} -- [player] = holder
-local overheadConnections = {}
-
-local function createOverhead(player)
-    if not alive or player == LocalPlayer then return end
-    local trackedCountry = watchlist[player.UserId]
-    if not trackedCountry then return end
-    if overheads[player] then return end
-
-    local holder = Instance.new("BillboardGui")
-    holder.Name = "CountryWatcherTag"
-    holder.Size = UDim2.new(0, 200, 0, 30)
-    holder.StudsOffset = Vector3.new(0, 3.2, 0)
-    holder.AlwaysOnTop = true
-    holder.MaxDistance = 1000
-
-    local label = Instance.new("TextLabel")
-    label.Name = "Label"
-    label.Size = UDim2.new(1, 0, 1, 0)
-    label.BackgroundTransparency = 1
-    label.Text = trackedCountry .. " (?)"
-    label.TextColor3 = Color3.fromRGB(0, 255, 0)
-    label.TextStrokeTransparency = 0.3
-    label.TextScaled = true
-    label.Font = Enum.Font.GothamBold
-    label.Parent = holder
-
-    overheads[player] = holder
-
-    local function attach(char)
-        task.spawn(function()
-            local t0 = tick()
-            local head
-            while alive and player.Character == char and tick() - t0 < 10 and not head do
-                head = char:FindFirstChild("Head") or char:FindFirstChildWhichIsA("BasePart")
-                if not head then task.wait(0.1) end
-            end
-            if alive and player.Character == char and head and overheads[player] == holder then
-                pcall(function() holder.Adornee = head; holder.Parent = playerGui end)
-            end
+            if not alive then return end
+            assert(skipped == 0, "Invalid country entries: " .. skipped)
+            assert(count == EXPECTED_COUNT, "Expected " .. EXPECTED_COUNT .. " players, found " .. count)
+            watchlist, loaded, loading = parsed, count, false
+            refresh()
+            print("[CountryWatcher] FULL LIST LOADED: " .. loaded .. "/" .. EXPECTED_COUNT)
         end)
-    end
-
-    if player.Character then attach(player.Character) end
-    overheadConnections[player] = connect(player.CharacterAdded, function(char)
-        pcall(function() holder.Adornee = nil end)
-        attach(char)
+        if not ok and alive then failure = tostring(problem); loading = false; warn("[CountryWatcher] " .. failure); refresh() end
     end)
-
     task.spawn(function()
-        while alive and overheads[player] == holder and player.Parent do
-            trackedCountry = watchlist[player.UserId] or trackedCountry
-            local ok, country = pcall(getCountryTag, player)
-            country = ok and country or nil
-            if country then
-                label.Text = trackedCountry .. " | " .. country
-                label.TextColor3 = sameCountry(trackedCountry, country)
-                    and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 80, 80)
-            else
-                label.Text = trackedCountry .. " (?)"
-                label.TextColor3 = Color3.fromRGB(0, 255, 0)
-            end
+        while alive do
             task.wait(1)
-        end
-        pcall(function() holder:Destroy() end)
-        if overheads[player] == holder then
-            overheads[player] = nil
-            if overheadConnections[player] then overheadConnections[player]:Disconnect(); overheadConnections[player] = nil end
-        end
-    end)
-end
-
--- ===== FEATURE STATE =====
-local viewing = nil        -- player currently viewed
-local viewConn = nil
-local spamTPPlayer = nil
-local spamTPOn = false
-
-local function stopView()
-    if viewConn then pcall(function() viewConn:Disconnect() end) viewConn = nil end
-    viewing = nil
-    local cam = workspace.CurrentCamera
-    if cam and LocalPlayer.Character then
-        local hum = LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
-        if hum then pcall(function() cam.CameraSubject = hum end) end
-        pcall(function() cam.CameraType = Enum.CameraType.Custom end)
-    end
-end
-
-local function startView(player)
-    stopView()
-    viewing = player
-    local cam = workspace.CurrentCamera
-    if not cam then return end
-    pcall(function() cam.CameraType = Enum.CameraType.Scriptable end)
-    viewConn = connect(RunService.RenderStepped, function()
-        if not viewing or not viewing.Parent then stopView() return end
-        local root = getRootChar(viewing)
-        local cam2 = workspace.CurrentCamera
-        if root and cam2 then
-            pcall(function()
-                cam2.CFrame = CFrame.new(root.Position + Vector3.new(0, 8, 12), root.Position)
-            end)
+            if alive then
+                local ok, problem = pcall(refresh)
+                if not ok then warn("[CountryWatcher] Refresh error: " .. tostring(problem)) end
+            end
         end
     end)
+    print("[CountryWatcher] GUI created. Loading " .. EXPECTED_COUNT .. " players.")
 end
-
-local function tpTo(player)
-    local myRoot = getRootChar(LocalPlayer)
-    local theirRoot = getRootChar(player)
-    if myRoot and theirRoot then
-        pcall(function()
-            myRoot.CFrame = theirRoot.CFrame + theirRoot.CFrame.LookVector * 3 + Vector3.new(0, 2, 0)
-        end)
-    end
-end
-
--- ===== GUI =====
-gui = Instance.new("ScreenGui")
-gui.Name = "CountryWatcherGui"
-gui.ResetOnSpawn = false
--- PlayerGui is the standard visible GUI parent and does not require executor privileges.
-for _, old in ipairs(playerGui:GetChildren()) do
-    if old.Name == "CountryWatcherGui" and old:IsA("ScreenGui") then
-        local event = old:FindFirstChild("CountryWatcherShutdown")
-        if event and event:IsA("BindableEvent") then event:Fire() end
-        old:Destroy()
-    end
-end
-gui.Parent = playerGui
-gui.Enabled = true
-gui.DisplayOrder = 100
-gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
-local main = Instance.new("Frame")
-main.Name = "Main"
-main.Size = UDim2.new(0, 340, 0, 430)
-main.Position = UDim2.new(0, 16, 0, 24)
-main.BackgroundColor3 = Color3.fromRGB(15, 18, 27)
-main.BorderSizePixel = 0
-main.Active = true
-main.Parent = gui
-local camera = workspace.CurrentCamera
-if camera then
-    local viewport = camera.ViewportSize
-    if viewport and viewport.X > 0 and viewport.Y > 0 then
-        local uiScale = Instance.new("UIScale")
-        uiScale.Scale = math.min(1, (viewport.X - 32) / 340, (viewport.Y - 64) / 476)
-        uiScale.Parent = main
-    end
-end
-local panelOutline = Instance.new("UIStroke")
-panelOutline.Color = Color3.fromRGB(48, 60, 79)
-panelOutline.Thickness = 1
-panelOutline.Parent = main
-Instance.new("UICorner", main).CornerRadius = UDim.new(0, 14)
-
-local title = Instance.new("TextLabel")
-title.Size = UDim2.new(1, 0, 0, 48)
-title.BackgroundTransparency = 1
-title.Text = "COUNTRY WATCHER"
-title.TextColor3 = Color3.fromRGB(111, 231, 200)
-title.Font = Enum.Font.GothamBold
-title.TextSize = 17
-title.Parent = main
-
-local subtitle = Instance.new("TextLabel")
-subtitle.Size = UDim2.new(1, -28, 0, 16)
-subtitle.Position = UDim2.new(0, 14, 0, 45)
-subtitle.BackgroundTransparency = 1
-subtitle.Text = "Loaded " .. loadedCount .. " entries"
-subtitle.TextColor3 = Color3.fromRGB(130, 148, 174)
-subtitle.Font = Enum.Font.Gotham
-subtitle.TextSize = 10
-subtitle.TextXAlignment = Enum.TextXAlignment.Center
-subtitle.Parent = main
-
--- Draggable (works on both executors via InputBegan/InputChanged)
-do
-    local dragging, dragStart, startPos = false, nil, nil
-    connect(title.InputBegan, function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-            dragging = true
-            dragStart = input.Position
-            startPos = main.Position
-        end
-    end)
-    local uis = game:GetService("UserInputService")
-    connect(uis.InputChanged, function(input)
-        if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
-            local delta = input.Position - dragStart
-            main.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-        end
-    end)
-    connect(uis.InputEnded, function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-            dragging = false
-        end
-    end)
-end
-
--- Scrollable player list
-local scroll = Instance.new("ScrollingFrame")
-scroll.Size = UDim2.new(1, -28, 1, -206)
-scroll.Position = UDim2.new(0, 14, 0, 70)
-scroll.BackgroundColor3 = Color3.fromRGB(21, 26, 38)
-scroll.BorderSizePixel = 0
-scroll.ScrollBarThickness = 3
-scroll.ScrollBarImageColor3 = Color3.fromRGB(111, 231, 200)
-scroll.CanvasSize = UDim2.new(0, 0, 0, 0)
-scroll.AutomaticCanvasSize = Enum.AutomaticSize.Y
-scroll.Parent = main
-Instance.new("UICorner", scroll).CornerRadius = UDim.new(0, 8)
-local listLayout = Instance.new("UIListLayout", scroll)
-listLayout.Padding = UDim.new(0, 8)
-listLayout.SortOrder = Enum.SortOrder.LayoutOrder
-local pad = Instance.new("UIPadding", scroll)
-pad.PaddingLeft = UDim.new(0, 6); pad.PaddingRight = UDim.new(0, 6)
-pad.PaddingTop = UDim.new(0, 6); pad.PaddingBottom = UDim.new(0, 6)
-
-local selectedPlayer = nil
-local selectedLabel = Instance.new("TextLabel")
-selectedLabel.Size = UDim2.new(1, -28, 0, 22)
-selectedLabel.Position = UDim2.new(0, 14, 1, -126)
-selectedLabel.BackgroundTransparency = 1
-selectedLabel.Text = "Selected: none"
-selectedLabel.TextColor3 = Color3.fromRGB(159, 175, 199)
-selectedLabel.Font = Enum.Font.Gotham
-selectedLabel.TextSize = 13
-selectedLabel.TextXAlignment = Enum.TextXAlignment.Left
-selectedLabel.Parent = main
-
--- Buttons
-local function makeButton(text, yPos, color)
-    local b = Instance.new("TextButton")
-    b.Size = UDim2.new(1, -28, 0, 30)
-    b.Position = UDim2.new(0, 14, 1, yPos)
-    b.BackgroundColor3 = color
-    b.Text = text
-    b.TextColor3 = Color3.fromRGB(255, 255, 255)
-    b.Font = Enum.Font.GothamBold
-    b.TextSize = 13
-    b.Parent = main
-    Instance.new("UICorner", b).CornerRadius = UDim.new(0, 8)
-    return b
-end
-
-local tpBtn      = makeButton("⚡ Teleport", -104, Color3.fromRGB(32, 91, 78))
-local spamTpBtn  = makeButton("🔁 Spam TP: OFF", -68, Color3.fromRGB(88, 66, 37))
-local viewBtn    = makeButton("🎥 View", -32, Color3.fromRGB(52, 67, 113))
-
-local function getSelected()
-    if selectedPlayer and selectedPlayer.Parent then return selectedPlayer end
-    return nil
-end
-
-connect(tpBtn.MouseButton1Click, function()
-    local p = getSelected()
-    if p then tpTo(p) end
-end)
-
-connect(spamTpBtn.MouseButton1Click, function()
-    local p = getSelected()
-    if not p then return end
-    if spamTPOn and spamTPPlayer == p then
-        spamTPOn = false
-        spamTpBtn.Text = "🔁 Spam TP: OFF"
-        spamTpBtn.BackgroundColor3 = Color3.fromRGB(88, 66, 37)
-    else
-        spamTPPlayer = p
-        spamTPOn = true
-        spamTpBtn.Text = "🔁 Spam TP: ON (" .. p.Name .. ")"
-        spamTpBtn.BackgroundColor3 = Color3.fromRGB(153, 106, 42)
-    end
-end)
-
-connect(viewBtn.MouseButton1Click, function()
-    local p = getSelected()
-    if not p then return end
-    if viewing == p then
-        stopView()
-        viewBtn.Text = "🎥 View"
-    else
-        startView(p)
-        viewBtn.Text = "🎥 Stop View"
-    end
-end)
-
--- spam TP loop
-task.spawn(function()
-    while alive do
-        if spamTPOn and spamTPPlayer and spamTPPlayer.Parent then
-            tpTo(spamTPPlayer)
-        elseif spamTPOn and (not spamTPPlayer or not spamTPPlayer.Parent) then
-            spamTPOn = false
-            spamTpBtn.Text = "🔁 Spam TP: OFF"
-            spamTpBtn.BackgroundColor3 = Color3.fromRGB(88, 66, 37)
-        end
-        task.wait(0.1)
-    end
-end)
-
--- ===== PLAYER LIST (live update, only watchlist players) =====
-local rows = {}
-
-refreshList = function(excluded)
-    if not alive then return end
-    -- clear old rows
-    for _, r in pairs(rows) do pcall(function() r:Destroy() end) end
-    rows = {}
-    if selectedPlayer and (not selectedPlayer.Parent or not watchlist[selectedPlayer.UserId]) then
-        selectedPlayer = nil
-        selectedLabel.Text = "Selected: none"
-    end
-    local online = 0
-    for _, player in pairs(Players:GetPlayers()) do
-        local country = watchlist[player.UserId]
-        if country and player ~= LocalPlayer and player ~= excluded then
-            online = online + 1
-            local row = Instance.new("TextButton")
-            row.Size = UDim2.new(1, 0, 0, 44)
-            row.BackgroundColor3 = (selectedPlayer == player) and Color3.fromRGB(38, 83, 77) or Color3.fromRGB(30, 37, 52)
-            row.Text = ""
-            row.AutoButtonColor = true
-            row.Parent = scroll
-            Instance.new("UICorner", row).CornerRadius = UDim.new(0, 8)
-
-            local nameLbl = Instance.new("TextLabel")
-            nameLbl.Size = UDim2.new(1, -10, 1, 0)
-            nameLbl.Position = UDim2.new(0, 8, 0, 0)
-            nameLbl.BackgroundTransparency = 1
-            -- display name + username + country
-            local dn = player.DisplayName
-            local un = player.Name
-            nameLbl.Text = (dn == un and un or dn .. " (@" .. un .. ")") .. "  •  " .. country
-            nameLbl.TextColor3 = Color3.fromRGB(228, 236, 249)
-            nameLbl.Font = Enum.Font.Gotham
-            nameLbl.TextSize = 13
-            nameLbl.TextXAlignment = Enum.TextXAlignment.Left
-            nameLbl.TextTruncate = Enum.TextTruncate.AtEnd
-            nameLbl.Parent = row
-
-            row.MouseButton1Click:Connect(function()
-                selectedPlayer = player
-                selectedLabel.Text = "Selected: " .. dn .. " (@" .. un .. ")"
-                for otherR, otherLbl in pairs(rows) do
-                    -- highlight handling below
-                end
-                -- simple highlight: recolor all rows
-                for _, r2 in pairs(scroll:GetChildren()) do
-                    if r2:IsA("TextButton") then
-                        r2.BackgroundColor3 = (r2 == row) and Color3.fromRGB(38, 83, 77) or Color3.fromRGB(30, 37, 52)
-                    end
-                end
-            end)
-            table.insert(rows, row)
-        end
-    end
-    subtitle.Text = loadedCount .. " loaded  /  " .. online .. " in this server"
-    if online == 0 then
-        local empty = Instance.new("TextLabel")
-        empty.Size = UDim2.new(1, -8, 0, 90)
-        empty.BackgroundTransparency = 1
-        empty.Text = loadedCount == 0 and "No valid entries loaded. Use Paste list below." or "List loaded successfully.\nNo listed players are in this server."
-        empty.TextColor3 = Color3.fromRGB(159, 175, 199)
-        empty.Font = Enum.Font.Gotham
-        empty.TextSize = 13
-        empty.TextWrapped = true
-        empty.Parent = scroll
-        table.insert(rows, empty)
-    end
-end
-
-local pasteButton = makeButton("Paste / replace country list", -132, Color3.fromRGB(45, 56, 78))
-pasteButton.Position = UDim2.new(0, 14, 0, 298)
-pasteButton.Size = UDim2.new(1, -28, 0, 24)
--- Move selection and actions below the import button, with comfortable spacing.
-selectedLabel.Position = UDim2.new(0, 14, 0, 328)
-main.Size = UDim2.new(0, 340, 0, 476)
-scroll.Size = UDim2.new(1, -28, 0, 220)
-local modal = Instance.new("Frame")
-modal.Size = UDim2.new(1, 0, 1, 0)
-modal.BackgroundColor3 = Color3.fromRGB(15, 18, 27)
-modal.BorderSizePixel = 0
-modal.Visible = false
-modal.ZIndex = 10
-modal.Parent = main
-Instance.new("UICorner", modal).CornerRadius = UDim.new(0, 14)
-local instructions = Instance.new("TextLabel")
-instructions.Size = UDim2.new(1, -28, 0, 58)
-instructions.Position = UDim2.new(0, 14, 0, 12)
-instructions.BackgroundTransparency = 1
-instructions.Text = "PASTE YOUR FULL COUNTRY LIST\nOne entry per line: userid: Country 🇸🇪2x"
-instructions.TextColor3 = Color3.fromRGB(228, 236, 249)
-instructions.TextSize = 12
-instructions.Font = Enum.Font.Gotham
-instructions.ZIndex = 11
-instructions.Parent = modal
-local boxScroll = Instance.new("ScrollingFrame")
-boxScroll.Size = UDim2.new(1, -28, 1, -136)
-boxScroll.Position = UDim2.new(0, 14, 0, 76)
-boxScroll.BackgroundColor3 = Color3.fromRGB(25, 31, 44)
-boxScroll.BorderSizePixel = 0
-boxScroll.ScrollBarThickness = 4
-boxScroll.CanvasSize = UDim2.new()
-boxScroll.ZIndex = 11
-boxScroll.Parent = modal
-local inputBox = Instance.new("TextBox")
-inputBox.Size = UDim2.new(1, -12, 1, 0)
-inputBox.Position = UDim2.new(0, 6, 0, 0)
-inputBox.BackgroundTransparency = 1
-inputBox.Text = ""
-inputBox.PlaceholderText = "Paste all entries here…"
-inputBox.TextColor3 = Color3.fromRGB(228, 236, 249)
-inputBox.TextSize = 12
-inputBox.Font = Enum.Font.Code
-inputBox.TextXAlignment = Enum.TextXAlignment.Left
-inputBox.TextYAlignment = Enum.TextYAlignment.Top
-inputBox.MultiLine = true
-inputBox.ClearTextOnFocus = false
-inputBox.TextWrapped = false
-inputBox.ZIndex = 12
-inputBox.Parent = boxScroll
-connect(inputBox:GetPropertyChangedSignal("TextBounds"), function()
-    local height = math.max(boxScroll.AbsoluteSize.Y, inputBox.TextBounds.Y + 20)
-    inputBox.Size = UDim2.new(1, -12, 0, height)
-    boxScroll.CanvasSize = UDim2.new(0, inputBox.TextBounds.X + 20, 0, height)
-end)
-local apply = makeButton("Apply list", -46, Color3.fromRGB(32, 91, 78))
-apply.Parent = modal; apply.ZIndex = 12
-apply.Size = UDim2.new(0.5, -20, 0, 32)
-local cancel = makeButton("Cancel", -46, Color3.fromRGB(45, 56, 78))
-cancel.Parent = modal; cancel.ZIndex = 12
-cancel.Size = UDim2.new(0.5, -20, 0, 32)
-cancel.Position = UDim2.new(0.5, 6, 1, -46)
-connect(pasteButton.MouseButton1Click, function() modal.Visible = true end)
-connect(cancel.MouseButton1Click, function() modal.Visible = false end)
-connect(apply.MouseButton1Click, function()
-    local parsed, count, skipped = parseList(inputBox.Text)
-    if count == 0 then
-        instructions.Text = "No valid entries found. Your old list is unchanged.\nExample: 10000883005: Sweden 🇸🇪2x"
-        return
-    end
-    watchlist, loadedCount, skippedCount = parsed, count, skipped
-    DATA = inputBox.Text
-    selectedPlayer = nil; selectedLabel.Text = "Selected: none"
-    spamTPOn = false; spamTPPlayer = nil
-    spamTpBtn.Text = "🔁 Spam TP: OFF"
-    stopView(); viewBtn.Text = "🎥 View"
-    -- Let existing overhead loops finish before recreating their labels.
-    for player, holder in pairs(overheads) do
-        if not watchlist[player.UserId] then
-            holder:Destroy(); overheads[player] = nil
-            if overheadConnections[player] then overheadConnections[player]:Disconnect(); overheadConnections[player] = nil end
-        else
-            local label = holder:FindFirstChild("Label")
-            if label then label.Text = watchlist[player.UserId] .. " (?)" end
-        end
-    end
-    modal.Visible = false
-    refreshList()
-    for _, player in ipairs(Players:GetPlayers()) do createOverhead(player) end
-    print("[CountryWatcher] Applied " .. count .. " entries; skipped " .. skipped .. " lines.")
-end)
-cleanup = function()
-    if not alive then return end
-    alive = false
-    spamTPOn = false
-    if viewing then stopView() end
-    for _, connection in ipairs(connections) do connection:Disconnect() end
-    for player, holder in pairs(overheads) do holder:Destroy(); overheads[player] = nil end
-    if gui then gui:Destroy() end
-end
-local shutdown = Instance.new("BindableEvent")
-shutdown.Name = "CountryWatcherShutdown"
-shutdown.Parent = gui
-connect(shutdown.Event, cleanup)
-connect(gui.Destroying, cleanup)
-
-for _, player in ipairs(Players:GetPlayers()) do task.spawn(createOverhead, player) end
-connect(Players.PlayerAdded, function(player)
-    createOverhead(player)
-    refreshList()
-end)
-connect(Players.PlayerRemoving, function(player)
-    if overheads[player] then overheads[player]:Destroy(); overheads[player] = nil end
-    if overheadConnections[player] then overheadConnections[player]:Disconnect(); overheadConnections[player] = nil end
-    if selectedPlayer == player then selectedPlayer = nil; selectedLabel.Text = "Selected: none" end
-    if viewing == player then stopView(); viewBtn.Text = "🎥 View" end
-    if spamTPPlayer == player then spamTPOn = false; spamTPPlayer = nil; spamTpBtn.Text = "🔁 Spam TP: OFF" end
-    refreshList(player)
-end)
-
--- live refresh every 2s (catches joins/leaves and name changes)
-task.spawn(function()
-    while alive do
-        refreshList()
-        task.wait(2)
-    end
-end)
-refreshList()
-
-print("[CountryWatcher] GUI loaded — tracked players only. Drag by the title bar.")
-end -- runWatcher
-local ok, err = pcall(runWatcher)
+local ok, problem = pcall(boot)
 if not ok then
-    if cleanup then pcall(cleanup) end
-    warn("[CountryWatcher] Startup failed: " .. tostring(err))
+    warn("[CountryWatcher] Startup error: " .. tostring(problem))
     pcall(function()
-        local errorGui = Instance.new("ScreenGui")
-        errorGui.Name = "CountryWatcherError"
-        errorGui.ResetOnSpawn = false
-        errorGui.DisplayOrder = 1000
-        errorGui.Parent = playerGui
-        local message = Instance.new("TextLabel")
-        message.Size = UDim2.new(0, 320, 0, 160)
-        message.Position = UDim2.new(0, 16, 0, 24)
-        message.BackgroundColor3 = Color3.fromRGB(35, 20, 28)
-        message.TextColor3 = Color3.fromRGB(255, 210, 220)
-        message.TextSize = 14
-        message.TextWrapped = true
-        message.Text = "Country Watcher could not start:\n" .. tostring(err)
-        message.Parent = errorGui
+        if gui and gui.Parent then
+            local errorMessage = Instance.new("TextLabel")
+            errorMessage.Size = UDim2.new(0, 330, 0, 160)
+            errorMessage.Position = UDim2.new(0, 16, 0, 24)
+            errorMessage.BackgroundColor3 = Color3.fromRGB(42, 22, 30)
+            errorMessage.TextColor3 = Color3.fromRGB(255, 220, 225)
+            errorMessage.TextSize = 14
+            errorMessage.TextWrapped = true
+            errorMessage.ZIndex = 100
+            errorMessage.Text = "Country Watcher startup error:\n" .. tostring(problem)
+            errorMessage.Parent = gui
+        else
+            game:GetService("StarterGui"):SetCore("SendNotification", {Title = "Country Watcher error", Text = tostring(problem), Duration = 15})
+        end
     end)
 end
