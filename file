@@ -1,12 +1,13 @@
--- Standalone Country Watcher V5; full readable country list.
+-- Standalone Country Watcher V6; full readable country list.
 -- 65,051 unique user IDs; 65,051 source entries; no compact encoding.
 -- Copy and run the ENTIRE generated file.
 local EXPECTED_COUNT = 65051
 -- Country Watcher — full country list, standalone client script.
-print("[CountryWatcher] Starting build 5 (plain full list)")
+print("[CountryWatcher] Starting build 6 (plain full list)")
 local Players = game:GetService("Players")
 local UIS = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
+local TextService = game:GetService("TextService")
 local alive = true
 local gui, cleanup
 local function boot()
@@ -95,7 +96,7 @@ local function boot()
     pcall(function()
         create("UIStroke", {Color = Color3.fromRGB(52, 64, 83), Thickness = 1}, main)
     end)
-    local title = text(main, "COUNTRY WATCHER  /  V5", UDim2.new(0, 16, 0, 10), UDim2.new(1, -86, 0, 28), 16, colors.accent)
+    local title = text(main, "COUNTRY WATCHER  /  V6", UDim2.new(0, 16, 0, 10), UDim2.new(1, -86, 0, 28), 16, colors.accent)
     title.Font = Enum.Font.GothamBold; title.Active = true
     local closeButton = button(main, "X", UDim2.new(1, -42, 0, 12), UDim2.new(0, 28, 0, 28))
     local summary = text(main, "GUI ready. Loading your full country list...", UDim2.new(0, 16, 0, 43), UDim2.new(1, -32, 0, 22), 12, colors.muted)
@@ -195,14 +196,37 @@ local function boot()
         local country = text(rowButton, watchlist[player.UserId], UDim2.new(0, 10, 0, 28), UDim2.new(1, -20, 0, 18), 11, colors.accent)
         rows[player] = {button = rowButton, name = name, country = country}
         rowButton.MouseButton1Click:Connect(function() selected = player; syncControls() end)
+        local countryText = watchlist[player.UserId]
+        local countryHeight = 52
+        local measured, bounds = pcall(function()
+            return TextService:GetTextSize(countryText, 19, Enum.Font.GothamBold, Vector2.new(308, 1000))
+        end)
+        if measured and bounds then countryHeight = math.max(28, math.ceil(bounds.Y) + 6) end
+        local height = countryHeight + 58
         local holder = create("BillboardGui", {
-            Name = "CountryWatcherTag", Size = UDim2.new(0, 260, 0, 38),
-            StudsOffset = Vector3.new(0, 3.2, 0), AlwaysOnTop = true, MaxDistance = 1000,
+            Name = "CountryWatcherTag", Size = UDim2.new(0, 340, 0, height),
+            StudsOffset = Vector3.new(0, 3.8, 0), AlwaysOnTop = true, MaxDistance = 1000,
+            LightInfluence = 0,
         }, gui)
-        local tagLabel = text(holder, watchlist[player.UserId] .. " (?)", UDim2.new(), UDim2.new(1, 0, 1, 0), 13, colors.accent)
-        tagLabel.TextXAlignment = Enum.TextXAlignment.Center; tagLabel.TextStrokeTransparency = 0.3
-        tagLabel.TextWrapped = true
-        tags[player] = {holder = holder, label = tagLabel}
+        local card = create("Frame", {
+            Size = UDim2.new(1, -4, 1, -4), Position = UDim2.new(0, 2, 0, 2),
+            BackgroundColor3 = Color3.fromRGB(13, 18, 27), BackgroundTransparency = 0.1,
+            BorderSizePixel = 0,
+        }, holder)
+        corner(card, 10)
+        local border = create("UIStroke", {Color = colors.accent, Thickness = 1.5, Transparency = 0.2}, card)
+        local nameLabel = text(card, "@" .. player.Name, UDim2.new(0, 14, 0, 8), UDim2.new(1, -28, 0, 18), 12, colors.muted)
+        nameLabel.Font = Enum.Font.GothamBold
+        local countryLabel = text(card, countryText, UDim2.new(0, 14, 0, 28), UDim2.new(1, -28, 0, countryHeight), 19, colors.text)
+        countryLabel.Font = Enum.Font.GothamBold
+        countryLabel.TextWrapped = true
+        countryLabel.TextTruncate = Enum.TextTruncate.None
+        countryLabel.TextYAlignment = Enum.TextYAlignment.Top
+        countryLabel.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+        countryLabel.TextStrokeTransparency = 0.65
+        local statusLabel = text(card, "Game tag unavailable", UDim2.new(0, 14, 0, countryHeight + 32), UDim2.new(1, -28, 0, 18), 12, colors.muted)
+        tags[player] = {holder = holder, label = countryLabel, status = statusLabel, border = border}
+
     end
     syncControls = function()
         if selected and selected.Parent ~= Players then selected = nil end
@@ -234,8 +258,10 @@ local function boot()
                 tag.holder.Adornee = head
                 local ok, observed = pcall(observedCountry, player)
                 observed = ok and observed or nil
-                tag.label.Text = watchlist[player.UserId] .. (observed and (" | " .. observed) or " (?)")
-                tag.label.TextColor3 = observed and (countryMatches(watchlist[player.UserId], observed) and colors.accent or Color3.fromRGB(255, 110, 130)) or colors.accent
+                tag.status.Text = observed and ("Game tag: " .. observed) or "Game tag unavailable"
+                local statusColor = observed and (countryMatches(watchlist[player.UserId], observed) and colors.accent or Color3.fromRGB(255, 130, 145)) or colors.muted
+                tag.status.TextColor3 = statusColor
+                tag.border.Color = observed and statusColor or colors.accent
             end
         end
         empty.Visible = online == 0
