@@ -1,9 +1,9 @@
--- Standalone Country Watcher V6; full readable country list.
+-- Standalone Country Watcher V7; full readable country list.
 -- 65,051 unique user IDs; 65,051 source entries; no compact encoding.
 -- Copy and run the ENTIRE generated file.
 local EXPECTED_COUNT = 65051
 -- Country Watcher — full country list, standalone client script.
-print("[CountryWatcher] Starting build 6 (plain full list)")
+print("[CountryWatcher] Starting build 7 (plain full list)")
 local Players = game:GetService("Players")
 local UIS = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
@@ -96,7 +96,7 @@ local function boot()
     pcall(function()
         create("UIStroke", {Color = Color3.fromRGB(52, 64, 83), Thickness = 1}, main)
     end)
-    local title = text(main, "COUNTRY WATCHER  /  V6", UDim2.new(0, 16, 0, 10), UDim2.new(1, -86, 0, 28), 16, colors.accent)
+    local title = text(main, "COUNTRY WATCHER  /  V7", UDim2.new(0, 16, 0, 10), UDim2.new(1, -86, 0, 28), 16, colors.accent)
     title.Font = Enum.Font.GothamBold; title.Active = true
     local closeButton = button(main, "X", UDim2.new(1, -42, 0, 12), UDim2.new(0, 28, 0, 28))
     local summary = text(main, "GUI ready. Loading your full country list...", UDim2.new(0, 16, 0, 43), UDim2.new(1, -32, 0, 22), 12, colors.muted)
@@ -187,7 +187,12 @@ local function boot()
         local row = rows[player]
         if row then row.button:Destroy(); rows[player] = nil end
         local tag = tags[player]
-        if tag then tag.holder:Destroy(); tags[player] = nil end
+        if tag then
+            for _, connection in ipairs(tag.connections) do connection:Disconnect() end
+            for _, connection in ipairs(tag.characterConnections) do connection:Disconnect() end
+            tag.holder:Destroy()
+            tags[player] = nil
+        end
     end
     local function addPlayer(player)
         if player == localPlayer or not watchlist[player.UserId] or rows[player] then return end
@@ -209,11 +214,13 @@ local function boot()
             LightInfluence = 0,
         }, gui)
         local card = create("Frame", {
-            Size = UDim2.new(1, -4, 1, -4), Position = UDim2.new(0, 2, 0, 2),
+            -- Fixed design dimensions; UIScale shrinks the ENTIRE card with camera distance.
+            Size = UDim2.new(0, 336, 0, height - 4), Position = UDim2.new(0, 2, 0, 2),
             BackgroundColor3 = Color3.fromRGB(13, 18, 27), BackgroundTransparency = 0.1,
             BorderSizePixel = 0,
         }, holder)
         corner(card, 10)
+        local distanceScale = create("UIScale", {Scale = 1}, card)
         local border = create("UIStroke", {Color = colors.accent, Thickness = 1.5, Transparency = 0.2}, card)
         local nameLabel = text(card, "@" .. player.Name, UDim2.new(0, 14, 0, 8), UDim2.new(1, -28, 0, 18), 12, colors.muted)
         nameLabel.Font = Enum.Font.GothamBold
@@ -225,7 +232,38 @@ local function boot()
         countryLabel.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
         countryLabel.TextStrokeTransparency = 0.65
         local statusLabel = text(card, "Game tag unavailable", UDim2.new(0, 14, 0, countryHeight + 32), UDim2.new(1, -28, 0, 18), 12, colors.muted)
-        tags[player] = {holder = holder, label = countryLabel, status = statusLabel, border = border}
+        local tag = {
+            holder = holder, card = card, scale = distanceScale, width = 340, height = height,
+            label = countryLabel, status = statusLabel, border = border,
+            connections = {}, characterConnections = {}, character = nil,
+        }
+        tags[player] = tag
+        local function updateAdornee()
+            if not alive or tags[player] ~= tag then return end
+            local character = tag.character
+            local head = character and character == player.Character
+                and (character:FindFirstChild("Head") or character:FindFirstChildWhichIsA("BasePart"))
+            holder.Adornee = head or nil
+            holder.Enabled = head ~= nil and head ~= false
+        end
+        local function bindCharacter(character)
+            for _, connection in ipairs(tag.characterConnections) do connection:Disconnect() end
+            tag.characterConnections = {}
+            tag.character = character
+            holder.Adornee = nil
+            holder.Enabled = false
+            if character then
+                table.insert(tag.characterConnections, character.ChildAdded:Connect(updateAdornee))
+                table.insert(tag.characterConnections, character.ChildRemoved:Connect(updateAdornee))
+                updateAdornee()
+            end
+        end
+        tag.updateAdornee = updateAdornee
+        table.insert(tag.connections, player.CharacterAdded:Connect(bindCharacter))
+        table.insert(tag.connections, player.CharacterRemoving:Connect(function(character)
+            if tag.character == character then bindCharacter(nil) end
+        end))
+        bindCharacter(player.Character)
 
     end
     syncControls = function()
@@ -253,9 +291,7 @@ local function boot()
                 row.button.LayoutOrder = order
                 row.name.Text = player.DisplayName .. " (@" .. player.Name .. ")"
                 local tag = tags[player]
-                local char = player.Character
-                local head = char and (char:FindFirstChild("Head") or char:FindFirstChildWhichIsA("BasePart"))
-                tag.holder.Adornee = head
+                tag.updateAdornee()
                 local ok, observed = pcall(observedCountry, player)
                 observed = ok and observed or nil
                 tag.status.Text = observed and ("Game tag: " .. observed) or "Game tag unavailable"
@@ -274,6 +310,27 @@ local function boot()
         end
         syncControls()
     end
+    -- At <=24 studs the card retains its normal design size. Beyond that it gets
+    -- smaller with distance, like the player, and never grows above its normal size.
+    connect(RunService.RenderStepped, function()
+        if not alive then return end
+        local camera = workspace.CurrentCamera
+        if not camera then return end
+        for player, tag in pairs(tags) do
+            tag.updateAdornee()
+            local head = tag.holder.Adornee
+            if head and head.Parent and player.Parent == Players then
+                local distance = (camera.CFrame.Position - head.Position).Magnitude
+                local amount = math.min(1, 24 / math.max(distance, 1))
+                tag.scale.Scale = amount
+                tag.card.Position = UDim2.new(0, 2 * amount, 0, 2 * amount)
+                tag.holder.Size = UDim2.new(0, tag.width * amount, 0, tag.height * amount)
+                tag.holder.Enabled = distance <= tag.holder.MaxDistance
+            else
+                tag.holder.Enabled = false
+            end
+        end
+    end)
     connect(tpButton.MouseButton1Click, function()
         if selected and not teleport(selected) then selection.Text = "Waiting for both characters to spawn..." end
     end)
